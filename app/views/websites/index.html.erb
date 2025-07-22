@@ -8,6 +8,9 @@
   <% @websites.each do |website| %>
     <%= render website %>
     <p>
+      <%= "Responses: #{website.responses.count}"%>
+    </p>
+    <p>
       <%= link_to "Show this website", website %>
     </p>
   <% end %>
