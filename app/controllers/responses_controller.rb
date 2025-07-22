@@ -65,6 +65,6 @@ class ResponsesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def response_params
-      params.expect(response: [ :website_id, :status_code, :response_time, :checked_at, :error ])
+      params.expect(response: [ :website_id, :status_code, :response_time, :error ])
     end
 end

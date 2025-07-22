@@ -4,12 +4,10 @@ one:
   website: one
   status_code: 1
   response_time: 1
-  checked_at: 2025-07-22 16:03:46
   error: MyString
 
 two:
   website: two
   status_code: 1
   response_time: 1
-  checked_at: 2025-07-22 16:03:46
   error: MyString

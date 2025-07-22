@@ -14,7 +14,6 @@ class ResponsesTest < ApplicationSystemTestCase
     visit responses_url
     click_on "New response"
 
-    fill_in "Checked at", with: @response.checked_at
     fill_in "Error", with: @response.error
     fill_in "Response time", with: @response.response_time
     fill_in "Status code", with: @response.status_code
@@ -29,7 +28,6 @@ class ResponsesTest < ApplicationSystemTestCase
     visit response_url(@response)
     click_on "Edit this response", match: :first
 
-    fill_in "Checked at", with: @response.checked_at.to_s
     fill_in "Error", with: @response.error
     fill_in "Response time", with: @response.response_time
     fill_in "Status code", with: @response.status_code

@@ -21,7 +21,6 @@ websites.each do |website|
     website.responses.create!(
       status_code: [200, 404, 500].sample,
       response_time: rand(100..1000),
-      checked_at: Time.current - rand(1..12).hours,
       error: [nil, "Timeout", "Connection refused"].sample
     )
   end
