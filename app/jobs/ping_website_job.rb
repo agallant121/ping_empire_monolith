@@ -5,7 +5,7 @@ class PingWebsiteJob < ApplicationJob
   queue_as :default
 
   def perform(website_id)
-    website = Website.find(params[:website_id])
+    website = Website.find(website_id)
     return unless website
 
     uri = URI.parse(website.url)
@@ -25,7 +25,7 @@ class PingWebsiteJob < ApplicationJob
     response_time = ((end_time - start_time) * 1000).to_i
 
     website.responses.create!(
-      status_code: status_code
+      status_code: status_code,
       response_time: response_time,
       error: error  
     )
