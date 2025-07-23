@@ -1,7 +1,11 @@
 Sidekiq.configure_server do |config|
-  config.redis = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1") }
-end
+  schedule_file = "config/sidekiq_scheduler.yml"
 
-Sidekiq.configure_client do |config|
-  config.redis = { url: ENV.fetch("REDIS_URL", "redis://localhost:6379/1") }
+  if File.exist?(schedule_file)
+    Sidekiq::Scheduler.dynamic = true
+    config.on(:startup) do
+      Sidekiq.schedule = YAML.load_file(schedule_file)[:schedule]
+      Sidekiq::Scheduler.reload_schedule!
+    end
+  end
 end
