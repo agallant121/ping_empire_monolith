@@ -1,0 +1,13 @@
+:concurrency: 5
+
+:queues:
+  - default
+
+:schedule:
+  ping_all_websites:
+    cron: "*/1 * * * *"
+    class: PingAllWebsitesJob
+
+  # archive_day_old_pings:
+  #   cron: "0 0 * * *"
+  #   class: ArchiveDayOldPingsJob
