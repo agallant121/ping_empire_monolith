@@ -5,7 +5,7 @@
 
 :schedule:
   ping_all_websites:
-    cron: "*/1 * * * *"
+    cron: "*/5 * * * *"
     class: PingAllWebsitesJob
 
   # archive_day_old_pings:
