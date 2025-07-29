@@ -8,6 +8,6 @@
     cron: "*/5 * * * *"
     class: PingAllWebsitesJob
 
-  # archive_day_old_pings:
-  #   cron: "0 0 * * *"
-  #   class: ArchiveDayOldPingsJob
+  archive_day_old_pings:
+    cron: "0 0 * * *"
+    class: ArchiveDayOldPingsJob
