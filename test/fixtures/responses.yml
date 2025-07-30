@@ -7,7 +7,7 @@ one:
   error: MyString
 
 two:
-  website_id: two
+  website: two
   status_code: 1
   response_time: 1
   error: MyString
