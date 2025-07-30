@@ -17,7 +17,7 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create response" do
     assert_difference("Response.count") do
-      post responses_url, params: { response: { error: @response.error, response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
+      post responses_url, params: { response: { error: @response&.error || "", response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
     end
 
     assert_redirected_to response_url(Response.last)
@@ -34,7 +34,7 @@ class ResponsesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update response" do
-    patch response_url(@response), params: { response: { error: @response.error, response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
+    patch response_url(@response), params: { response: { error: @response&.error || "", response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
     assert_redirected_to response_url(@response)
   end
 
