@@ -58,7 +58,7 @@ class ResponsesController < ApplicationController
     end
 
     def response_params
-      params.expect(response: [ :website_id, :status_code, :response_time, :error ])
+      params.require(:response).permit(:website_id, :status_code, :response_time, :error)
     end
 
     def set_website
