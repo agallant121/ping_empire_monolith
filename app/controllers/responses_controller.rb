@@ -1,4 +1,6 @@
 class ResponsesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_website
   before_action :set_response, only: %i[ show edit update destroy ]
 
   # GET /responses or /responses.json
@@ -21,7 +23,7 @@ class ResponsesController < ApplicationController
 
   # POST /responses or /responses.json
   def create
-    @response = Response.new(response_params)
+    @response = @website.responses.new(response_params)
 
     respond_to do |format|
       if @response.save
@@ -60,11 +62,15 @@ class ResponsesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_response
-      @response = Response.find(params.expect(:id))
+      @response = @website.responses.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def response_params
       params.expect(response: [ :website_id, :status_code, :response_time, :error ])
+    end
+
+    def set_website
+      @website = current_user.websites.find(params[:website_id])
     end
 end
