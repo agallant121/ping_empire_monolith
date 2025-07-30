@@ -2,6 +2,8 @@
 
 one:
   url: MyString
+  user: one
 
 two:
   url: MyString
+  user: two
