@@ -4,7 +4,7 @@ class ResponsesController < ApplicationController
   before_action :set_response, only: %i[ show edit update destroy ]
 
   def index
-    @responses = Response.all
+    @responses = @website.responses
   end
 
   def show
