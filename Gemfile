@@ -22,6 +22,7 @@ gem "sidekiq-scheduler"
 gem "csv", require: true
 gem "pry"
 gem "devise"
+gem "rubocop", require: false
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
 

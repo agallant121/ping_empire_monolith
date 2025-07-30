@@ -6,5 +6,4 @@ class PingAllWebsitesJob < ApplicationJob
       PingWebsiteJob.perform_later(website.id)
     end
   end
-  
 end

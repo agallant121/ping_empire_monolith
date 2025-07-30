@@ -19,9 +19,9 @@ websites = Website.create!([
 websites.each do |website|
   3.times do
     website.responses.create!(
-      status_code: [200, 404, 500].sample,
+      status_code: [ 200, 404, 500 ].sample,
       response_time: rand(100..1000),
-      error: [nil, "Timeout", "Connection refused"].sample
+      error: [ nil, "Timeout", "Connection refused" ].sample
     )
   end
 end
