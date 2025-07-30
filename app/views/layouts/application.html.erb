@@ -27,7 +27,7 @@
       <p class="px-3">
         <% if user_signed_in? %>
           Logged in as <strong><%= current_user.email %></strong> |
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link" %>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link" %>
         <% else %>
           <%= link_to "Sign up", new_user_registration_path, class: "btn btn-link" %> |
           <%= link_to "Login", new_user_session_path, class: "btn btn-link" %>
