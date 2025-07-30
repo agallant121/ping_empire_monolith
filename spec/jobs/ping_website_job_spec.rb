@@ -15,11 +15,11 @@ RSpec.describe PingWebsiteJob, type: :job do
       end
 
       it "creates a successful Response record" do
-        expect {
-          PingWebsiteJob.perform_now(website.id)
-        }.to change(Response, :count).by(1)
+        response_count = Response.count
+        PingWebsiteJob.perform_now(website.id)
 
         response = Response.last
+        expect(Response.count).to eq(response_count + 1)
         expect(response.website).to eq(website)
         expect(response.status_code).to eq(200)
         expect(response.response_time).to be_present
@@ -33,11 +33,12 @@ RSpec.describe PingWebsiteJob, type: :job do
       end
 
       it "creates a Response record with the error status" do
-        expect {
-          PingWebsiteJob.perform_now(website.id)
-        }.to change(Response, :count).by(1)
+        response_count = Response.count
+        PingWebsiteJob.perform_now(website.id)
+
 
         response = Response.last
+        expect(Response.count).to eq(response_count + 1)
         expect(response.website).to eq(website)
         expect(response.status_code).to eq(404)
         expect(response.response_time).to be_present
@@ -51,11 +52,12 @@ RSpec.describe PingWebsiteJob, type: :job do
       end
 
       it "creates a Response record with an error message" do
-        expect {
-          PingWebsiteJob.perform_now(website.id)
-        }.to change(Response, :count).by(1)
+        response_count = Response.count
+        PingWebsiteJob.perform_now(website.id)
+
 
         response = Response.last
+        expect(Response.count).to eq(response_count + 1)
         expect(response.website).to eq(website)
         expect(response.status_code).to be_nil
         expect(response.response_time).to be_present
