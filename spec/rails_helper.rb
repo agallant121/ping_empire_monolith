@@ -54,6 +54,10 @@ RSpec.configure do |config|
   #     RSpec.describe UsersController, type: :request do
   #       # ...
   #     end
+
+  config.before(:each) do
+    ActiveJob::Base.queue_adapter = :test
+  end
   #
   # The different available types are documented in the features, such as in
   # https://rspec.info/features/8-0/rspec-rails
