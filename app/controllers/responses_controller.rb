@@ -7,23 +7,21 @@ class ResponsesController < ApplicationController
     @responses = @website.responses
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    @response = Response.new
+    @response = @website.responses.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @response = @website.responses.new(response_params)
 
     respond_to do |format|
       if @response.save
-        format.html { redirect_to @response, notice: "Response was successfully created." }
-        format.json { render :show, status: :created, location: @response }
+        format.html { redirect_to [ @website, @response ], notice: "Response was successfully created." }
+        format.json { render :show, status: :created, location: [ @website, @response ] }
       else
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @response.errors, status: :unprocessable_entity }
@@ -34,8 +32,8 @@ class ResponsesController < ApplicationController
   def update
     respond_to do |format|
       if @response.update(response_params)
-        format.html { redirect_to @response, notice: "Response was successfully updated." }
-        format.json { render :show, status: :ok, location: @response }
+        format.html { redirect_to [ @website, @response ], notice: "Response was successfully updated." }
+        format.json { render :show, status: :ok, location: [ @website, @response ] }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @response.errors, status: :unprocessable_entity }
@@ -47,21 +45,22 @@ class ResponsesController < ApplicationController
     @response.destroy!
 
     respond_to do |format|
-      format.html { redirect_to responses_path, status: :see_other, notice: "Response was successfully destroyed." }
+      format.html { redirect_to website_responses_path(@website), status: :see_other, notice: "Response was successfully destroyed." }
       format.json { head :no_content }
     end
   end
 
   private
-    def set_response
-      @response = @website.responses.find(params[:id])
-    end
 
-    def response_params
-      params.require(:response).permit(:website_id, :status_code, :response_time, :error)
-    end
+  def set_response
+    @response = @website.responses.find(params[:id])
+  end
 
-    def set_website
-      @website = current_user.websites.find(params[:website_id])
-    end
+  def response_params
+    params.require(:response).permit(:status_code, :response_time, :error)
+  end
+
+  def set_website
+    @website = current_user.websites.find(params[:website_id])
+  end
 end
