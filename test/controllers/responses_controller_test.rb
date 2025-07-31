@@ -2,8 +2,8 @@ require "test_helper"
 
 class ResponsesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:test_user)
-    sign_in @user
+    # @user = users(:test_user)
+    # sign_in @user
 
     @website         = websites(:one)
     @response_record = responses(:one)

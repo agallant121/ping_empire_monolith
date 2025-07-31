@@ -6,12 +6,12 @@ class ResponsesTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit responses_url
+    visit website_responses_url(@website)
     assert_selector "h1", text: "Responses"
   end
 
   test "should create response" do
-    visit responses_url
+    visit website_responses_url(@website)
     click_on "New response"
 
     fill_in "Error", with: @response.error
