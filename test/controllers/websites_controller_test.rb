@@ -2,6 +2,7 @@ require "test_helper"
 
 class WebsitesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    sign_in @user
     @website = websites(:one)
   end
 
