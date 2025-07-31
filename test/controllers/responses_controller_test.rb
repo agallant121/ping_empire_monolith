@@ -3,10 +3,14 @@ require "test_helper"
 class ResponsesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @response = responses(:one)
+    @user     = users(:test_user)
+    sign_in @user
+    @website  = websites(:one)      # belongs to test_user
+    @response = responses(:one)
   end
 
   test "should get index" do
-    get responses_url
+    get website_responses_url(@website)
     assert_response :success
   end
 
