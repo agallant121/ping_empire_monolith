@@ -2,6 +2,8 @@ require "application_system_test_case"
 
 class ResponsesTest < ApplicationSystemTestCase
   setup do
+    @user = users(:test_user) # or whatever valid user fixture you have
+    sign_in @user
     @response = responses(:one)
     @website = @response.website
   end
