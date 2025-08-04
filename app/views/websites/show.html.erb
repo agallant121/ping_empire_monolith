@@ -10,7 +10,6 @@
       <tr>
         <th>Status Code</th>
         <th>Response Time (ms)</th>
-        <th>Checked At</th>
         <th>Error</th>
       </tr>
     </thead>
@@ -30,6 +29,6 @@
 
 <hr>
 
-<%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary" %>
-<%= button_to "Destroy this website", website_path(@website), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<%= link_to "Edit this website", edit_website_path(@website) %><br>
+<%= button_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" } %><br>
 <%= link_to "Back", websites_path, class: "btn btn-secondary" %>

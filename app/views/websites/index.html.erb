@@ -17,7 +17,7 @@
       <%= link_to "Edit this website", edit_website_path(website) %>
     </p>
     <p>
-      <%= button_to "Destroy this website", website_path(website), method: :delete, data: { confirm: "Are you sure?" } %>
+      <%= button_to "Destroy this website", website_path(website), method: :delete, data: { turbo_confirm: "Are you sure?" } %>
     </p>
   <% end %>
 </div>
