@@ -25,7 +25,7 @@ class ResponsesTest < ApplicationSystemTestCase
   end
 
   test "should update Response" do
-    visit website_response_url(@response)
+    visit website_response_url(@website, @response)
     click_on "Edit this response", match: :first
 
     fill_in "Error", with: @response.error
@@ -39,7 +39,7 @@ class ResponsesTest < ApplicationSystemTestCase
   end
 
   test "should destroy Response" do
-    visit website_response_url(@response)
+    visit website_response_url(@website, @response)
     click_on "Destroy this response", match: :first
 
     assert_text "Response was successfully destroyed"
