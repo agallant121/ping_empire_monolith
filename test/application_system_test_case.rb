@@ -2,7 +2,7 @@ require "test_helper"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   driven_by :selenium_chrome_headless_unique
-  
+
   include Devise::Test::IntegrationHelpers
   include Warden::Test::Helpers
 
