@@ -2,6 +2,8 @@ require "test_helper"
 
 class WebsitesControllerTest < ActionDispatch::IntegrationTest
   setup do
+    @user = users(:test_user)
+    sign_in @user
     @website = websites(:one)
   end
 
@@ -17,7 +19,7 @@ class WebsitesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create website" do
     assert_difference("Website.count") do
-      post websites_url, params: { website: { url: @website.url } }
+      post websites_url, params: { website: { url: "https://example.com/new" } }
     end
 
     assert_redirected_to website_url(Website.last)
@@ -34,7 +36,7 @@ class WebsitesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update website" do
-    patch website_url(@website), params: { website: { url: @website.url } }
+    patch website_url(@website), params: { website: { url: "https://example.com/updated" } }
     assert_redirected_to website_url(@website)
   end
 

@@ -2,47 +2,57 @@ require "test_helper"
 
 class ResponsesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @response = responses(:one)
+    @user = users(:test_user)
+    sign_in @user
+
+    @website = websites(:one)
+    @response_record = @website.responses.first
   end
 
   test "should get index" do
-    get responses_url
+    get website_responses_url(@website)
     assert_response :success
   end
 
   test "should get new" do
-    get new_response_url
+    get new_website_response_url(@website)
     assert_response :success
   end
 
   test "should create response" do
     assert_difference("Response.count") do
-      post responses_url, params: { response: { error: @response.error, response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
+      post website_responses_url(@website), params: {
+        response: {
+          status_code: 200,
+          response_time: 123,
+          error: ""
+        }
+      }
     end
-
-    assert_redirected_to response_url(Response.last)
+    assert_redirected_to website_response_url(@website, Response.last)
   end
 
   test "should show response" do
-    get response_url(@response)
+    get website_response_url(@response_record.website, @response_record)
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_response_url(@response)
+    get edit_website_response_url(@response_record.website, @response_record)
     assert_response :success
   end
 
   test "should update response" do
-    patch response_url(@response), params: { response: { error: @response.error, response_time: @response.response_time, status_code: @response.status_code, website_id: @response.website_id } }
-    assert_redirected_to response_url(@response)
+    patch website_response_url(@response_record.website, @response_record), params: {
+      response: { status_code: 404 }
+    }
+    assert_redirected_to website_response_url(@response_record.website, @response_record.reload)
   end
 
   test "should destroy response" do
     assert_difference("Response.count", -1) do
-      delete response_url(@response)
+      delete website_response_url(@response_record.website, @response_record)
     end
-
-    assert_redirected_to responses_url
+    assert_redirected_to website_responses_url(@website)
   end
 end

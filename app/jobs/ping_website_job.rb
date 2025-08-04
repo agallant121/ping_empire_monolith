@@ -27,8 +27,7 @@ class PingWebsiteJob < ApplicationJob
     website.responses.create!(
       status_code: status_code,
       response_time: response_time,
-      error: error  
+      error: error
     )
-
   end
 end

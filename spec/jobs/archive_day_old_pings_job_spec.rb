@@ -32,7 +32,7 @@ RSpec.describe ArchiveDayOldPingsJob, type: :job do
 
     rows = CSV.read(csv_file, headers: true)
 
-    expect(rows.headers).to eq(["id", "website_id", "status_code", "response_time", "created_at"])
+    expect(rows.headers).to eq([ "id", "website_id", "status_code", "response_time", "created_at" ])
     expect(rows.size).to eq(1)
     expect(rows[0]["status_code"]).to eq("200")
 

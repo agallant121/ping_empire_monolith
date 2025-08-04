@@ -1,16 +1,34 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Responses" %>
-
 <h1>Responses</h1>
 
-<div id="responses">
-  <% @responses.each do |response| %>
-    <%= render response %>
-    <p>
-      <%= link_to "Show this response", response %>
-    </p>
-  <% end %>
-</div>
+<table>
+  <thead>
+    <tr>
+      <th>Status Code</th>
+      <th>Response Time</th>
+      <th>Error</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @responses.each do |response| %>
+      <tr>
+        <td><%= response.status_code %></td>
+        <td><%= response.response_time %> ms</td>
+        <td><%= response.error.presence || "N/A" %></td>
+        <td>
+          <%= link_to "Show", [@website, response] %> |
+          <%= link_to "Edit this response", edit_website_response_path(@website, response) %> |
+          <%= link_to "Destroy this response", website_response_path(@website, response),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
 
-<%= link_to "New response", new_response_path %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <%= link_to "New response", new_website_response_path(@website) %> |
+  <%= link_to "Back", website_path(@website) %>
+</p>
+

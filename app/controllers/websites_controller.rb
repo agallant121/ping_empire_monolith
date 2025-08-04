@@ -1,27 +1,23 @@
 class WebsitesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_website, only: %i[ show edit update destroy ]
 
-  # GET /websites or /websites.json
   def index
-    @websites = Website.all
+    @websites = current_user.websites
   end
 
-  # GET /websites/1 or /websites/1.json
   def show
   end
 
-  # GET /websites/new
   def new
     @website = Website.new
   end
 
-  # GET /websites/1/edit
   def edit
   end
 
-  # POST /websites or /websites.json
   def create
-    @website = Website.new(website_params)
+    @website = current_user.websites.new(website_params)
 
     respond_to do |format|
       if @website.save
@@ -34,7 +30,6 @@ class WebsitesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /websites/1 or /websites/1.json
   def update
     respond_to do |format|
       if @website.update(website_params)
@@ -47,7 +42,6 @@ class WebsitesController < ApplicationController
     end
   end
 
-  # DELETE /websites/1 or /websites/1.json
   def destroy
     @website.destroy!
 
@@ -58,12 +52,10 @@ class WebsitesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_website
-      @website = Website.find(params.expect(:id))
+      @website = current_user.websites.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def website_params
       params.expect(website: [ :url ])
     end

@@ -23,7 +23,7 @@ class ArchiveDayOldPingsJob < ApplicationJob
           response.created_at
         ]
       end
-    end 
+    end
 
     file_saved = File.exist?(file_path) && File.size?(file_path) > 0
     raise "CSV file not saved!" unless file_saved

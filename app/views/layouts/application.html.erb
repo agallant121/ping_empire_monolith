@@ -24,8 +24,26 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-3 px-3">
+      <p class="px-3">
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong> |
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link" %>
+        <% else %>
+          <%= link_to "Sign up", new_user_registration_path, class: "btn btn-link" %> |
+          <%= link_to "Login", new_user_session_path, class: "btn btn-link" %>
+        <% end %>
+      </p>
+
       <%= link_to "Ping Empire", root_path, class: "navbar-brand" %>
     </nav>
+
+    <% if flash[:notice] %>
+      <p style="color: green"><%= flash[:notice] %></p>
+    <% end %>
+
+    <% if flash[:alert] %>
+      <p style="color: red"><%= flash[:alert] %></p>
+    <% end %>
 
     <%= yield %>
   </body>
