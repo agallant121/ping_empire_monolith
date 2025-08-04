@@ -3,6 +3,7 @@ require "application_system_test_case"
 class ResponsesTest < ApplicationSystemTestCase
   setup do
     @response = responses(:one)
+    @website = @response.website
   end
 
   test "visiting the index" do
