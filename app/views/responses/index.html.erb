@@ -17,9 +17,10 @@
         <td><%= response.error.presence || "N/A" %></td>
         <td>
           <%= link_to "Show", [@website, response] %> |
-          <%= link_to "Edit", edit_website_response_path(@website, response) %> |
-          <%= link_to "Destroy", website_response_path(@website, response),
-                      data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          <%= link_to "Edit this response", edit_website_response_path(@website, response) %> |
+          <%= link_to "Destroy this response", website_response_path(@website, response),
+            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+
         </td>
       </tr>
     <% end %>
@@ -27,7 +28,7 @@
 </table>
 
 <p>
-  <%= link_to "New Response", new_website_response_path(@website) %> |
+  <%= link_to "New response", new_website_response_path(@website) %> |
   <%= link_to "Back", website_path(@website) %>
 </p>
 
