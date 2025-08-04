@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
+  root "dashboards#show"
+
   devise_for :users
-  root "websites#index"
 
   resources :websites do
     resources :responses
