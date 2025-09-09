@@ -11,3 +11,7 @@
   archive_day_old_pings:
     cron: "0 0 * * *"
     class: ArchiveDayOldPingsJob
+
+  send_failure_alerts_job:
+    cron: "0 0 * * *"
+    class: "SendFailureAlertsJob"
