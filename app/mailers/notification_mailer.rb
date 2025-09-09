@@ -6,6 +6,6 @@ class NotificationMailer < ApplicationMailer
     @website = website
     @response = response
 
-    mail(to: @user.email, subject: "Ping Empire: Your website is down!")
+    mail(to: @user.email, subject: "Ping Empire: Your website is down and not responding!")
   end
 end
