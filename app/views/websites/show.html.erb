@@ -16,11 +16,12 @@
 
   <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %> </h3>
 
-  <% if @website.responses.any? %>
+  <% if @responses.any? %>
     <div class="table-responsive">
-      <table class="table table-bordered align-middle">
+      <table class="table table-bordered align-middle table-striped">
         <thead class="table-light">
           <tr>
+            <th>Reponse ID</th>
             <th>Status Code</th>
             <th>Response Time (ms)</th>
             <th>Error</th>
@@ -28,8 +29,9 @@
           </tr>
         </thead>
         <tbody>
-          <% @website.responses.each do |response| %>
+          <% @responses.each do |response| %>
             <tr class="<%= 'table-danger' if response.response_time > 400 %>">
+              <td><%= response.id %></td>
               <td><%= response.status_code %></td>
               <td><%= response.response_time %></td>
               <td><%= response.error.presence || "N/A" %></td>
@@ -38,7 +40,9 @@
           <% end %>
         </tbody>
       </table>
+
     </div>
+      <%= paginate @responses %>
   <% else %>
     <div class="alert alert-info">No responses yet for this website.</div>
   <% end %>
