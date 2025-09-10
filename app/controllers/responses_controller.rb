@@ -4,7 +4,7 @@ class ResponsesController < ApplicationController
   before_action :set_response, only: %i[ show edit update destroy ]
 
   def index
-    @responses = @website.responses
+    @responses = @website.responses.page(params[:page]).per(10)
   end
 
   def show; end

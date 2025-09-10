@@ -1,34 +1,48 @@
-<p><strong>URL:</strong> <%= @website.url %></p>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <p class="mb-0"><strong>URL:</strong> <%= @website.url %></p>
+  </div>
 
-<hr>
+  <div class="mb-4 p-3 border rounded bg-light">
+    <p class="mb-1">
+      <strong>Response for <%= Date.today.strftime("%Y-%m-%d") %>:</strong>
+    </p>
+    <div class="d-flex gap-2 flex-wrap">
+      <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
+      <%= link_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+      <%= link_to "Back", websites_path, class: "btn btn-secondary btn-sm" %>
+    </div>
+  </div>
 
-<h3>Responses</h3>
+  <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %> </h3>
 
-<% if @website.responses.any? %>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Status Code</th>
-        <th>Response Time (ms)</th>
-        <th>Error</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @website.responses.each do |response| %>
-        <tr>
-          <td><%= response.status_code %></td>
-          <td><%= response.response_time %></td>
-          <td><%= response.error.presence || "N/A" %></td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% else %>
-  <p>No responses yet for this website.</p>
-<% end %>
-
-<hr>
-
-<%= link_to "Edit this website", edit_website_path(@website) %><br>
-<%= link_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" } %><br>
-<%= link_to "Back", websites_path, class: "btn btn-secondary" %>
+  <% if @responses.any? %>
+    <div class="table-responsive">
+      <table class="table table-bordered align-middle table-striped">
+        <thead class="table-light">
+          <tr>
+            <th>Reponse ID</th>
+            <th>Status Code</th>
+            <th>Response Time (ms)</th>
+            <th>Error</th>
+            <th>Time response was checked</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @responses.each do |response| %>
+            <tr class="<%= 'table-danger' if response.response_time > 400 %>">
+              <td><%= response.id %></td>
+              <td><%= response.status_code %></td>
+              <td><%= response.response_time %></td>
+              <td><%= response.error.presence || "N/A" %></td>
+              <td><%= response.created_at.strftime("%b %e, %Y at %-l:%M%P") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= paginate @responses %>
+  <% else %>
+    <div class="alert alert-info">No responses yet for this website.</div>
+  <% end %>
+</div>

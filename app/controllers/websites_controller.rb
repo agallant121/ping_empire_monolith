@@ -7,7 +7,9 @@ class WebsitesController < ApplicationController
   end
 
   def show
+    @responses = @website.responses.order(created_at: :desc).page(params[:page]).per(20)
   end
+
 
   def new
     @website = Website.new
