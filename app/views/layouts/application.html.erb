@@ -27,9 +27,9 @@
   <div class="container-fluid d-flex align-items-center">
     <% if user_signed_in? %>
       <span class="navbar-text">
-        Logged in as <strong><%= current_user.email %></strong>
+        <span class="ps-3"><strong><%= link_to "Ping Empire", root_path %></strong></span>
+        <span class="ps-3">Logged in as <%= current_user.email %></span>
       </span>
-        <%= link_to "Ping Empire", root_path, class: "navbar-brand mt-2" %>
       <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link ms-auto" %>
     <% else %>
       <div class="d-flex ms-auto">
