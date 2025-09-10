@@ -1,24 +1,32 @@
 <p><strong>URL:</strong> <%= @website.url %></p>
+<div class='mb-3'>
+  <strong><%= "Response for #{Date.today}" %>:</strong> <%= @website.responses.count %>
+  <%= link_to "Edit this website", edit_website_path(@website) %><br>
+  <%= link_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" } %><br>
+  <%= link_to "Back", websites_path, class: "btn btn-secondary" %>
+</div>
 
 <hr>
 
 <h3>Responses</h3>
 
 <% if @website.responses.any? %>
-  <table class="table">
+  <table class="table table-striped">
     <thead>
       <tr>
         <th>Status Code</th>
         <th>Response Time (ms)</th>
         <th>Error</th>
+        <th>Time response was checked</th>
       </tr>
     </thead>
     <tbody>
       <% @website.responses.each do |response| %>
-        <tr>
-          <td><%= response.status_code %></td>
-          <td><%= response.response_time %></td>
-          <td><%= response.error.presence || "N/A" %></td>
+        <tr class="<%= 'table-danger' if response.response_time > 400 %>">
+          <td class="ps-3"><%= response.status_code %></td>
+          <td class="ps-3"><%= response.response_time %></td>
+          <td class="ps-3"><%= response.error.presence || "N/A" %></td>
+          <td class="ps-3"><%= response.created_at.strftime("%b %e, %Y at %l:%M%P") %></td>
         </tr>
       <% end %>
     </tbody>
@@ -29,6 +37,3 @@
 
 <hr>
 
-<%= link_to "Edit this website", edit_website_path(@website) %><br>
-<%= link_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" } %><br>
-<%= link_to "Back", websites_path, class: "btn btn-secondary" %>
