@@ -1,16 +1,27 @@
-<h1>Your Dashboard</h1>
-
-<p><strong>Total Websites:</strong> <%= @websites.count %></p>
-
-<%= link_to "Add a Website", new_website_path, class: "btn btn-primary mb-3" %>
-
-<% @websites.each do |website| %>
-  <div class="card mb-3 p-3">
-    <h5><%= link_to website.url, website_path(website) %></h5>
-    <p>Responses: <%= website.responses.count %></p>
-    <% if website.responses.any? %>
-      <% last = website.responses.last %>
-      <p>Last status: <%= last.status_code %> at <%= last.created_at.strftime("%Y-%m-%d %H:%M") %></p>
-    <% end %>
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h3 mb-0">Your Dashboard</h1>
+    <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
   </div>
-<% end %>
+
+  <div class="mb-4">
+    <p class="lead"><strong>Total Websites:</strong> <%= @websites.count %></p>
+  </div>
+
+  <% @websites.each do |website| %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          <%= link_to website.url, website_path(website), class: "text-decoration-none" %>
+        </h5>
+        <p class="card-text mb-1">Responses: <%= website.responses.count %></p>
+        <% if website.responses.any? %>
+          <p class="card-text text-muted">
+            Last status: <%= website.latest_response.status_code %> at <%= website.latest_response.created_at.strftime("%A %B %-d, %Y %-l:%M%P") %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= paginate @websites %>
+</div>
