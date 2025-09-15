@@ -45,6 +45,6 @@ class WebsitesControllerTest < ActionDispatch::IntegrationTest
       delete website_url(@website)
     end
 
-    assert_redirected_to websites_url
+    assert_redirected_to root_path
   end
 end
