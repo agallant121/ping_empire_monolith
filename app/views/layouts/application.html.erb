@@ -23,31 +23,22 @@
   </head>
 
   <body>
-<nav class="navbar navbar-light bg-light mb-3 px-3">
-  <div class="container-fluid d-flex align-items-center">
-    <% if user_signed_in? %>
-      <span class="navbar-text">
-        <span class="ps-3"><strong><%= link_to "Ping Empire", root_path %></strong></span>
-        <span class="ps-3">Logged in as <%= current_user.email %></span>
-      </span>
-      <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link ms-auto" %>
-    <% else %>
-      <div class="d-flex ms-auto">
-        <%= link_to "Sign up", new_user_registration_path, class: "btn btn-link me-2" %>
-        <%= link_to "Login", new_user_session_path, class: "btn btn-link" %>
+    <nav class="navbar navbar-light bg-light mb-3 px-3">
+      <div class="container-fluid d-flex align-items-center">
+        <% if user_signed_in? %>
+          <span class="navbar-text">
+            <span class="ps-3"><strong><%= link_to "Ping Empire", root_path %></strong></span>
+            <span class="ps-3">Logged in as <%= current_user.email %></span>
+          </span>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link ms-auto" %>
+        <% else %>
+          <div class="d-flex ms-auto">
+            <%= link_to "Sign up", new_user_registration_path, class: "btn btn-link me-2" %>
+            <%= link_to "Login", new_user_session_path, class: "btn btn-link" %>
+          </div>
+        <% end %>
       </div>
-    <% end %>
-  </div>
-</nav>
-
-
-    <% if flash[:notice] %>
-      <p style="color: green"><%= flash[:notice] %></p>
-    <% end %>
-
-    <% if flash[:alert] %>
-      <p style="color: red"><%= flash[:alert] %></p>
-    <% end %>
+    </nav>
 
     <%= yield %>
   </body>
