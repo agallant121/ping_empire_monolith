@@ -48,7 +48,7 @@ class WebsitesController < ApplicationController
     @website.destroy!
 
     respond_to do |format|
-      format.html { redirect_to websites_path, status: :see_other, notice: "Website was successfully destroyed." }
+      format.html { redirect_to root_path, status: :see_other, notice: "Website was successfully destroyed." }
       format.json { head :no_content }
     end
   end
