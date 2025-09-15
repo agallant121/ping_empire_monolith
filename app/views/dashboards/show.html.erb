@@ -5,7 +5,7 @@
   </div>
 
   <div class="mb-4">
-    <p class="lead"><strong>Total Websites:</strong> <%= @websites.count %></p>
+    <p class="lead"><strong>Total Websites:</strong> <%= current_user.websites.count %></p>
   </div>
 
   <% @websites.each do |website| %>
