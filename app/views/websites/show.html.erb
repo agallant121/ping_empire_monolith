@@ -9,7 +9,7 @@
     </p>
     <div class="d-flex gap-2 flex-wrap">
       <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
-      <%= link_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+      <%= button_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
       <%= link_to "Back", websites_path, class: "btn btn-secondary btn-sm" %>
     </div>
   </div>
