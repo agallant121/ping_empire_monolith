@@ -1,5 +1,5 @@
   html, body {
-    background-image: url("<%= asset_path('mountain_lake.jpg') %>");
+    background-image: url("/assets/mountain_lake.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
