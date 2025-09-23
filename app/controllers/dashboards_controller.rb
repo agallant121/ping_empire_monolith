@@ -2,6 +2,6 @@ class DashboardsController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @websites = current_user.websites.includes(:responses).page(params[:page]).per(5)
+    @websites = current_user.websites.includes(:responses).page(params[:page]).per(12)
   end
 end
