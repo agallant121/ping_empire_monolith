@@ -12,20 +12,22 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-
-  <body>
+  <body class="bg-light">
     <% if user_signed_in? %>
-      <nav class="navbar navbar-light bg-light mb-3 px-3">
-        <div class="container-fluid d-flex align-items-center">
-            <span class="navbar-text">
-              <span class="ps-3"><strong><%= link_to "Ping Empire", root_path %></strong></span>
-              <span class="ps-3">Logged in as <%= current_user.email %></span>
-            </span>
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link ms-auto" %>
+      <!-- Solid Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+        <div class="container">
+          <%= link_to "Ping Empire", root_path, class: "navbar-brand fw-bold" %>
+          <div class="ms-auto d-flex align-items-center">
+            <span class="me-3 text-muted">Logged in as <%= current_user.email %></span>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary btn-sm" %>
+          </div>
         </div>
       </nav>
     <% end %>
 
-    <%= yield %>
+    <main class="container my-5">
+      <%= yield %>
+    </main>
   </body>
 </html>
