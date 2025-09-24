@@ -1,33 +1,18 @@
-<div class="container mt-4">
-  <% flash.each do |type, message| %>
-    <div class="alert alert-<%= bootstrap_class_for(type) %> text-center mx-auto mb-4 w-50" role="alert">
-      <%= message %>
-    </div>
-  <% end %>
-
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <h1 class="h3 mb-0">Your Dashboard</h1>
-    <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
+<% flash.each do |type, message| %>
+  <div class="alert alert-<%= bootstrap_class_for(type) %> text-center mb-4" role="alert">
+    <%= message %>
   </div>
+<% end %>
 
-  <div class="mb-4">
-    <p class="lead"><strong>Total Websites:</strong> <%= current_user.websites.count %></p>
-  </div>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0"><%= "Your Dashboard" %></h1>
+  <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
+</div>
 
-  <% @websites.each do |website| %>
-    <div class="card mb-3">
-      <div class="card-body">
-        <h5 class="card-title">
-          <%= link_to website.url, website_path(website), class: "text-decoration-none" %>
-        </h5>
-        <p class="card-text mb-1">Responses: <%= website.responses.count %></p>
-        <% if website.responses.any? %>
-          <p class="card-text text-muted">
-            Last status: <%= website.latest_response.status_code %> at <%= website.latest_response.created_at.strftime("%A %B %-d, %Y %-l:%M%P") %>
-          </p>
-        <% end %>
-      </div>
-    </div>
-  <% end %>
-  <%= paginate @websites %>
+<p class="lead mb-4">
+  <strong><%= "Total Websites:" %></strong> <%= current_user.websites.count %>
+</p>
+
+<div>
+  <%= render partial:"websites/list", locals:{ websites: @websites } %>
 </div>

@@ -1,11 +1,12 @@
-<% content_for :title, "New website" %>
+<% content_for :title, "New Website" %>
 
-<h1>New website</h1>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Add a New Website</h1>
+  <%= link_to "Back to Websites", root_path, class: "btn btn-outline-secondary" %>
+</div>
 
-<%= render "form", website: @website %>
-
-<br>
-
-<div>
-  <%= link_to "Back to websites", websites_path %>
+<div class="card shadow-sm border-0">
+  <div class="card-body">
+    <%= render "form", website: @website %>
+  </div>
 </div>

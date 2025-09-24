@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :websites do
+  resources :websites, except: [ :index ] do
     resources :responses
   end
 

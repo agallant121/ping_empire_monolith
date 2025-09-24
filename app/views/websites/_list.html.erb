@@ -1,0 +1,28 @@
+<div id='website_list'>
+  <div class="row">
+    <% websites.each do |website| %>
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card h-100 border-0">
+          <div class="card-body">
+            <h5 class="card-title mb-2">
+              <%= link_to website.url, website_path(website), class: "text-decoration-none text-primary fw-semibold" %>
+            </h5>
+            <p class="card-text mb-1">
+              <span class="fw-semibold">Responses:</span> <%= website.responses.count %>
+            </p>
+            <% if website.responses.any? %>
+              <p class="card-text text-muted small mb-0">
+                Last status: <%= website.latest_response.status_code %><br>
+                <%= website.latest_response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %>
+              </p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= paginate @websites %>
+  </div>
+</div>

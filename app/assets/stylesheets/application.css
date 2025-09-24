@@ -1,10 +1,40 @@
 /*
- * This is a manifest file that'll be compiled into application.css.
- *
- * With Propshaft, assets are served efficiently without preprocessing steps. You can still include
- * application-wide styles in this file, but keep in mind that CSS precedence will follow the standard
- * cascading order, meaning styles declared later in the document or manifest will override earlier ones,
- * depending on specificity.
- *
- * Consider organizing styles into separate files for maintainability.
+ *= require_tree .
+ *= require_self
  */
+
+ .bg-image {
+  background-image: url("/assets/mountain_lake.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.card {
+  background-color: var(--bs-secondary-bg);
+  border: 0;
+  border-radius: .5rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.pagination .page-link {
+  background-color: var(--bs-secondary-bg);
+  border: none;
+  border-radius: .5rem;
+  margin: 0 2px;
+  color: inherit;
+}
+
+.pagination .page-link:hover {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.pagination .active .page-link {
+  background-color: var(--bs-primary);
+  color: #fff;
+}

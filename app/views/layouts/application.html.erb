@@ -1,45 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Ping Empire Monolith" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <title>PingEmpireMonolith</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <!-- Bootstrap via CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <%= javascript_importmap_tags %>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
 
-  <body>
-    <nav class="navbar navbar-light bg-light mb-3 px-3">
-      <div class="container-fluid d-flex align-items-center">
-        <% if user_signed_in? %>
-          <span class="navbar-text">
-            <span class="ps-3"><strong><%= link_to "Ping Empire", root_path %></strong></span>
-            <span class="ps-3">Logged in as <%= current_user.email %></span>
-          </span>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-link ms-auto" %>
-        <% else %>
-          <div class="d-flex ms-auto">
-            <%= link_to "Sign up", new_user_registration_path, class: "btn btn-link me-2" %>
-            <%= link_to "Login", new_user_session_path, class: "btn btn-link" %>
+  <body class="bg-image">
+    <% if user_signed_in? %>
+      <nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-50 border-bottom shadow-sm sticky-top">
+        <div class="container">
+          <%= link_to "Ping Empire", root_path, class: "navbar-brand fw-bold" %>
+          <div class="ms-auto d-flex align-items-center">
+            <span class="me-3 text-muted">Logged in as <%= current_user.email %></span>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary btn-sm" %>
           </div>
-        <% end %>
-      </div>
-    </nav>
+        </div>
+      </nav>
+    <% end %>
 
-    <%= yield %>
+    <main class="container my-5">
+      <%= yield %>
+    </main>
   </body>
 </html>
