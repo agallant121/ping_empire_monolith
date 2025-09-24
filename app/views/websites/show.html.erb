@@ -4,12 +4,12 @@
   </div>
 
   <div class="mb-4 p-3 border rounded bg-light">
-    <p class="mb-1">
-      <strong>Response for <%= Date.today.strftime("%Y-%m-%d") %>:</strong>
+    <p class="mb-2">
+      <strong><%= "Responses for" %>: <%= Date.today.strftime("%b %e, %Y") %></strong>
     </p>
     <div class="d-flex gap-2 flex-wrap">
       <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
-      <%= button_to "Destroy this website", website_path(@website), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger btn-sm" %>
+      <%= button_to "Destroy this website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure?');", class: "btn btn-danger btn-sm" %>
       <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
     </div>
   </div>
