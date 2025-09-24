@@ -2,3 +2,39 @@
  *= require_tree .
  *= require_self
  */
+
+ .bg-image {
+  background-image: url("/assets/mountain_lake.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.card {
+  background-color: var(--bs-secondary-bg);
+  border: 0;
+  border-radius: .5rem;
+  box-shadow: 0 6px 16px rgba(0,0,0,.08);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+.pagination .page-link {
+  background-color: var(--bs-secondary-bg);
+  border: none;
+  border-radius: .5rem;
+  margin: 0 2px;
+  color: inherit;
+}
+
+.pagination .page-link:hover {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.pagination .active .page-link {
+  background-color: var(--bs-primary);
+  color: #fff;
+}
