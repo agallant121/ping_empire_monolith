@@ -1,9 +1,3 @@
-<% flash.each do |type, message| %>
-  <div class="alert alert-<%= bootstrap_class_for(type) %> text-center mb-4" role="alert">
-    <%= message %>
-  </div>
-<% end %>
-
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h1 class="h3 mb-0"><%= "Your Dashboard" %></h1>
   <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
