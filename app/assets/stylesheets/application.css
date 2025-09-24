@@ -38,3 +38,17 @@
   background-color: var(--bs-primary);
   color: #fff;
 }
+
+.search-input {
+  background-color: rgba(244, 249, 246, 0.721);
+}
+
+.search-button {
+  background-color: rgba(117, 145, 121, 0.75); /* Bootstrap secondary with opacity */
+  color: #fff;
+  border: none;
+}
+
+.search-button:hover {
+  background-color: rgba(108, 117, 125, 0.9);
+}
