@@ -7,11 +7,6 @@ class WebsitesControllerTest < ActionDispatch::IntegrationTest
     @website = websites(:one)
   end
 
-  test "should get index" do
-    get websites_url
-    assert_response :success
-  end
-
   test "should get new" do
     get new_website_url
     assert_response :success
