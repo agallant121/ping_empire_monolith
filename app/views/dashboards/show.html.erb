@@ -9,6 +9,15 @@
   <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
 </div>
 
+<div class="row mb-4">
+  <div class="col-md-6 mx-auto">
+    <%= form_with url: root_path, method: :get, local: true, class: "d-flex" do %>
+      <%= text_field_tag :q, params[:q], class: "form-control me-2 search-input", placeholder: "Search websites..." %>
+      <%= submit_tag "Search", class: "btn search-button" %>
+    <% end %>
+  </div>
+</div>
+
 <p class="lead mb-4">
   <strong><%= "Total Websites:" %></strong> <%= current_user.websites.count %>
 </p>
