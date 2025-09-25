@@ -12,7 +12,7 @@
             </p>
             <% if website.responses.any? %>
               <p class="card-text text-muted small mb-0">
-                Last status: <%= website.latest_response.status_code %><br>
+                <%= "Last status: #{website.latest_response.status_code}" %><br>
                 <%= website.latest_response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %>
               </p>
             <% end %>
