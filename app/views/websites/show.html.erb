@@ -3,18 +3,17 @@
     <p class="mb-0"><strong><%= "URL:" %></strong> <%= @website.url %></p>
   </div>
 
-  <div class="mb-4 p-3 border rounded bg-light">
-    <p class="mb-2">
-      <strong><%= "Responses for: #{Date.today.strftime("%b %e, %Y")}" %></strong>
-    </p>
-    <div class="d-flex gap-2 flex-wrap">
-      <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
-      <%= button_to "Destroy this website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure?');", class: "btn btn-danger btn-sm" %>
-      <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
-    </div>
+  <p class="mb-2">
+    <strong><%= "Responses for: #{Date.today.strftime("%b %e, %Y")}" %></strong>
+  </p>
+
+  <div class="d-flex gap-2 flex-wrap mb-4">
+    <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
+    <%= button_to "Destroy this website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure?');", class: "btn btn-danger btn-sm" %>
+    <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
   </div>
 
-  <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %> </h3>
+  <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %></h3>
 
   <% if @responses.any? %>
     <div class="table-responsive">
