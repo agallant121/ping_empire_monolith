@@ -14,4 +14,9 @@ class Website < ApplicationRecord
   def latest_response
     @latest_response ||= responses.order(created_at: :desc).first
   end
+
+  def response_count
+    @response_count ||= responses.count
+  end
+
 end
