@@ -3,7 +3,7 @@
 <p>Hi <%= @user.email %>,</p>
 
 <p>
-  We attempted to reach your website: <strong><%= @website.url %></strong>, but it responded with status code <strong><%= @response.status_code %></strong> at <%= @response.created_at.strftime("%Y-%m-%d %H:%M") %>.
+  We attempted to reach your website: <strong><%= @website.url %></strong>, but it responded with status code <strong><%= @response.status_code %></strong> on <%= @response.created_at.strftime("%b %e, %Y at %-l:%M%P") %>.
 </p>
 
 <% if @response.error.present? %>
