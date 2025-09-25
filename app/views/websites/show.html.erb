@@ -13,9 +13,11 @@
     <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
   </div>
 
-  <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %></h3>
+  <% if @website.response_count > 0 %>
+    <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %></h3>
+  <% end %>
 
-  <% if @responses.any? %>
+  <% if @website.response_count > 0 %>
     <div class="table-responsive">
       <table class="table table-bordered align-middle table-striped">
         <thead class="table-light">
@@ -42,6 +44,8 @@
     </div>
     <%= paginate @responses %>
   <% else %>
-    <div class="alert alert-info"><%= "No responses yet for this website." %></div>
+    <p class="text-muted small mb-0">
+      <%= "There are no responses yet for this website." %>
+    </p>
   <% end %>
 </div>
