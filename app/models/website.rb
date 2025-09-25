@@ -18,5 +18,4 @@ class Website < ApplicationRecord
   def response_count
     @response_count ||= responses.count
   end
-
 end

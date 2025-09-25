@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
-  resources :websites, except: [:index] do
+  resources :websites, except: [ :index ] do
     resources :responses
   end
 

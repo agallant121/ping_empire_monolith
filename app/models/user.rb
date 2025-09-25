@@ -1,12 +1,12 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, 
+  devise :database_authenticatable,
          :registerable,
-         :recoverable, 
-         :rememberable, 
+         :recoverable,
+         :rememberable,
          :validatable,
-         :omniauthable, omniauth_providers: [:google_oauth2, :facebook, :twitter2]
+         :omniauthable, omniauth_providers: [ :google_oauth2, :facebook, :twitter2 ]
 
   has_many :websites, dependent: :destroy
 
@@ -21,5 +21,4 @@ class User < ApplicationRecord
   def website_count
     @website_count ||= websites.count
   end
-
 end
