@@ -7,7 +7,7 @@
 <% end %>
 
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="mb-0">Websites</h1>
+  <h1 class="mb-0"><%= "Websites" %></h1>
   <%= link_to "New Website", new_website_path, class: "btn btn-primary" %>
 </div>
 
@@ -18,7 +18,7 @@
         <div class="card-body">
           <h5 class="card-title"><%= website.url %></h5>
           <p class="card-text">
-            <strong>Responses:</strong> <%= website.responses.count %>
+            <strong><%= "Responses:" %></strong> <%= website.responses.count %>
           </p>
           <div class="d-grid gap-2">
             <%= link_to "Show", website, class: "btn btn-outline-primary btn-sm" %>
