@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: kind) if is_navigational_format?
     else
       session["devise.auth_data"] = request.env["omniauth.auth"].except(:extra)
-      redirect_to new_user_registration_url, alert: "There was a problem signing you in through #{kind}."
+      redirect_to new_user_session_path, alert: "There was a problem signing you in through #{kind}."
     end
   end
 end
