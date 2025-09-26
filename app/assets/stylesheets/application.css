@@ -52,3 +52,13 @@
 .search-button:hover {
   background-color: rgba(169, 210, 188, 0.9);
 }
+
+.logout-button {
+  background-color: transparent; 
+  color: rgba(117, 145, 121, 0.75);
+  border: 1px solid rgba(117, 145, 121, 0.75);
+}
+.logout-button:hover {
+  background-color: rgba(117, 145, 121, 0.75);
+  color: #fff;
+}
