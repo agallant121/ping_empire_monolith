@@ -58,7 +58,12 @@
   color: rgba(117, 145, 121, 0.75);
   border: 1px solid rgba(117, 145, 121, 0.75);
 }
+
 .logout-button:hover {
   background-color: rgba(117, 145, 121, 0.75);
   color: #fff;
+}
+
+.your-dashboard-button {
+  opacity: 0.80;
 }
