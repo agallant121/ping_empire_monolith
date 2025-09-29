@@ -14,4 +14,16 @@ class Website < ApplicationRecord
   def latest_response
     @latest_response ||= responses.order(created_at: :desc).first
   end
+
+  def response_count
+    @response_count ||= responses.count
+  end
+
+  def failed_responses_since_midnight?
+    failed_response_count.positive?
+  end
+
+  def failed_response_count
+    responses.where("status_code >= ? AND created_at >= ?", 400, Time.current.beginning_of_day).count
+  end
 end

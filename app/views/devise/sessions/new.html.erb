@@ -19,10 +19,18 @@
         <div class="card">
           <div class="card-header">
             <h3><%= "Sign In" %></h3>
-            <div class="social_icon">
-              <span><i class="fab fa-facebook-square"></i></span>
-              <span><i class="fab fa-google-plus-square"></i></span>
-              <span><i class="fab fa-twitter-square"></i></span>
+            <div class="social_icon d-flex gap-2">
+              <%= button_to user_facebook_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
+                <i class="fab fa-facebook-square fa-2x"></i>
+              <% end %>
+
+              <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
+                <i class="fab fa-google-plus-square fa-2x"></i>
+              <% end %>
+
+              <%= button_to user_twitter2_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
+                <i class="fab fa-twitter-square fa-2x"></i>
+              <% end %>
             </div>
           </div>
 

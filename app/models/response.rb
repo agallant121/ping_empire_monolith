@@ -10,8 +10,6 @@ class Response < ApplicationRecord
   private
 
   def check_for_failure
-    if status_code >= 400
-      SendFailureAlertJob.perform_later(website, self)
-    end
+    SendFailureAlertJob.perform_later(website, self) if status_code.to_i >= 400
   end
 end

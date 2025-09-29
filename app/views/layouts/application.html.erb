@@ -23,10 +23,10 @@
     <% if user_signed_in? %>
       <nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-50 border-bottom shadow-sm sticky-top">
         <div class="container">
-          <%= link_to "Ping Empire", root_path, class: "navbar-brand fw-bold" %>
+          <%= link_to "Ping Empire", root_path, class: "navbar-brand display-6 fw-bold dark-header fw-bold" %>
           <div class="ms-auto d-flex align-items-center">
-            <span class="me-3 text-muted">Logged in as <%= current_user.email %></span>
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn btn-outline-primary btn-sm" %>
+            <span class="me-3 text-muted"><%= "Logged in as #{current_user.email}" %></span>
+            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
           </div>
         </div>
       </nav>

@@ -1,8 +1,11 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="h3 mb-0"><%= "Your Dashboard" %></h1>
+  <h1 class="display-6 mb-0 dark-header">
+    <%= "Your Dashboard" %>
+  </h1>
   <%= link_to "Add a Website", new_website_path, class: "btn btn-primary" %>
 </div>
 
+<% unless current_user.website_count < 1 %>
 <div class="row mb-4">
   <div class="col-md-6 mx-auto">
     <%= form_with url: root_path, method: :get, local: true, class: "d-flex" do %>
@@ -11,9 +14,10 @@
     <% end %>
   </div>
 </div>
+<% end %>
 
 <p class="lead mb-4">
-  <strong><%= "Total Websites:" %></strong> <%= current_user.websites.count %>
+  <strong><%= "Total Websites:" %></strong> <%= current_user.website_count %>
 </p>
 
 <div>

@@ -1,9 +1,9 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <p class="mb-0"><strong><%= "URL:" %></strong> <%= @website.url %></p>
+    <p class="mb-0 dark-header"><strong><%= "URL:" %></strong> <%= link_to @website.url, @website.url, target: "_blank", rel: "noopener" %></p>
   </div>
 
-  <p class="mb-2">
+  <p class="mb-2 dark-header">
     <strong><%= "Responses for: #{Date.today.strftime("%b %e, %Y")}" %></strong>
   </p>
 
@@ -13,12 +13,24 @@
     <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
   </div>
 
-  <h3 class="mb-3"><%= "Responses: #{@website.responses.count}" %></h3>
+<div class="row dark-header mb-3">
+  <% if @website.response_count > 0 %>
+    <div class="col-auto">
+      <h3 class="mb-0"><%= "Responses: #{@website.responses.count}" %></h3>
+    </div>
+  <% end %>
 
-  <% if @responses.any? %>
-    <div class="table-responsive">
+  <% if @website.failed_response_count > 0 %>
+    <div class="col-auto">
+      <h3 class="mb-0"><%= "Failed: #{@website.failed_response_count}" %></h3>
+    </div>
+  <% end %>
+</div>
+
+  <% if @website.response_count > 0 %>
+    <div class="table-responsive opacity-75">
       <table class="table table-bordered align-middle table-striped">
-        <thead class="table-light">
+        <thead class="table-light dark-header">
           <tr>
             <th><%= "Response ID" %></th>
             <th><%= "Status Code" %></th>
@@ -29,7 +41,7 @@
         </thead>
         <tbody>
           <% @responses.each do |response| %>
-            <tr id=<%= "response-row-#{response.id}" %> class="<%= 'table-danger' if response.status_code > 400 %>">
+            <tr id=<%= "response-row-#{response.id}" %> class="<%= 'table-danger' if response.status_code&.> 400 %>">
               <td><%= response.id %></td>
               <td><%= response.status_code %></td>
               <td><%= response.response_time %></td>
@@ -42,6 +54,8 @@
     </div>
     <%= paginate @responses %>
   <% else %>
-    <div class="alert alert-info"><%= "No responses yet for this website." %></div>
+    <p class="text-muted small mb-0">
+      <%= "There are no responses yet for this website." %>
+    </p>
   <% end %>
 </div>

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   root "dashboards#show"
 
-  devise_for :users
+  devise_for :users, controllers: {
+    omniauth_callbacks: "users/omniauth_callbacks"
+  }
 
   resources :websites, except: [ :index ] do
     resources :responses

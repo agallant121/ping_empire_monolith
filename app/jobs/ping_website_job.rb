@@ -5,7 +5,6 @@ class PingWebsiteJob < ApplicationJob
   queue_as :default
 
   def perform(website_id)
-    # website = Website.find(website_id)
     website = Website.find_by(id: website_id)
     return unless website
 
