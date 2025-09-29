@@ -25,7 +25,7 @@
         <div class="container">
           <%= link_to "Ping Empire", root_path, class: "navbar-brand fw-bold" %>
           <div class="ms-auto d-flex align-items-center">
-            <span class="me-3 text-muted">Logged in as <%= current_user.email %></span>
+            <span class="me-3 text-muted"><%= "Logged in as #{current_user.email}" %></span>
             <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
           </div>
         </div>
