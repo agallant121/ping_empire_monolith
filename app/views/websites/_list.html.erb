@@ -8,7 +8,7 @@
               <%= link_to website.url, website_path(website), class: "text-decoration-none text-primary fw-semibold stretched-link" %>
             </h5>
             <p class="card-text mb-1">
-              <span class="fw-semibold">Responses:</span> <%= website.responses.count %>
+              <span class="fw-semibold"><%= "Responses:" %></span> <%= website.responses.count %>
             </p>
             <% if website.responses.any? %>
               <p class="card-text text-muted small mb-0">
