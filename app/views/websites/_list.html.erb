@@ -5,7 +5,7 @@
         <div class="card opacity-75 h-100 border-0 <%= 'bg-danger-subtle border-danger' if website.failed_responses_since_midnight? %>">
           <div class="card-body">
             <h5 class="card-title mb-2">
-              <%= link_to website.url, website_path(website), class: "text-decoration-none text-primary fw-semibold stretched-link" %>
+              <%= link_to website.url, website_path(website), class: "text-decoration-none text-secondary fw-semibold stretched-link" %>
             </h5>
             <p class="card-text mb-1">
               <span class="fw-semibold"><%= "Responses:" %></span> <%= website.responses.count %>
