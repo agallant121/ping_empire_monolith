@@ -35,7 +35,7 @@
 }
 
 .pagination .active .page-link {
-  background-color: var(--bs-primary);
+  background-color: rgba(70, 137, 238, 0.619);
   color: #fff;
 }
 
@@ -44,7 +44,7 @@
 }
 
 .search-button {
-  background-color: rgba(117, 145, 121, 0.75); /* Bootstrap secondary with opacity */
+  background-color: rgba(117, 145, 121, 0.75);
   color: #fff;
   border: none;
 }
@@ -66,4 +66,70 @@
 
 .dark-header {
   opacity: 0.80;
+}
+
+.add-website-button {
+  background-color: rgba(13, 110, 253, 0.3);
+  color: white;
+  border: none;
+}
+
+.add-website-button:hover {
+  background-color: rgba(13, 110, 253, 0.6);
+  color: #fff;
+}
+
+.brand-title {
+  font-family: "Tahoma", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: rgba(101, 136, 111, 0.85);
+  /* color: rgba(118, 170, 250, 0.85); */
+  letter-spacing: 0.5px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.brand-title:hover {
+  color: rgba(13, 110, 253, 1);
+  transform: translateY(-1px);
+}
+
+.edit-website-button {
+  background-color: rgba(71, 141, 246, 0.85);
+  color: white;
+  border: none;
+  opacity: 6;
+}
+
+.destroy-website-button {
+  background-color: rgba(205, 140, 140, 0.85);
+  /* background-color: rgba(204, 100, 100, 0.85); */
+  color: white;
+  border: none;
+}
+
+.back-button {
+  background-color: rgba(121, 119, 119, 0.85);
+  color: white;
+  border: none;
+  opacity: 0.7;
+}
+
+.edit-website-button:hover {
+  background-color: rgb(57, 133, 247);
+  color: white;
+  border: none;
+}
+
+.destroy-website-button:hover {
+  background-color: rgb(199, 88, 88);
+  color: white;
+  border: none;
+}
+
+.back-button:hover {
+  background-color: rgb(99, 98, 98);
+  color: white;
+  border: none;
 }
