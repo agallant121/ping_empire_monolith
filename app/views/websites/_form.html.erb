@@ -1,7 +1,6 @@
 <%= form_with(model: website, local: true, class: "needs-validation") do |form| %>
   <% if website.errors.any? %>
-    <div class="alert alert-danger">
-      <h4 class="alert-heading"><%= pluralize(website.errors.count, "error") %> prohibited this website from being saved:</h4>
+    <div class="alert alert-danger small py-2">
       <ul class="mb-0">
         <% website.errors.each do |error| %>
           <li><%= error.full_message %></li>
@@ -10,12 +9,13 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
-    <%= form.label :url, class: "form-label" %>
+  <div class="mb-3 dark-header text-muted">
+    <%= form.label :url, class: "form-label fw-semibold" %>
     <%= form.text_field :url, class: "form-control", placeholder: "https://example.com" %>
+    <div class="form-text text-muted">Enter a valid website URL (http or https)</div>
   </div>
 
-  <div>
-    <%= form.submit "Save Website", class: "btn btn-primary" %>
+  <div class="d-grid">
+    <%= form.submit "Save Website", class: "btn add-website-button" %>
   </div>
 <% end %>
