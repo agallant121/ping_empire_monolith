@@ -8,9 +8,9 @@
   </p>
 
   <div class="d-flex gap-2 flex-wrap mb-4">
-    <%= link_to "Edit this website", edit_website_path(@website), class: "btn btn-primary btn-sm" %>
-    <%= button_to "Destroy this website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure you want to remove this website?');", class: "btn btn-danger btn-sm" %>
-    <%= link_to "Back", root_path, class: "btn btn-secondary btn-sm" %>
+    <%= link_to "Edit website", edit_website_path(@website), class: "btn edit-website-button btn-sm" %>
+    <%= button_to "Destroy website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure you want to remove this website?');", class: "btn destroy-website-button btn-sm" %>
+    <%= link_to "Back", root_path, class: "btn back-button btn-sm" %>
   </div>
 
 <div class="row dark-header mb-3">
@@ -29,8 +29,8 @@
 
   <% if @website.response_count > 0 %>
     <div class="table-responsive opacity-75">
-      <table class="table table-bordered align-middle table-striped">
-        <thead class="table-light dark-header">
+      <table class="table table-bordered align-middle table-striped rounded dark-header">
+        <thead class="table-light">
           <tr>
             <th><%= "Response ID" %></th>
             <th><%= "Status Code" %></th>
@@ -46,7 +46,7 @@
               <td><%= response.status_code %></td>
               <td><%= response.response_time %></td>
               <td><%= response.error.presence || "N/A" %></td>
-              <td><%= response.created_at.strftime("%b %e, %Y at %-l:%M%P") %></td>
+              <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
             </tr>
           <% end %>
         </tbody>
