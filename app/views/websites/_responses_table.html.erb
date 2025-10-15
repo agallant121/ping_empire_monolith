@@ -1,0 +1,28 @@
+<div class="table-responsive opacity-75">
+  <table class="table table-bordered align-middle table-striped rounded dark-header">
+    <thead class="table-light">
+      <tr>
+        <th><%= "Response ID" %></th>
+        <th><%= "Status Code" %></th>
+        <th><%= "Response time (ms)" %></th>
+        <th><%= "Error" %></th>
+        <th><%= "Time of Ping" %></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% responses.each do |response| %>
+        <tr id="response-row-<%= response.id %>" class="<%= 'table-danger' if response.status_code&.> 400 %>">
+          <td><%= response.id %></td>
+          <td><%= response.status_code %></td>
+          <td><%= response.response_time %></td>
+          <td><%= response.error.presence || "N/A" %></td>
+          <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="d-flex justify-content-start mt-3">
+  <%= paginate responses %>
+</div>

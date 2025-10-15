@@ -4,7 +4,7 @@
   <%= link_to "Back to Websites", root_path, class: "btn btn-outline-secondary back-button" %>
 </div>
 
-<div class="row justify-content-center">
+<div class="row justify-content-center mb-4">
   <div class="col-md-6 col-lg-5">
     <h1 class="h3 mb-3 text-muted dark-header"><%= "Add a New Website" %></h1>
     <div class="card shadow-sm">
@@ -12,5 +12,12 @@
         <%= render "form", website: @website %>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <h2 class="h5 mb-3 dark-header text-muted"><%= "Latest" %></h2>
+      <%= render partial: "list", locals: { websites: @websites } %>
   </div>
 </div>

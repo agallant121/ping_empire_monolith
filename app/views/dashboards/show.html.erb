@@ -1,6 +1,6 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
   <h1 class="display-6 mb-0 dark-header"><%= "Websites" %></h1>
-    <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
+  <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
 </div>
 
 <% unless current_user.website_count < 1 %>
@@ -17,7 +17,6 @@
 <p class="lead mb-4">
   <strong><%= "Total Websites:" %></strong> <%= current_user.website_count %>
 </p>
-
 <div>
   <%= render partial:"websites/list", locals:{ websites: @websites } %>
 </div>
