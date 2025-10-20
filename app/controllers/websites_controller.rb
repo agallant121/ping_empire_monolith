@@ -13,6 +13,7 @@ class WebsitesController < ApplicationController
 
   def new
     @website = Website.new
+    @websites = current_user.websites.recent.page(params[:page]).per(9)
   end
 
   def edit
