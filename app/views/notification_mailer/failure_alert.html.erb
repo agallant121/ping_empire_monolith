@@ -1,15 +1,35 @@
-<h1>Alert: Your Website Is Down</h1>
+<table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #ffffff; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); font-family: Arial, sans-serif;">
+  <tr>
+    <td style="padding: 30px;">
+      <h1 style="color: #c0392b; font-size: 22px; margin-top: 0;"><%= "🚨 Website Alert: Possible Downtime" %></h1>
 
-<p>Hi <%= @user.email %>,</p>
+      <p style="font-size: 16px; color: #333;">
+        <%= "Hello" %> <strong><%= @user.email %></strong><%= "," %>
+      </p>
 
-<p>
-  We attempted to reach your website: <strong><%= @website.url %></strong>, but it responded with status code <strong><%= @response.status_code %></strong> on <%= @response.created_at.strftime("%b %e, %Y at %-l:%M%P") %>.
-</p>
+      <p style="font-size: 16px; color: #333; line-height: 1.5;">
+        <%= "We attempted to reach your website:" %>
+        <strong style="color: #0d6efd;"><%= @website.url %></strong><%= "," %>
+        <%= "but it responded with status code" %>
+        <strong style="color: #c0392b;"><%= @response.status_code %></strong>
+        <%= "on" %> <%= @response.created_at.strftime("%b %e, %Y at %-l:%M%P") %><%= "." %>
+      </p>
 
-<% if @response.error.present? %>
-  <p>Error details: <%= @response.error %></p>
-<% end %>
+      <% if @response.error.present? %>
+        <p style="font-size: 15px; color: #555; background-color: #f8d7da; border-left: 4px solid #dc3545; padding: 10px 15px; border-radius: 4px;">
+          <strong><%= "Error details:" %></strong> <%= @response.error %>
+        </p>
+      <% end %>
 
-<p>Please investigate the issue. We’ll continue monitoring and let you know of any changes.</p>
+      <p style="font-size: 16px; color: #333; line-height: 1.5;">
+        <%= "Please investigate the issue. We’ll continue monitoring and let you know of any changes." %>
+      </p>
 
-<p>– Ping Empire</p>
+      <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+
+      <p style="font-size: 14px; color: #6c757d; margin-bottom: 0;">
+        <%= "– The" %> <strong><%= "Ping Empire" %></strong> <%= "Monitoring Team" %>
+      </p>
+    </td>
+  </tr>
+</table>
