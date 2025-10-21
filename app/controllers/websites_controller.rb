@@ -1,6 +1,7 @@
 class WebsitesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_website, only: %i[ show edit update destroy ]
+  before_action :set_websites, only: %i[ new create ]
 
   def index
     @websites = current_user.websites
@@ -54,8 +55,13 @@ class WebsitesController < ApplicationController
   end
 
   private
+
     def set_website
       @website = current_user.websites.find(params[:id])
+    end
+
+    def set_websites
+      @websites = current_user.websites.recent.page(params[:page]).per(9)
     end
 
     def website_params

@@ -50,7 +50,8 @@
 }
 
 .search-button:hover {
-  background-color: rgba(169, 210, 188, 0.9);
+  background-color: rgba(126, 157, 131, 0.75);
+  color: rgba(254, 255, 254, 0.756)
 }
 
 .logout-button {
@@ -91,7 +92,7 @@
 }
 
 .brand-title:hover {
-  color: rgba(13, 110, 253, 1);
+  color: rgba(129, 173, 141, 0.85);
   transform: translateY(-1px);
 }
 

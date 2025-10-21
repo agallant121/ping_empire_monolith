@@ -13,49 +13,26 @@
     <%= link_to "Back", root_path, class: "btn back-button btn-sm" %>
   </div>
 
-<div class="row dark-header mb-3">
-  <% if @website.response_count > 0 %>
-    <div class="col-auto">
-      <h3 class="mb-0"><%= "Responses: #{@website.responses.count}" %></h3>
-    </div>
-  <% end %>
+  <div class="row dark-header mb-3">
+    <% if @website.response_count > 0 %>
+      <div class="col-auto">
+        <h3 class="mb-0"><%= "Responses: #{@website.responses.count}" %></h3>
+      </div>
+    <% end %>
 
-  <% if @website.failed_response_count > 0 %>
-    <div class="col-auto">
-      <h3 class="mb-0"><%= "Failed: #{@website.failed_response_count}" %></h3>
-    </div>
-  <% end %>
-</div>
+    <% if @website.failed_response_count > 0 %>
+      <div class="col-auto">
+        <h3 class="mb-0"><%= "Failed: #{@website.failed_response_count}" %></h3>
+      </div>
+    <% end %>
+  </div>
 
   <% if @website.response_count > 0 %>
-    <div class="table-responsive opacity-75">
-      <table class="table table-bordered align-middle table-striped rounded dark-header">
-        <thead class="table-light">
-          <tr>
-            <th><%= "Response ID" %></th>
-            <th><%= "Status Code" %></th>
-            <th><%= "Response time (ms)" %></th>
-            <th><%= "Error" %></th>
-            <th><%= "Time of Ping" %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @responses.each do |response| %>
-            <tr id=<%= "response-row-#{response.id}" %> class="<%= 'table-danger' if response.status_code&.> 400 %>">
-              <td><%= response.id %></td>
-              <td><%= response.status_code %></td>
-              <td><%= response.response_time %></td>
-              <td><%= response.error.presence || "N/A" %></td>
-              <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
-    <%= paginate @responses %>
+    <%= render "responses_table", website: @website, responses: @responses %>
   <% else %>
     <p class="text-muted small mb-0">
       <%= "There are no responses yet for this website." %>
     </p>
   <% end %>
+
 </div>

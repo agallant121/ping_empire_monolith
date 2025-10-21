@@ -1,10 +1,23 @@
-<h1>Website Failure Alert</h1>
+<table align="center" width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; background-color: #ffffff; margin: 30px auto; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); font-family: Arial, sans-serif;">
+  <tr>
+    <td style="padding: 30px;">
+      <h1 style="color: #c0392b; font-size: 22px; margin-top: 0;"><%= "⚠️ Website Failure Alert" %></h1>
 
-<p>
-  The website <strong><%= @website.url %></strong> has experienced
-  <strong><%= @failure_count %></strong> failed response(s) in the past 24 hours.
-</p>
+      <p style="font-size: 16px; color: #333; line-height: 1.5;">
+        <%= "The website" %> <strong style="color: #0d6efd;"><%= @website.url %></strong>
+        <%= "has experienced" %> <strong style="color: #c0392b;"><%= @failure_count %></strong>
+        <%= "failed response(s) in the past 24 hours." %>
+      </p>
 
-<p>
-  Please review the issue to ensure uptime is restored indefinitely.
-</p>
+      <p style="font-size: 16px; color: #333; line-height: 1.5;">
+        <%= "Please review the issue to ensure uptime is restored indefinitely." %>
+      </p>
+
+      <hr style="border: none; border-top: 1px solid #ddd; margin: 25px 0;">
+
+      <p style="font-size: 14px; color: #6c757d; margin-bottom: 0;">
+        <%= "– The" %> <strong><%= "Ping Empire" %></strong> <%= "Monitoring Team" %>
+      </p>
+    </td>
+  </tr>
+</table>

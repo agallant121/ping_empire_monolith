@@ -8,7 +8,7 @@ class ArchiveDayOldPingsJob < ApplicationJob
     return if responses.empty?
 
     archive_dir = Rails.root.join("archive")
-    FileUtils.mkdir_p(archive_dir) # ✅ Ensure the folder exists
+    FileUtils.mkdir_p(archive_dir) # Ensure the folder exists
 
     file_path = archive_dir.join("responses#{Time.current.strftime("%Y-%m-%d_%H-%M-%S")}.csv")
 
