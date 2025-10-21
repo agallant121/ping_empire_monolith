@@ -23,9 +23,13 @@ class WebsitesController < ApplicationController
     end
   end
 
-
   def new
     @website = Website.new
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def edit
