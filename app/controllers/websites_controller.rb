@@ -55,7 +55,7 @@ class WebsitesController < ApplicationController
   end
 
   private
-  
+
     def set_website
       @website = current_user.websites.find(params[:id])
     end
