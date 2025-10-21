@@ -9,7 +9,7 @@ class PingWebsiteJob < ApplicationJob
     return unless website
 
     uri = URI.parse(website.url)
-    start_time= Time.now
+    start_time = Time.now
 
     begin
       response = Net::HTTP.get_response(uri)
