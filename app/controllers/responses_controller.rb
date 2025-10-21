@@ -7,13 +7,15 @@ class ResponsesController < ApplicationController
     @responses = @website.responses.page(params[:page]).per(10)
   end
 
-  def show; end
+  def show
+  end
 
   def new
     @response = @website.responses.new
   end
 
-  def edit; end
+  def edit
+  end
 
   def create
     @response = @website.responses.new(response_params)

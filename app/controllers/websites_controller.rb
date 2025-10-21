@@ -16,6 +16,11 @@ class WebsitesController < ApplicationController
 
   def show
     @responses = @website.responses.order(created_at: :desc).page(params[:page]).per(15)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
 
