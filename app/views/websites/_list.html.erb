@@ -1,4 +1,4 @@
-<div id='website_list'>
+<%= turbo_frame_tag "website_list" do %>
   <div class="row">
     <% websites.each do |website| %>
       <div class="col-md-6 col-lg-4 mb-4">
@@ -23,6 +23,6 @@
   </div>
 
   <div class="d-flex justify-content-start mt-4">
-    <%= paginate @websites %>
+    <%= paginate @websites, params: { format: :turbo_stream } %>
   </div>
-</div>
+<% end %>
