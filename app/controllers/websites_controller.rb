@@ -5,10 +5,22 @@ class WebsitesController < ApplicationController
 
   def index
     @websites = current_user.websites
+    @websites = @websites.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+    @websites = @websites.recent.includes(:responses).page(params[:page]).per(12)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def show
     @responses = @website.responses.order(created_at: :desc).page(params[:page]).per(15)
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
 

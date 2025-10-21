@@ -1,32 +1,21 @@
-<% content_for :title, "Websites" %>
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="display-6 mb-0 dark-header"><%= "Websites" %></h1>
+  <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
+</div>
 
-<% if notice %>
-  <div class="alert alert-success" role="alert">
-    <%= notice %>
+<% unless current_user.website_count < 1 %>
+  <div class="row mb-4">
+    <div class="col-md-6 mx-auto">
+      <%= form_with url: websites_path, method: :get, local: true, class: "d-flex" do %>
+        <%= text_field_tag :q, params[:q], class: "form-control me-2 search-input", placeholder: "Search websites..." %>
+        <%= submit_tag "Search", class: "btn search-button" %>
+      <% end %>
+    </div>
   </div>
 <% end %>
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="mb-0"><%= "Websites" %></h1>
-  <%= link_to "New Website", new_website_path, class: "btn btn-primary" %>
-</div>
+<p class="lead mb-4">
+  <strong><%= "Total Websites:" %></strong> <%= current_user.website_count %>
+</p>
 
-<div id="websites" class="row row-cols-1 row-cols-md-2 g-4">
-  <% @websites.each do |website| %>
-    <div class="col">
-      <div class="card h-100">
-        <div class="card-body">
-          <h5 class="card-title"><%= website.url %></h5>
-          <p class="card-text">
-            <strong><%= "Responses:" %></strong> <%= website.responses.count %>
-          </p>
-          <div class="d-grid gap-2">
-            <%= link_to "Show", website, class: "btn btn-outline-primary btn-sm" %>
-            <%= link_to "Edit", edit_website_path(website), class: "btn btn-outline-secondary btn-sm" %>
-            <%= link_to "Destroy", website_path(website), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger btn-sm" %>
-          </div>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
+<%= render partial: "websites/list", locals: { websites: @websites } %>
