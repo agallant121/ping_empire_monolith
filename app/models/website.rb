@@ -1,6 +1,7 @@
 require "uri"
 
 class Website < ApplicationRecord
+  after_commit :clear_website_ids_cache, on: [:create, :destroy]
   belongs_to :user
 
   has_many :responses, dependent: :destroy
@@ -25,5 +26,11 @@ class Website < ApplicationRecord
 
   def failed_response_count
     responses.where("status_code >= ? AND created_at >= ?", 400, Time.current.beginning_of_day).count
+  end
+
+  private 
+
+  def clear_website_ids_cache
+    Rails.cache.delete("website_ids_#{user_id}")
   end
 end
