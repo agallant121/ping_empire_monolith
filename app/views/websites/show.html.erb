@@ -9,7 +9,12 @@
 
   <div class="d-flex gap-2 flex-wrap mb-4">
     <%= link_to "Edit website", edit_website_path(@website), class: "btn edit-website-button btn-sm" %>
-    <%= button_to "Destroy website", website_path(@website), method: :delete, onclick: "return confirm('Are you sure you want to remove this website?');", class: "btn destroy-website-button btn-sm" %>
+    <%= button_to "Destroy website",
+          website_path(@website),
+          method: :delete,
+          onclick: "return confirm('Are you sure you want to remove this website?');",
+          data: { turbo: false },
+          class: "btn destroy-website-button btn-sm" %>    
     <%= link_to "Back", root_path, class: "btn back-button btn-sm" %>
   </div>
 

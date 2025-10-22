@@ -1,4 +1,4 @@
-<%= form_with(model: website, local: true, class: "needs-validation") do |form| %>
+<%= form_with(model: website, data: { turbo: false }, class: "needs-validation") do |form| %>
   <% if website.errors.any? %>
     <div class="alert alert-danger small py-2">
       <ul class="mb-0">
@@ -12,7 +12,7 @@
   <div class="mb-3 dark-header text-muted">
     <%= form.label :url, class: "form-label fw-semibold" %>
     <%= form.text_field :url, class: "form-control", placeholder: "https://example.com" %>
-    <div class="form-text text-muted">Enter a valid website URL (http or https)</div>
+    <div class="form-text text-muted"><%= "Enter a valid website URL (http or https)" %></div>
   </div>
 
   <div class="d-grid">
