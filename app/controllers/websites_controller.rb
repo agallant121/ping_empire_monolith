@@ -38,49 +38,37 @@ class WebsitesController < ApplicationController
   def create
     @website = current_user.websites.new(website_params)
 
-    respond_to do |format|
-      if @website.save
-        format.html { redirect_to @website, notice: "Website was successfully created." }
-        format.json { render :show, status: :created, location: @website }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @website.errors, status: :unprocessable_entity }
-      end
+    if @website.save
+      redirect_to @website, notice: "Website was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @website.update(website_params)
-        format.html { redirect_to @website, notice: "Website was successfully updated." }
-        format.json { render :show, status: :ok, location: @website }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @website.errors, status: :unprocessable_entity }
-      end
+    if @website.update(website_params)
+      redirect_to @website, notice: "Website was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @website.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to root_path, status: :see_other, notice: "Website was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to root_path, status: :see_other, notice: "Website was successfully destroyed."
   end
 
   private
 
-    def set_website
-      @website = current_user.websites.find(params[:id])
-    end
+  def set_website
+    @website = current_user.websites.find(params[:id])
+  end
 
-    def set_websites
-      @websites = current_user.websites.recent.page(params[:page]).per(9)
-    end
+  def set_websites
+    @websites = current_user.websites.recent.page(params[:page]).per(9)
+  end
 
-    def website_params
-      params.expect(website: [ :url ])
-    end
+  def website_params
+    params.require(:website).permit(:url)
+  end
 end
