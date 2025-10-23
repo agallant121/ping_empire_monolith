@@ -24,7 +24,7 @@
                 <i class="fab fa-facebook-square fa-2x"></i>
               <% end %>
 
-              <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
+              <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn btn-link p-0" do %>
                 <i class="fab fa-google-plus-square fa-2x"></i>
               <% end %>
 
@@ -35,7 +35,7 @@
           </div>
 
           <div class="card-body">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-user"></i></span>
