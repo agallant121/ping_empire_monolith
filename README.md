@@ -1,24 +1,27 @@
-# README
+# Ping Empire Monolith
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Ping Empire is a Ruby on Rails 8.0.2 application that monitors the uptime and response status of user-submitted websites.  
+It pings each site periodically via Sidekiq background jobs and displays the current status, response time, and failure alerts.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## 🧰 Requirements
 
-* System dependencies
+| Dependency | Version / Notes |
+|-------------|-----------------|
+| **Ruby** | 3.4.2 |
+| **Rails** | 8.0.2 |
+| **PostgreSQL** | Required for database |
+| **Redis** | Required for Sidekiq |
+| **Sidekiq** | Background job processing |
+| **Sidekiq Scheduler** | Handles recurring cron jobs |
+| **MailHog** | For local email testing (development) |
 
-* Configuration
+---
 
-* Database creation
+## ⚙️ Setup Instructions
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### 1. Clone the repository
+```bash
+git clone <repository_url>
+cd ping_empire_monolith
