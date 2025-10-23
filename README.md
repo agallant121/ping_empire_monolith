@@ -5,7 +5,7 @@ It pings each site periodically via Sidekiq background jobs and displays the cur
 
 ---
 
-## 🧰 Requirements
+## Requirements
 
 | Dependency | Version / Notes |
 |-------------|-----------------|
