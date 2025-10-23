@@ -12,7 +12,7 @@
       </thead>
       <tbody>
         <% responses.each do |response| %>
-          <tr id="response-row-<%= response.id %>" class="<%= 'table-danger' if response.status_code&.> 400 %>">
+          <tr id="response-row-<%= response.id %>" class="<%= 'table-danger' if response.bad_status? || response.error_present? %>">
             <td><%= response.id %></td>
             <td><%= response.status_code %></td>
             <td><%= response.response_time %></td>
