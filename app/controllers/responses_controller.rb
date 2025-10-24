@@ -20,36 +20,24 @@ class ResponsesController < ApplicationController
   def create
     @response = @website.responses.new(response_params)
 
-    respond_to do |format|
-      if @response.save
-        format.html { redirect_to [ @website, @response ], notice: "Response was successfully created." }
-        format.json { render :show, status: :created, location: [ @website, @response ] }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
-      end
+    if @response.save
+      redirect_to [ @website, @response ], notice: "Response was successfully created."
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    respond_to do |format|
-      if @response.update(response_params)
-        format.html { redirect_to [ @website, @response ], notice: "Response was successfully updated." }
-        format.json { render :show, status: :ok, location: [ @website, @response ] }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @response.errors, status: :unprocessable_entity }
-      end
+    if @response.update(response_params)
+      redirect_to [ @website, @response ], notice: "Response was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @response.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to website_responses_path(@website), status: :see_other, notice: "Response was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    redirect_to website_responses_path(@website), status: :see_other, notice: "Response was successfully destroyed."
   end
 
   private

@@ -1,9 +1,9 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <p class="mb-0 dark-header"><strong><%= "URL:" %></strong> <%= link_to @website.url, @website.url, target: "_blank", rel: "noopener" %></p>
+    <p class="mb-0 lightly-transparent"><strong><%= "URL:" %></strong> <%= link_to @website.url, @website.url, target: "_blank", rel: "noopener" %></p>
   </div>
 
-  <p class="mb-2 dark-header">
+  <p class="mb-2 lightly-transparent">
     <strong><%= "Responses for: #{Date.today.strftime("%b %e, %Y")}" %></strong>
   </p>
 
@@ -18,7 +18,7 @@
     <%= link_to "Back", root_path, class: "btn back-button btn-sm" %>
   </div>
 
-  <div class="row dark-header mb-3">
+  <div class="row lightly-transparent mb-3">
     <% if @website.response_count > 0 %>
       <div class="col-auto">
         <h3 class="mb-0"><%= "Responses: #{@website.responses.count}" %></h3>
