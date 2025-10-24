@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 20px;">
+    <div style="max-width: 600px; margin: 0 auto; background-color: #ffffff; border-radius: 6px; padding: 24px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
+      <h2 style="color: #333333; margin-bottom: 16px;"><%= "Hello, #{@resource.email}!" %></h2>
+      <p style="color: #555555;">Your account has been locked due to too many unsuccessful login attempts.</p>
+      <p style="color: #555555;">You can unlock your account by clicking the button below:</p>
+      <p style="margin-top: 24px; text-align: center;">
+        <%= link_to "Unlock My Account", unlock_url(@resource, unlock_token: @token),
+          style: "background-color: #007bff; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 4px; display: inline-block;" %>
+      </p>
+      <p style="color: #777777; font-size: 14px; margin-top: 24px;">If you didn’t attempt to sign in, you can safely ignore this email.</p>
+    </div>
+  </body>
+</html>
