@@ -41,10 +41,6 @@ bin/rails db:create db:migrate
 # Install MailHog (macOS)
 brew install mailhog
 
-# If on Linux:
-# go install github.com/mailhog/MailHog@latest
-# If on Windows, download from: https://github.com/mailhog/MailHog/releases
-
 # Start MailHog in a separate terminal window
 MailHog
 
@@ -53,3 +49,9 @@ redis-server
 
 # Start the Rails and Sidekiq processes together
 bin/dev
+
+# Visit
+http://localhost:3000/
+
+# Open Mailhog in separate browser tab
+http://localhost:8025/
