@@ -65,8 +65,8 @@
   color: #fff;
 }
 
-.dark-header {
-  opacity: 0.80;
+.lightly-transparent {
+  opacity: 0.70;
 }
 
 .add-website-button {

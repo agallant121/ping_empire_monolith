@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="display-6 mb-0 dark-header"><%= "Websites" %></h1>
+  <h1 class="display-6 mb-0 lightly-transparent"><%= "Websites" %></h1>
   <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
 </div>
 
@@ -14,7 +14,7 @@
   </div>
 <% end %>
 
-<p class="lead mb-4">
+<p class="lead mb-4 lightly-transparent">
   <strong><%= "Total Websites:" %></strong> <%= current_user.website_count %>
 </p>
 
