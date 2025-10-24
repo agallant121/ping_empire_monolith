@@ -1,30 +1,96 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
-
 Website.destroy_all
+Response.destroy_all
 
-websites = Website.create!([
-  { url: "https://google.com" },
-  { url: "https://yahoo.com" },
-  { url: "https://askjeeves" }
-])
+puts "💃🏼 Seeding user..."
+
+user = User.create!(
+  email: "user@example.com",
+  password: "asdfasdf123!",
+  password_confirmation: "asdfasdf123!"
+  )
+
+puts "✅💃🏼 User seeded..."
+  
+puts "💾 Seeding websites..."
+
+urls = %w[
+  https://google.com
+  https://apple.com
+  https://microsoft.com
+  https://amazon.com
+  https://youtube.com
+  https://wikipedia.org
+  https://twitter.com
+  https://linkedin.com
+  https://nytimes.com
+  https://bbc.com
+  https://cnn.com
+  https://github.com
+  https://rubyonrails.org
+  https://reddit.com
+  https://shopify.com
+  https://salesforce.com
+  https://adobe.com
+  https://airbnb.com
+  https://nasa.gov
+  https://harvard.edu
+  https://mit.edu
+  https://stanford.edu
+  https://whitehouse.gov
+  https://who.int
+  https://imdb.com
+  https://espn.com
+  https://bloomberg.com
+  https://reuters.com
+  https://washingtonpost.com
+  https://theguardian.com
+  https://forbes.com
+  https://nationalgeographic.com
+  https://coursera.org
+  https://udemy.com
+  https://medium.com
+  https://yelp.com
+  https://dropbox.com
+  https://zoom.us
+  https://notion.so
+  https://stripe.com
+  https://slack.com
+  https://asana.com
+  https://figma.com
+  https://heroku.com
+  https://vercel.com
+  https://netflix.com
+  https://spotify.com
+  https://tesla.com
+  https://ford.com
+  https://bmw.com
+  https://toyota.com
+  https://nintendo.com
+]
+
+websites = urls.map { |url| Website.create!(url: url, user: user) }
+
+puts "✅ 💾 Websites seeded..."
+
+puts "👄 Seeding responses..."
 
 websites.each do |website|
-  3.times do
+  50.times do
     website.responses.create!(
-      website_id: website.id,
-      status_code: [ 200, 404, 500 ].sample,
-      response_time: rand(100..1000),
-      error: [ nil, "Timeout", "Connection refused" ].sample
+      status_code: [200, 201, 204, 301, 302, 304].sample,
+      response_time: rand(50..800),
+      error: nil
     )
   end
 end
 
-puts "Seeded #{Website.count} websites and #{Response.count} responses."
+responses = Response.all
+
+responses.sample(3).each do |response|
+  response.update!(
+    status_code: [400, 401, 403, 404, 408, 500, 502, 503].sample,
+  )
+end
+
+puts "✅ 👄 Responses seeded..."
+puts "✅ Seeded #{Website.count} websites and #{Response.count} responses."
