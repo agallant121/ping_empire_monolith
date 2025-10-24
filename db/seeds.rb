@@ -10,7 +10,7 @@ user = User.create!(
   )
 
 puts "✅💃🏼 User seeded..."
-  
+
 puts "💾 Seeding websites..."
 
 urls = %w[
@@ -77,7 +77,7 @@ puts "👄 Seeding responses..."
 websites.each do |website|
   50.times do
     website.responses.create!(
-      status_code: [200, 201, 204, 301, 302, 304].sample,
+      status_code: [ 200, 201, 204, 301, 302, 304 ].sample,
       response_time: rand(50..800),
       error: nil
     )
@@ -88,7 +88,7 @@ responses = Response.all
 
 responses.sample(3).each do |response|
   response.update!(
-    status_code: [400, 401, 403, 404, 408, 500, 502, 503].sample,
+    status_code: [ 400, 401, 403, 404, 408, 500, 502, 503 ].sample,
   )
 end
 
