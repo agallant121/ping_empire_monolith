@@ -16,7 +16,7 @@
   <body class="login-page lightly-transparent">
     <div class="container mt-4">
       <div class="d-flex justify-content-center h-100">
-        <div class="card">
+        <div class="card lightly-transparent">
           <div class="card-header">
             <h3><%= "Change Your Password" %></h3>
           </div>
@@ -44,13 +44,13 @@
                 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm New Password" %>
               </div>
 
-              <div class="form-group text-end">
+              <div class="form-group text-center">
                 <%= f.submit "Change Password", class: "btn btn-sm btn-primary px-4" %>
               </div>
             <% end %>
           </div>
 
-          <div class="card-footer">
+          <div class="card-footer mt-2">
             <div class="d-flex justify-content-center">
               <%= link_to "Back to Login", new_session_path(resource_name) %>
             </div>
