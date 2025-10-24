@@ -21,7 +21,7 @@ class ResponsesController < ApplicationController
     @response = @website.responses.new(response_params)
 
     if @response.save
-      redirect_to [@website, @response], notice: "Response was successfully created."
+      redirect_to [ @website, @response ], notice: "Response was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -29,7 +29,7 @@ class ResponsesController < ApplicationController
 
   def update
     if @response.update(response_params)
-      redirect_to [@website, @response], notice: "Response was successfully updated."
+      redirect_to [ @website, @response ], notice: "Response was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
