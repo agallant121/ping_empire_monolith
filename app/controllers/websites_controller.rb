@@ -55,7 +55,7 @@ class WebsitesController < ApplicationController
 
   def destroy
     @website.destroy!
-    redirect_to root_path, status: :see_other, notice: "Website was successfully destroyed."
+    redirect_to root_path, status: :see_other, alert: "Website was successfully destroyed."
   end
 
   private
