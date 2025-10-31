@@ -59,6 +59,8 @@ http://localhost:8025/
 # login using:
 email: user@example.com
 password: asdfasdf123!
+
+You will see multiple sign-in options (facebook & twitter) but only google oauth or the username/password above are functional
 ```
 
 ## Here is a visual representation of the working app:
