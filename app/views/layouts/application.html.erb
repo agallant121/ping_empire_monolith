@@ -16,12 +16,23 @@
 
   <body class="bg-image">
     <% flash.each do |type, message| %>
-      <div class="alert alert-<%= bootstrap_class_for(type) %> alert-dismissible fade show text-center mb-4" role="alert">
-        <%= message %>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <% end %>
+      <% css_class =
+        case type.to_sym
+        when :notice
+          "flash-success"
+        when :alert
+          "flash-error"
+        else
+          "flash-info"
+        end
+      %>
 
+      <div class="flash-message <%= css_class %> alert alert-dismissible fade show text-center mb-4 d-flex justify-content-between align-items-center" role="alert">
+        <span class="flex-grow-1"><%= message %></span>
+        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>    
+    <% end %>
+    
     <% if user_signed_in? %>
       <nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-50 border-bottom shadow-sm sticky-top">
         <div class="container">

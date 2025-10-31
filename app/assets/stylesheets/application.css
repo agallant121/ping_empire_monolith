@@ -134,3 +134,38 @@
   color: white;
   border: none;
 }
+
+.flash-message {
+  padding: 10px 16px;
+  border-radius: 6px;
+  margin: 10px auto;
+  width: 60%;
+  text-align: center;
+  font-weight: 500;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flash-success {
+  background-color: rgba(117, 145, 121, 0.75); /* same green tint as your buttons */
+  color: #fff;
+  opacity: 0.75;
+}
+
+.flash-error {
+  background-color: rgba(205, 140, 140, 0.85); /* same light-red you use for failures */
+  color: #fff;
+  opacity: 0.75;
+}
+
+.flash-info {
+  background-color: rgba(126, 171, 240, 0.4); /* same blue tone used in add button */
+  color: #fff;
+  opacity: 0.75;
+}
+
+.alert .btn-close {
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  right: 0.5rem;
+}
