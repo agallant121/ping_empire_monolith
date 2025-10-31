@@ -1,5 +1,5 @@
-Website.destroy_all
-Response.destroy_all
+User.destroy_all
+Website.destroy_all # destroys dependednent responses
 
 puts "💃🏼 Seeding user..."
 
