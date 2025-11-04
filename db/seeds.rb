@@ -6,7 +6,8 @@ puts "💃🏼 Seeding user..."
 user = User.create!(
   email: "user@example.com",
   password: "asdfasdf123!",
-  password_confirmation: "asdfasdf123!"
+  password_confirmation: "asdfasdf123!",
+  role: 1
   )
 
 puts "✅💃🏼 User seeded..."
