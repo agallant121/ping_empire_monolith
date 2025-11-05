@@ -10,6 +10,10 @@ class User < ApplicationRecord
 
   has_many :websites, dependent: :destroy
 
+  ROLES = { user: 0, admin: 1 }.freeze
+
+  scope :admins, -> { where(role: 1) }
+  scope :regular_users, -> { where(role: 0) }
 
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first
@@ -34,5 +38,13 @@ class User < ApplicationRecord
 
   def website_count
     @website_count ||= websites.count
+  end
+
+  def admin?
+    role == 1
+  end
+
+  def regular_user?
+    role == 0
   end
 end
