@@ -5,6 +5,13 @@ class WebsitesController < ApplicationController
 
   def index
     @websites = current_user.websites
+    
+    if params[:failed] == "true"
+      failed_ids = @websites.select { |w| w.failed_responses_since_midnight? }.map(&:id)
+      @websites = current_user.websites.where(id: failed_ids)
+    end
+
+
     @websites = @websites.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
     @websites = @websites.recent.includes(:responses).page(params[:page]).per(12)
 
