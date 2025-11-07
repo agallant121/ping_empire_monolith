@@ -4,14 +4,9 @@ class WebsitesController < ApplicationController
   before_action :set_websites, only: %i[ new create ]
 
   def index
+    @summary_params = params.permit(:q).to_h.symbolize_keys
     @websites = current_user.websites
-    
-    if params[:failed] == "true"
-      failed_ids = @websites.select { |w| w.failed_responses_since_midnight? }.map(&:id)
-      @websites = current_user.websites.where(id: failed_ids)
-    end
-
-
+    @websites = @websites.with_failures_since(Time.current.beginning_of_day) if params[:failed] == "true"
     @websites = @websites.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
     @websites = @websites.recent.includes(:responses).page(params[:page]).per(12)
 
