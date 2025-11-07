@@ -11,6 +11,15 @@ class Website < ApplicationRecord
                   uniqueness: { scope: :user_id, message: "has already been added for the current user" }
 
   scope :recent, -> { order(created_at: :desc) }
+  scope :with_failures_since, lambda { |timestamp|
+    joins(:responses)
+      .where(
+        "(responses.status_code >= :min_status OR responses.error IS NOT NULL) AND responses.created_at >= :since",
+        min_status: 400,
+        since: timestamp
+      )
+      .distinct
+  }
 
   def latest_response
     @latest_response ||= responses.order(created_at: :desc).first

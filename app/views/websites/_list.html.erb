@@ -23,6 +23,6 @@
   </div>
 
   <div class="d-flex justify-content-start mt-4">
-    <%= paginate @websites, params: { format: :turbo_stream } %>
+    <%= paginate websites, params: { format: :turbo_stream, failed: params[:failed], q: params[:q] } %>
   </div>
 <% end %>
