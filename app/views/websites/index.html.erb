@@ -1,21 +1,3 @@
-<div class="d-flex justify-content-between align-items-center mb-4">
-  <h1 class="display-6 mb-0 lightly-transparent"><%= "Websites" %></h1>
-  <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
-</div>
-
-<% unless current_user.website_count < 1 %>
-  <div class="row mb-4">
-    <div class="col-md-6 mx-auto">
-      <%= form_with url: websites_path, method: :get, local: true, class: "d-flex" do %>
-        <%= text_field_tag :q, params[:q], class: "form-control me-2 search-input", placeholder: "Search websites..." %>
-        <%= submit_tag "Search", class: "btn search-button" %>
-      <% end %>
-    </div>
-  </div>
-<% end %>
-
-<p class="lead mb-4 lightly-transparent">
-  <strong><%= "Total Websites:" %></strong> <%= current_user.website_count %>
-</p>
+<%= render "websites/summary" %>
 
 <%= render partial: "websites/list", locals: { websites: @websites } %>
