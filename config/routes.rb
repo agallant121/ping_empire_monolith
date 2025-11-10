@@ -6,6 +6,9 @@ Rails.application.routes.draw do
   }
 
   resources :websites do
+    collection do
+      get :failures
+    end
     resources :responses
   end
 

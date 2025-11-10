@@ -1,30 +1,34 @@
 <%= turbo_frame_tag "responses_list" do %>
-  <div class="table-responsive opacity-75">
-    <table class="table table-bordered align-middle table-striped rounded lightly-transparent">
-      <thead class="table-light">
-        <tr>
-          <th><%= "Response ID" %></th>
-          <th><%= "Status Code" %></th>
-          <th><%= "Response time (ms)" %></th>
-          <th><%= "Error" %></th>
-          <th><%= "Time of Ping" %></th>
-        </tr>
-      </thead>
-      <tbody>
-        <% responses.each do |response| %>
-          <tr id="response-row-<%= response.id %>" class="<%= 'table-danger' if response.bad_status? || response.error_present? %>">
-            <td><%= response.id %></td>
-            <td><%= response.status_code %></td>
-            <td><%= response.response_time %></td>
-            <td><%= response.error.presence || "N/A" %></td>
-            <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
+  <% if responses.any? %>
+    <div class="table-responsive opacity-75">
+      <table class="table table-bordered align-middle table-striped rounded lightly-transparent">
+        <thead class="table-light">
+          <tr>
+            <th><%= "Response ID" %></th>
+            <th><%= "Status Code" %></th>
+            <th><%= "Response time (ms)" %></th>
+            <th><%= "Error" %></th>
+            <th><%= "Time of Ping" %></th>
           </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </thead>
+        <tbody>
+          <% responses.each do |response| %>
+            <tr id="response-row-<%= response.id %>" class="<%= 'table-danger' if response.bad_status? || response.error_present? %>">
+              <td><%= response.id %></td>
+              <td><%= response.status_code %></td>
+              <td><%= response.response_time %></td>
+              <td><%= response.error.presence || "N/A" %></td>
+              <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
 
-  <div class="d-flex justify-content-start mt-3">
-    <%= paginate responses, params: { format: :turbo_stream } %>
-  </div>
+    <div class="d-flex justify-content-start mt-3">
+      <%= paginate responses, params: local_assigns.fetch(:pagination_params, {}) %>
+    </div>
+  <% else %>
+    <p class="text-muted small lightly-transparent mb-0"><%= local_assigns[:empty_message] || "No responses found." %></p>
+  <% end %>
 <% end %>

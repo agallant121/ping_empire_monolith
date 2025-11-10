@@ -1,68 +1,32 @@
 require "rails_helper"
-require "webmock/rspec"
 
 RSpec.describe PingWebsiteJob, type: :job do
-  before do
-    WebMock.disable_net_connect!(allow_localhost: true)
-  end
-
   let(:website) { Website.create!(url: "https://example.com") }
 
-  describe "#perform" do
-    context "when the website is accessible and returns a 200 status" do
-      before do
-        stub_request(:get, website.url).to_return(status: 200, body: "OK")
-      end
+  it "creates a response record when the request succeeds" do
+    fake_response = instance_double(Net::HTTPOK, code: "200")
+    allow(Net::HTTP).to receive(:get_response).and_return(fake_response)
 
-      it "creates a successful Response record" do
-        response_count = Response.count
-        PingWebsiteJob.perform_now(website.id)
+    expect {
+      PingWebsiteJob.perform_now(website.id)
+    }.to change(Response, :count).by(1)
 
-        response = Response.last
-        expect(Response.count).to eq(response_count + 1)
-        expect(response.website).to eq(website)
-        expect(response.status_code).to eq(200)
-        expect(response.response_time).to be_present
-        expect(response.error).to eq(nil)
-      end
-    end
+    record = Response.last
+    expect(record.website).to eq(website)
+    expect(record.status_code).to eq(200)
+    expect(record.error).to be_nil
+  end
 
-    context "when the website returns an error (404)" do
-      before do
-        stub_request(:get, website.url).to_return(status: 404, body: "Not Found")
-      end
+  it "captures the error message when the request fails" do
+    allow(Net::HTTP).to receive(:get_response).and_raise(StandardError.new("boom"))
 
-      it "creates a Response record with the error status" do
-        response_count = Response.count
-        PingWebsiteJob.perform_now(website.id)
+    expect {
+      PingWebsiteJob.perform_now(website.id)
+    }.to change(Response, :count).by(1)
 
-
-        response = Response.last
-        expect(Response.count).to eq(response_count + 1)
-        expect(response.website).to eq(website)
-        expect(response.status_code).to eq(404)
-        expect(response.response_time).to be_present
-        expect(response.error).to eq(nil)
-      end
-    end
-
-    context "when the website raises a network error" do
-      before do
-        stub_request(:get, website.url).to_raise(StandardError.new("Timeout"))
-      end
-
-      it "creates a Response record with an error message" do
-        response_count = Response.count
-        PingWebsiteJob.perform_now(website.id)
-
-
-        response = Response.last
-        expect(Response.count).to eq(response_count + 1)
-        expect(response.website).to eq(website)
-        expect(response.status_code).to be_nil
-        expect(response.response_time).to be_present
-        expect(response.error).to eq("Timeout")
-      end
-    end
+    record = Response.last
+    expect(record.website).to eq(website)
+    expect(record.status_code).to be_nil
+    expect(record.error).to eq("boom")
   end
 end

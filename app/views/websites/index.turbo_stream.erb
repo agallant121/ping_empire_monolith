@@ -1,3 +1,7 @@
+<%= turbo_stream.replace "websites_summary" do %>
+  <%= render "websites/summary" %>
+<% end %>
+
 <%= turbo_stream.replace "website_list" do %>
   <%= render partial: "websites/list", locals: { websites: @websites } %>
 <% end %>
