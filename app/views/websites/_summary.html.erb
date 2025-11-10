@@ -9,7 +9,6 @@
       <div class="col-md-6 mx-auto">
         <%= form_with url: websites_path, method: :get, local: true, class: "d-flex" do %>
           <%= text_field_tag :q, params[:q], class: "form-control me-2 search-input", placeholder: "Search websites..." %>
-          <%= hidden_field_tag :failed, "true" if params[:failed] == "true" %>
           <%= submit_tag "Search", class: "btn search-button" %>
         <% end %>
       </div>
@@ -20,10 +19,9 @@
     <strong class="me-2"><%= "Total Websites:" %></strong>
     <span class="me-3"><%= current_user.website_count %></span>
 
-    <% if params[:failed] == "true" %>
-      <%= link_to "Show All", websites_path(@summary_params.merge(format: :turbo_stream)), class: "btn btn-outline-secondary btn-sm" %>
-    <% else %>
-      <%= link_to "Show Websites with failed responses (Since Midnight)", websites_path(@summary_params.merge(failed: true, format: :turbo_stream)), class: "btn btn-outline-danger btn-sm" %>
+    <%= link_to failures_websites_path, class: "btn btn-outline-danger btn-sm ms-3" do %>
+      <span><%= "View Today's Failures" %></span>
+      <span class="badge bg-danger ms-2"><%= @failed_websites_count.to_i %></span>
     <% end %>
   </p>
 </div>
