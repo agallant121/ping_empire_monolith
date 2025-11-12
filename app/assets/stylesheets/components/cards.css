@@ -1,0 +1,62 @@
+.card {
+  background: linear-gradient(165deg, rgba(245, 251, 246, 0.74) 0%, rgba(237, 247, 240, 0.8) 55%, rgba(226, 242, 235, 0.84) 100%);
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+  color: var(--color-ink);
+  transition: none !important;
+  will-change: transform, box-shadow, border-color;
+  transform: translateZ(0);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-outline-strong);
+}
+
+.card-header,
+.card-footer {
+  background-color: transparent;
+  border-color: rgba(86, 156, 120, 0.18);
+}
+
+.site-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  transform: translateZ(0);
+}
+
+.site-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top right, rgba(126, 190, 154, 0.4), transparent 55%);
+  opacity: 0;
+  pointer-events: none;
+  transition: none !important;
+}
+
+.site-card:hover::before {
+  opacity: 1;
+}
+
+.site-card .card-title a {
+  color: var(--color-ink);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.site-card .card-title a:hover {
+  color: var(--color-forest-500);
+}
+
+.site-card .card-text {
+  color: var(--color-muted);
+}
+
+.site-card.failed {
+  border-color: rgba(211, 91, 75, 0.4);
+  box-shadow: 0 22px 40px -26px rgba(183, 72, 59, 0.35);
+}

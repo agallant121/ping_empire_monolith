@@ -1,0 +1,52 @@
+.app-navbar {
+  background: rgba(245, 251, 246, 0.7);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(18px);
+  margin: clamp(1.5rem, 2.5vw, 2.75rem) auto 0;
+  padding: 0.85rem clamp(1.75rem, 3vw, 3rem);
+  max-width: min(1320px, calc(100% - 2.5rem));
+}
+
+.app-navbar .nav-email {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.app-navbar .logout-button {
+  margin-left: 1.25rem;
+}
+
+.app-main {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: clamp(2rem, 4vw, 3.5rem) 1.5rem clamp(3.5rem, 5vw, 5rem);
+}
+
+.content-wrap {
+  width: min(1320px, 100%);
+  background: linear-gradient(150deg, rgba(245, 251, 246, 0.7) 0%, rgba(236, 247, 241, 0.78) 35%, rgba(226, 242, 235, 0.84) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(20px);
+  padding: clamp(2.25rem, 4vw, 3.75rem);
+}
+
+@media (max-width: 768px) {
+  .app-navbar {
+    max-width: calc(100% - 1.5rem);
+    padding: 0.85rem 1.25rem;
+  }
+
+  .app-navbar .nav-email {
+    display: none;
+  }
+
+  .content-wrap {
+    padding: clamp(1.5rem, 6vw, 2.5rem);
+  }
+}

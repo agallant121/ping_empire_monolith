@@ -1,0 +1,61 @@
+.table {
+  color: var(--color-ink);
+  border-color: rgba(79, 141, 107, 0.22);
+  background: rgba(245, 251, 246, 0.92);
+}
+
+.table thead {
+  background: linear-gradient(135deg, rgba(222, 240, 231, 0.98) 0%, rgba(208, 237, 221, 0.98) 100%);
+  border-bottom: 1px solid rgba(79, 141, 107, 0.28);
+}
+
+.table thead th {
+  border: none;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: rgba(31, 45, 38, 0.85);
+}
+
+.table tbody tr {
+  background: rgba(245, 251, 246, 0.9);
+  border-bottom: 1px solid rgba(79, 141, 107, 0.18);
+}
+
+.table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.table tbody td {
+  color: var(--color-ink);
+  border: none;
+  vertical-align: middle;
+}
+
+.table tbody tr.table-danger {
+  background: rgba(251, 225, 220, 0.92);
+}
+
+.table tbody tr.table-danger td {
+  color: var(--color-danger-text);
+}
+
+.table tbody tr:nth-child(even):not(.table-danger) {
+  background: rgba(234, 246, 239, 0.95);
+}
+
+.data-table-wrapper {
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-md);
+  overflow: hidden;
+}
+
+.table-responsive::-webkit-scrollbar {
+  height: 10px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+  background: rgba(79, 141, 107, 0.35);
+  border-radius: 999px;
+}

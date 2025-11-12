@@ -1,0 +1,158 @@
+body.login-page {
+  font-family: 'Manrope', 'Segoe UI', sans-serif;
+  color: var(--color-ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: clamp(2rem, 4vw, 3rem) 1.25rem;
+}
+
+.login-main {
+  width: min(440px, 100%);
+  text-align: center;
+}
+
+.login-brand {
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: rgba(73, 109, 93, 0.6);
+  margin-bottom: 1rem;
+}
+
+.login-card {
+  background: linear-gradient(160deg, rgba(245, 251, 246, 0.88) 0%, rgba(236, 247, 240, 0.95) 100%);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-xl);
+  padding: clamp(2rem, 4vw, 2.75rem);
+  backdrop-filter: blur(18px);
+}
+
+.login-card h1 {
+  font-size: 2rem;
+  margin-bottom: 0.35rem;
+}
+
+.login-card p {
+  margin-bottom: 1.5rem;
+}
+
+.login-socials {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 1.75rem;
+}
+
+.login-socials form {
+  margin: 0;
+}
+
+.login-socials .btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(79, 141, 107, 0.32);
+  color: var(--color-ink);
+  background: rgba(236, 247, 240, 0.9);
+  box-shadow: none;
+}
+
+.login-socials .btn:hover {
+  border-color: var(--color-outline-strong);
+  color: var(--color-forest-500);
+}
+
+.login-card .form-control {
+  background: rgba(245, 251, 246, 0.85);
+  border: 1px solid rgba(79, 141, 107, 0.28);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  color: var(--color-ink);
+}
+
+.login-card .form-control::placeholder {
+  color: rgba(73, 109, 93, 0.5);
+}
+
+.login-card .input-group {
+  margin-bottom: 1.15rem;
+  align-items: center;
+}
+
+.login-card .input-group-text {
+  border: none;
+  background: rgba(208, 237, 221, 0.9);
+  color: rgba(73, 109, 93, 0.75);
+  padding: 0.75rem 0.95rem;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.35rem;
+  color: rgba(73, 109, 93, 0.7);
+}
+
+.remember-me .form-check-input {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border-color: rgba(90, 155, 121, 0.45);
+  background-color: rgba(236, 247, 240, 0.9);
+}
+
+.remember-me .form-check-input:checked {
+  background-color: rgba(138, 204, 163, 0.98);
+  border-color: rgba(138, 204, 163, 0.98);
+}
+
+.login-card .login_btn {
+  width: 100%;
+  background: linear-gradient(135deg, rgba(151, 214, 173, 0.95) 0%, rgba(118, 190, 150, 0.98) 100%);
+  color: var(--color-ink);
+  border: none;
+  padding: 0.85rem 1rem;
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+}
+
+.login-card .login_btn:hover {
+  transform: translateY(-2px);
+}
+
+.login-links {
+  margin-top: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.login-links a {
+  color: var(--color-forest-500);
+}
+
+.login-links a:hover {
+  color: var(--color-forest-400);
+}
+
+.login-meta {
+  font-size: 0.85rem;
+  color: rgba(73, 109, 93, 0.6);
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 1.75rem 1.5rem;
+  }
+
+  .login-card h1 {
+    font-size: 1.75rem;
+  }
+}
