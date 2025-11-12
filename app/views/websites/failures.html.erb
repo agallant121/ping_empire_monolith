@@ -1,54 +1,73 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="display-6 mb-0 lightly-transparent"><%= "Today's Failed Responses" %></h1>
-    <%= link_to "Back to Websites", websites_path, class: "btn btn-outline-secondary" %>
+<section class="surface-block">
+  <div class="surface-header w-100">
+    <div>
+      <p class="surface-eyebrow"><%= "Incident Report" %></p>
+      <h1 class="surface-title"><%= "Today's Failed Responses" %></h1>
+      <p class="surface-subtitle"><%= "Pinpoint outages detected across your monitored properties since midnight." %></p>
+    </div>
+    <div class="ms-auto">
+      <%= link_to "Back to Websites", websites_path, class: "btn back-button" %>
+    </div>
   </div>
 
   <% if @failed_websites_count.zero? %>
-    <div class="alert alert-success lightly-transparent" role="alert">
-      <strong><%= "All clear!" %></strong> <%= "No failed responses have been recorded since midnight." %>
+    <div class="stat-card stat-card--alert">
+      <span class="stat-card__label"><%= "Status" %></span>
+      <span class="stat-card__value">All clear</span>
+      <p class="mb-0 surface-subtitle"><%= "No failed responses have been recorded since midnight." %></p>
     </div>
   <% else %>
-    <p class="lead lightly-transparent mb-3 d-flex flex-wrap align-items-center gap-3">
-      <span>
-        <strong class="me-2"><%= "Failures recorded since:" %></strong>
-        <%= @cutoff_time.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p %Z") %>
-      </span>
-      <span class="badge bg-danger"><%= pluralize(@failed_websites_count, "website") %></span>
-      <span class="badge bg-secondary"><%= pluralize(@failed_response_count, "failed response") %></span>
-    </p>
-
-    <div class="table-responsive opacity-75">
-      <table class="table table-bordered align-middle table-striped rounded lightly-transparent">
-        <thead class="table-light">
-          <tr>
-            <th scope="col"><%= "Website" %></th>
-            <th scope="col" class="text-center"><%= "Failures Today" %></th>
-            <th scope="col"><%= "Last Failure" %></th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @websites.each do |website| %>
-            <% failure_count = @failure_counts[website.id].to_i %>
-            <% last_failure_at = @last_failure_at[website.id] %>
-            <tr class="table-danger">
-              <td class="fw-semibold">
-                <%= link_to website.url, website_path(website, failed: true), class: "text-decoration-none" %>
-              </td>
-              <td class="text-center">
-                <span class="badge bg-danger"><%= failure_count %></span>
-              </td>
-              <td>
-                <% if last_failure_at.present? %>
-                  <%= last_failure_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %>
-                <% else %>
-                  <span class="text-muted"><%= "—" %></span>
-                <% end %>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+    <div class="stat-grid mb-4">
+      <div class="stat-card stat-card--alert stat-card--center">
+        <span class="stat-card__label"><%= "Impacted Websites" %></span>
+        <span class="stat-card__value"><%= @failed_websites_count %></span>
+        <p class="mb-0 surface-subtitle"><%= "Properties reporting downtime since midnight." %></p>
+      </div>
+      <div class="stat-card stat-card--center">
+        <span class="stat-card__label"><%= "Failed Responses" %></span>
+        <span class="stat-card__value"><%= @failed_response_count %></span>
+        <p class="mb-0 surface-subtitle"><%= "Individual incidents captured in the same period." %></p>
+      </div>
+      <div class="stat-card">
+        <span class="stat-card__label"><%= "Observation Window" %></span>
+        <span class="stat-card__value"><%= @cutoff_time.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y") %></span>
+        <p class="mb-0 surface-subtitle"><%= @cutoff_time.in_time_zone("Eastern Time (US & Canada)").strftime("%l:%M %p %Z") %></p>
+      </div>
     </div>
+
+    <section class="surface-block surface-block--nested">
+      <div class="table-responsive data-table-wrapper">
+        <table class="table align-middle mb-0">
+          <thead>
+            <tr>
+              <th scope="col"><%= "Website" %></th>
+              <th scope="col" class="text-center"><%= "Failures Today" %></th>
+              <th scope="col"><%= "Last Failure" %></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @websites.each do |website| %>
+              <% failure_count = @failure_counts[website.id].to_i %>
+              <% last_failure_at = @last_failure_at[website.id] %>
+              <tr class="table-danger">
+                <td class="fw-semibold">
+                  <%= link_to website.url, website_path(website, failed: true), class: "text-decoration-none" %>
+                </td>
+                <td class="text-center">
+                  <span class="status-chip status-chip--alert"><%= failure_count %></span>
+                </td>
+                <td>
+                  <% if last_failure_at.present? %>
+                    <%= last_failure_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %l:%M %p") %>
+                  <% else %>
+                    <span class="surface-subtitle"><%= "—" %></span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
   <% end %>
-</div>
+</section>
