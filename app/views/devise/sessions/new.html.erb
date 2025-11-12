@@ -1,77 +1,64 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Login Page</title>
-
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
-
-    <!-- Font Awesome -->
+    <title>Sign in | Ping Empire</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" crossorigin="anonymous">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Numans" rel="stylesheet">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <meta name="turbo-prefetch" content="false">
   </head>
 
-  <body class="login-page">
-    <div class="container mt-4 lightly-transparent">
-      <div class="d-flex justify-content-center h-100">
-        <div class="card">
-          <div class="card-header">
-            <h3><%= "Sign In" %></h3>
-            <div class="social_icon d-flex gap-2">
-              <%= button_to user_facebook_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
-                <i class="fab fa-facebook-square fa-2x"></i>
-              <% end %>
+  <body class="login-page bg-image app-body">
+    <main class="login-main">
+      <div class="login-brand"><%= "Ping Empire" %></div>
+      <div class="login-card">
+        <h1><%= "Welcome back" %></h1>
+        <p class="login-meta"><%= "Sign in to keep watch over your mountain lake monitors." %></p>
 
-              <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn btn-link p-0" do %>
-                <i class="fab fa-google-plus-square fa-2x"></i>
-              <% end %>
+        <div class="login-socials">
+          <%= button_to user_facebook_omniauth_authorize_path, method: :post, class: "btn", data: { turbo: false } do %>
+            <i class="fab fa-facebook-f"></i>
+          <% end %>
 
-              <%= button_to user_twitter2_omniauth_authorize_path, method: :post, class: "btn btn-link p-0" do %>
-                <i class="fab fa-twitter-square fa-2x"></i>
-              <% end %>
-            </div>
+          <%= button_to user_google_oauth2_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn" do %>
+            <i class="fab fa-google"></i>
+          <% end %>
+
+          <%= button_to user_twitter2_omniauth_authorize_path, method: :post, class: "btn", data: { turbo: false } do %>
+            <i class="fab fa-twitter"></i>
+          <% end %>
+        </div>
+
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-user"></i></span>
+            <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
           </div>
 
-          <div class="card-body">
-            <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-user"></i></span>
-                </div>
-                <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
-              </div>
-
-              <div class="input-group form-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fas fa-key"></i></span>
-                </div>
-                <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
-              </div>
-
-              <div class="form-check mb-3 text-center">
-                <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
-                <%= f.label :remember_me, "Remember me", class: "form-check-label ms-1" %>
-              </div>
-
-              <div class="form-group text-center">
-                <%= f.submit "Login", class: "btn btn-sm btn-primary px-4" %>
-              </div>
-            <% end %>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
           </div>
 
-          <div class="card-footer">
-            <div class="d-flex justify-content-center align-items-center">
-              <span class="me-1"><%= "Don't have an account?" %></span>
-              <%= link_to "Sign up", new_registration_path(resource_name) %>
-            </div>
-            <div class="d-flex justify-content-center mt-1">
-              <%= link_to "Forgot your password?", new_password_path(resource_name) %>
-            </div>
+          <div class="remember-me">
+            <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
+            <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
           </div>
+
+          <%= f.submit "Login", class: "btn login_btn" %>
+        <% end %>
+
+        <div class="login-links">
+          <div class="login-meta">
+            <span><%= "Don't have an account?" %></span>
+            <%= link_to "Sign up", new_registration_path(resource_name) %>
+          </div>
+          <%= link_to "Forgot your password?", new_password_path(resource_name) %>
         </div>
       </div>
-    </div>
+    </main>
   </body>
 </html>
