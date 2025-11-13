@@ -6,7 +6,8 @@
   backdrop-filter: blur(18px);
   margin: clamp(1.5rem, 2.5vw, 2.75rem) auto 0;
   padding: 0.85rem clamp(1.75rem, 3vw, 3rem);
-  max-width: min(1320px, calc(100% - 2.5rem));
+  max-width: 1320px;
+  width: calc(100% - 2.5rem);
 }
 
 .app-navbar .nav-email {
@@ -27,7 +28,8 @@
 }
 
 .content-wrap {
-  width: min(1320px, 100%);
+  max-width: 1320px;
+  width: 100%;
   background: linear-gradient(150deg, rgba(245, 251, 246, 0.7) 0%, rgba(236, 247, 241, 0.78) 35%, rgba(226, 242, 235, 0.84) 100%);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-outline);

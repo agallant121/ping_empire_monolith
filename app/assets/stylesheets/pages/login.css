@@ -9,7 +9,8 @@ body.login-page {
 }
 
 .login-main {
-  width: min(440px, 100%);
+  max-width: 440px;
+  width: 100%;
   text-align: center;
 }
 
