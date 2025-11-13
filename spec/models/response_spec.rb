@@ -39,7 +39,7 @@ RSpec.describe Response, type: :model do
       old_response = website.responses.create!(status_code: 200, response_time: 100, created_at: 2.days.ago)
       recent_response = website.responses.create!(status_code: 200, response_time: 100)
 
-      expect(described_class.more_than_one_day_old).to eq([old_response])
+      expect(described_class.more_than_one_day_old).to eq([ old_response ])
       expect(described_class.more_than_one_day_old).not_to include(recent_response)
     end
   end
