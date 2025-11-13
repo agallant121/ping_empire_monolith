@@ -34,18 +34,13 @@ RSpec.describe Response, type: :model do
     end
   end
 
-  describe ".more_than_one_day_old" do
+  describe "more_than_one_day_old" do
     it "returns responses created before the beginning of the current day" do
-      travel_to Time.zone.parse("2024-01-02 12:00:00") do
-        old_response = travel_to 2.days.ago do
-          website.responses.create!(status_code: 200, response_time: 100)
-        end
+      old_response = website.responses.create!(status_code: 200, response_time: 100, created_at: 2.days.ago)
+      recent_response = website.responses.create!(status_code: 200, response_time: 100)
 
-        recent_response = website.responses.create!(status_code: 200, response_time: 100)
-
-        expect(described_class.more_than_one_day_old).to contain_exactly(old_response)
-        expect(described_class.more_than_one_day_old).not_to include(recent_response)
-      end
+      expect(described_class.more_than_one_day_old).to eq([ old_response ])
+      expect(described_class.more_than_one_day_old).not_to include(recent_response)
     end
   end
 

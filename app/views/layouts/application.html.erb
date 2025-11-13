@@ -14,39 +14,43 @@
     <meta name="turbo-prefetch" content="false">
   </head>
 
-  <body class="bg-image">
-    <% flash.each do |type, message| %>
-      <% css_class =
-        case type.to_sym
-        when :notice
-          "flash-success"
-        when :alert
-          "flash-error"
-        else
-          "flash-info"
-        end
-      %>
+  <body class="bg-image app-body">
+    <% if flash.any? %>
+      <div class="flash-region container-xl">
+        <% flash.each do |type, message| %>
+          <% css_class =
+            case type.to_sym
+            when :notice
+              "flash-success"
+            when :alert
+              "flash-error"
+            else
+              "flash-info"
+            end
+          %>
 
-      <div class="flash-message <%= css_class %> alert alert-dismissible fade show text-center mb-4 d-flex justify-content-between align-items-center" role="alert">
-        <span class="flex-grow-1"><%= message %></span>
-        <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>    
-    <% end %>
-    
-    <% if user_signed_in? %>
-      <nav class="navbar navbar-expand-lg navbar-light bg-white bg-opacity-50 border-bottom shadow-sm sticky-top">
-        <div class="container">
-          <%= link_to "Ping Empire", root_path, class: "navbar-brand brand-title" %>
-          <div class="ms-auto d-flex align-items-center">
-            <span class="me-3 text-muted"><%= "Logged in as #{current_user.email}" %></span>
-            <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
+          <div class="flash-message <%= css_class %> alert alert-dismissible fade show d-flex align-items-center" role="alert">
+            <span class="flex-grow-1"><%= message %></span>
+            <button type="button" class="btn-close ms-3" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if user_signed_in? %>
+      <nav class="navbar app-navbar container-xl">
+        <%= link_to "Ping Empire", root_path, class: "navbar-brand brand-title" %>
+        <div class="ms-auto d-flex align-items-center">
+          <span class="nav-email me-2"><%= "Logged in as #{current_user.email}" %></span>
+          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
         </div>
       </nav>
     <% end %>
 
-    <main class="container my-5">
-      <%= yield %>
+    <main class="app-main">
+      <div class="content-wrap">
+        <%= yield %>
+      </div>
     </main>
   </body>
 </html>

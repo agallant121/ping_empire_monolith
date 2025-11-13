@@ -1,0 +1,15 @@
+.brand-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-forest-700);
+  text-shadow: 0 6px 18px rgba(18, 60, 41, 0.18);
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+.brand-title:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}

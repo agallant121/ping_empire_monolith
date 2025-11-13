@@ -3,7 +3,8 @@ require "csv"
 
 RSpec.describe ArchiveDayOldPingsJob, type: :job do
   before do
-    website = Website.create!(url: "https://google.com")
+    user =  User.create!(email: "user@example.com", password: "password")
+    website = Website.create!(url: "https://google.com", user_id: user.id)
     Response.create!(
       website_id: website.id,
       status_code: 200,
@@ -11,7 +12,7 @@ RSpec.describe ArchiveDayOldPingsJob, type: :job do
       created_at: 2.days.ago
     )
 
-    website2 = Website.create!(url: "https://yahoo.com")
+    website2 = Website.create!(url: "https://yahoo.com", user_id: user.id)
     Response.create!(
       website_id: website2.id,
       status_code: 200,

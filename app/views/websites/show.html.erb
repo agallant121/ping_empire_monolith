@@ -1,58 +1,74 @@
-<div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3">
-    <p class="mb-0 lightly-transparent"><strong><%= "URL:" %></strong> <%= link_to @website.url, @website.url, target: "_blank", rel: "noopener" %></p>
+<section class="surface-block">
+  <div class="surface-header w-100 align-items-start">
+    <div>
+      <p class="surface-eyebrow"><%= "Website Detail" %></p>
+      <h2 class="surface-title"><%= @website.url %></h2>
+      <p class="surface-subtitle"><%= "Live telemetry for" %> <%= link_to @website.url, @website.url, target: "_blank", rel: "noopener" %>.</p>
+    </div>
+    <% if @website.responses.any? %>
+      <span class="status-chip <%= @website.failed_responses_since_midnight? ? 'status-chip--alert' : 'status-chip--ok' %>">
+        <%= @website.failed_responses_since_midnight? ? "Attention" : "Stable" %>
+      </span>
+    <% end %>
   </div>
 
-  <p class="mb-2 lightly-transparent">
-    <strong><%= "Responses for: #{Date.today.strftime("%b %e, %Y")}" %></strong>
-  </p>
-
-  <div class="d-flex gap-2 flex-wrap mb-3">
-    <%= link_to "Edit website", edit_website_path(@website), class: "btn edit-website-button btn-sm" %>
+  <div class="d-flex flex-wrap gap-2 mb-4">
+    <%= link_to "Edit website", edit_website_path(@website), class: "btn edit-website-button" %>
     <%= button_to "Destroy website",
           website_path(@website),
           method: :delete,
           onclick: "return confirm('Are you sure you want to remove this website?');",
           data: { turbo: false },
-          class: "btn destroy-website-button btn-sm" %>
-    <%= link_to "Back", root_path, class: "btn back-button btn-sm" %>
+          class: "btn destroy-website-button" %>
+    <%= link_to "Back", root_path, class: "btn back-button" %>
   </div>
 
   <% if @failed_responses_total.positive? %>
-    <div class="d-flex gap-2 flex-wrap mb-4">
+    <div class="d-flex flex-wrap gap-2 mb-3">
       <%= link_to "Show All Responses",
                   website_path(@website),
-                  class: "btn btn-sm #{@show_failed_only ? 'btn-outline-secondary' : 'btn-secondary active'}" %>
+                  class: "btn filter-button #{@show_failed_only ? '' : 'active'}" %>
       <%= link_to "Show Today's Failed Responses",
                   website_path(@website, failed: true),
-                  class: "btn btn-sm #{@show_failed_only ? 'btn-danger active' : 'btn-outline-danger'}" %>
+                  class: "btn filter-button filter-button--alert #{@show_failed_only ? 'active' : ''}" %>
     </div>
   <% end %>
 
   <% if @show_failed_only %>
-    <p class="text-danger small lightly-transparent mb-4"><%= "Showing today's failed responses only." %></p>
+    <p class="surface-subtitle mb-4"><%= "Showing today's failed responses only." %></p>
   <% end %>
 
-  <div class="row lightly-transparent mb-3">
-    <% if @website.response_count > 0 %>
-      <div class="col-auto">
-        <h3 class="mb-0"><%= "Responses: #{@website.response_count}" %></h3>
-      </div>
-    <% end %>
+  <div class="stat-grid mb-4">
+    <div class="stat-card stat-card--center">
+      <span class="stat-card__label"><%= "Total Responses" %></span>
+      <span class="stat-card__value"><%= @website.response_count %></span>
+      <p class="mb-0 surface-subtitle"><%= "Historical responses captured for this site." %></p>
+    </div>
 
-    <% if @failed_responses_total.positive? %>
-      <div class="col-auto">
-        <h3 class="mb-0"><%= "Failed Today: #{@failed_responses_total}" %></h3>
+    <div class="stat-card stat-card--center">
+      <span class="stat-card__label"><%= "Failed Today" %></span>
+      <span class="stat-card__value"><%= @failed_responses_total %></span>
+      <p class="mb-0 surface-subtitle"><%= "Incidents detected within the last 24 hours." %></p>
+    </div>
+
+    <% if @website.responses.any? %>
+      <div class="stat-card stat-card--center">
+        <span class="stat-card__label"><%= "Last Response" %></span>
+        <span class="stat-card__value"><%= @website.latest_response.status_code %></span>
+        <p class="mb-0 surface-subtitle">
+          <%= @website.latest_response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %l:%M %p") %>
+        </p>
       </div>
     <% end %>
   </div>
 
   <% if @website.response_count > 0 %>
-    <%= render "responses_table", website: @website, responses: @responses, pagination_params: @pagination_params, empty_message: (@show_failed_only ? "No failed responses have been recorded today for this website." : nil) %>
+    <section class="surface-block surface-block--nested">
+      <%= render "responses_table", website: @website, responses: @responses, pagination_params: @pagination_params, empty_message: (@show_failed_only ? "No failed responses have been recorded today for this website." : nil) %>
+    </section>
   <% else %>
-    <p class="text-muted small mb-0">
+    <p class="surface-subtitle mb-0">
       <%= "There are no responses yet for this website." %>
     </p>
   <% end %>
-
-</div>
+</section>

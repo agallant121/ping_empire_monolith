@@ -6,7 +6,8 @@ RSpec.describe PingWebsiteJob, type: :job do
     WebMock.disable_net_connect!(allow_localhost: true)
   end
 
-  let(:website) { Website.create!(url: "https://example.com") }
+  let(:user) { User.create!(email: "user@example.com", password: "password") }
+  let(:website) { Website.create!(url: "https://example.com", user_id: user.id) }
 
   describe "#perform" do
     context "when the website is accessible and returns a 200 status" do

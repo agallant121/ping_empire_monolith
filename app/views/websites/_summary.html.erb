@@ -1,27 +1,35 @@
-<div id="websites_summary">
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="display-6 mb-0 lightly-transparent"><%= "Websites" %></h1>
-    <%= link_to "Add a Website", new_website_path, class: "btn add-website-button btn-md" %>
+<section id="websites_summary" class="surface-block">
+  <div class="surface-header w-100">
+    <div>
+      <p class="surface-eyebrow"><%= "Monitoring Overview" %></p>
+      <h1 class="surface-title"><%= "Websites" %></h1>
+      <p class="surface-subtitle"><%= "Your command center for uptime, latency, and failure visibility across every mountain lake monitor." %></p>
+    </div>
+    <div class="ms-auto">
+      <%= link_to "Add a Website", new_website_path, class: "btn add-website-button" %>
+    </div>
   </div>
 
   <% unless current_user.website_count < 1 %>
-    <div class="row mb-4">
-      <div class="col-md-6 mx-auto">
-        <%= form_with url: websites_path, method: :get, local: true, class: "d-flex" do %>
-          <%= text_field_tag :q, params[:q], class: "form-control me-2 search-input", placeholder: "Search websites..." %>
-          <%= submit_tag "Search", class: "btn search-button" %>
-        <% end %>
-      </div>
+    <div class="surface-toolbar">
+      <%= form_with url: websites_path, method: :get, local: true, class: "search-panel" do %>
+        <%= text_field_tag :q, params[:q], class: "search-input", placeholder: "Search websites..." %>
+        <%= submit_tag "Search", class: "btn search-button" %>
+      <% end %>
     </div>
   <% end %>
 
-  <p class="lead mb-4 lightly-transparent d-flex align-items-center">
-    <strong class="me-2"><%= "Total Websites:" %></strong>
-    <span class="me-3"><%= current_user.website_count %></span>
+  <div class="stat-grid">
+    <div class="stat-card stat-card--center">
+      <span class="stat-card__label"><%= "Total Websites" %></span>
+      <span class="stat-card__value"><%= current_user.website_count %></span>
+      <p class="mb-0 surface-subtitle"><%= "All properties actively watched in your Ping Empire workspace." %></p>
+    </div>
 
-    <%= link_to failures_websites_path, class: "btn btn-outline-danger btn-sm ms-3" do %>
-      <span><%= "View Today's Failures" %></span>
-      <span class="badge bg-danger ms-2"><%= @failed_websites_count.to_i %></span>
+    <%= link_to failures_websites_path, class: "stat-card stat-card--alert stat-card--link stat-card--center" do %>
+      <span class="stat-card__label"><%= "Today's Failures" %></span>
+      <span class="stat-card__value"><%= @failed_websites_count.to_i %></span>
+      <span class="badge">View failure log</span>
     <% end %>
-  </p>
-</div>
+  </div>
+</section>
