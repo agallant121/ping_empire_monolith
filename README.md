@@ -67,19 +67,19 @@ You will see multiple sign-in options (facebook & twitter) but only google oauth
 
 ### Login page:
 
-<img width="1580" height="926" alt="image" src="https://github.com/user-attachments/assets/b9918f93-d702-448e-ba6d-6fce3d459a89" />
+<img width="1574" height="922" alt="image" src="https://github.com/user-attachments/assets/9b1aa190-b4a9-4431-955d-e4984a619e59" />
 
 ### When a user is logged in:
 
-<img width="1570" height="925" alt="image" src="https://github.com/user-attachments/assets/b3f72eb3-da15-4d04-b1dc-60c12b1ee9e3" />
+<img width="1133" height="915" alt="image" src="https://github.com/user-attachments/assets/a021ddf9-14d3-4ed8-bc7d-d09863688ccf" />
 
 ### When a website has a failed response - example:
 
-<img width="1568" height="924" alt="image" src="https://github.com/user-attachments/assets/42136f3d-dc32-49af-93e3-0c2581dac8d8" />
+<img width="615" height="400" alt="image" src="https://github.com/user-attachments/assets/3659ed14-7ddd-432a-82d1-f651ff672631" />
 
 ### On website show page to see failed response - example:
 
-<img width="1569" height="924" alt="image" src="https://github.com/user-attachments/assets/24853d46-add0-4bc4-aad1-09e581e3f780" />
+<img width="713" height="462" alt="image" src="https://github.com/user-attachments/assets/85a04e92-c032-4e6a-8906-7467dab92cd0" />
 
 ### Failure alert email - example:
 
