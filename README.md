@@ -83,9 +83,7 @@ You will see multiple sign-in options (facebook & twitter) but only google oauth
 
 ### Failure alert email - example:
 
-<img width="626" height="354" alt="image" src="https://github.com/user-attachments/assets/8abaf975-b355-47ce-a986-c3d76c7d5fb2" />
-
-
+<img width="660" height="526" alt="image" src="https://github.com/user-attachments/assets/e6b86d2c-7603-42b1-8ee5-dd259a279909" />
 
 
 
