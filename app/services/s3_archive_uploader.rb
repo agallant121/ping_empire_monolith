@@ -74,21 +74,8 @@ class S3ArchiveUploader
   end
 
   def object_key_for(file_path)
-    parts = [ key_prefix, File.basename(file_path) ].compact
+    parts = [key_prefix, File.basename(file_path)].compact
     parts.join("/")
-  end
-
-  def canonical_request_for(key, amz_date, digest)
-    headers = canonical_headers(amz_date, digest)
-    signed_headers = signed_headers_list
-    [
-      "PUT",
-      "/#{key}",
-      "",
-      headers,
-      signed_headers,
-      digest
-    ].join("\n")
   end
 
   def canonical_headers(amz_date, digest)
@@ -105,6 +92,19 @@ class S3ArchiveUploader
     headers = %w[host x-amz-content-sha256 x-amz-date]
     headers << "x-amz-security-token" if session_token.present?
     headers.join(";")
+  end
+
+  def canonical_request_for(key, amz_date, digest)
+    headers = canonical_headers(amz_date, digest)
+    signed_headers = signed_headers_list
+    [
+      "PUT",
+      "/#{key}",
+      "",
+      headers,
+      signed_headers,
+      digest
+    ].join("\n")
   end
 
   def string_to_sign_for(canonical_request, amz_date, date_stamp)
