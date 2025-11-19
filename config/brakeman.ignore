@@ -1,0 +1,18 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/admin/archives_controller.rb",
+      "line": 43,
+      "reason": "Filename is sanitized via File.basename in archive_file_path, preventing directory traversal."
+    },
+    {
+      "warning_type": "File Access",
+      "message": "Parameter value used in file name",
+      "file": "app/controllers/admin/archives_controller.rb",
+      "line": 70,
+      "reason": "Deletion only allowed on sanitized basename. Safe from traversal."
+    }
+  ]
+}
