@@ -3,8 +3,8 @@
 <div class="container-sm">
   <div class="card shadow-sm">
     <div class="card-body">
-      <h1 class="h4 mb-3">AWS Archive Settings</h1>
-      <p class="text-muted">Provide the IAM credentials and bucket where CSV archives should be uploaded.</p>
+      <h1 class="h4 mb-3"><%= "AWS Archive Settings" %></h1>
+      <p class="text-muted"><%= "Provide the IAM credentials and bucket where CSV archives should be uploaded." %></p>
 
       <%= form_with model: [:admin, @aws_setting], url: admin_aws_settings_path, method: (@aws_setting.persisted? ? :patch : :post), class: "vstack gap-3" do |form| %>
         <div>
@@ -20,7 +20,7 @@
         <div>
           <%= form.label :session_token, class: "form-label" %>
           <%= form.text_field :session_token, class: "form-control", autocomplete: "off" %>
-          <div class="form-text">Optional. Only needed for temporary credentials.</div>
+          <div class="form-text"><%= "Optional. Only needed for temporary credentials." %></div>
         </div>
 
         <div>
@@ -36,12 +36,12 @@
         <div>
           <%= form.label :key_prefix, class: "form-label" %>
           <%= form.text_field :key_prefix, class: "form-control", placeholder: "archives/optional-folder" %>
-          <div class="form-text">Optional. We'll prepend this prefix to every uploaded CSV.</div>
+          <div class="form-text"><%= "Optional. We'll prepend this prefix to every uploaded CSV." %></div>
         </div>
 
         <% if @aws_setting.errors.any? %>
           <div class="alert alert-danger">
-            <p class="mb-2">Please fix the following:</p>
+            <p class="mb-2"><%= "Please fix the following:" %></p>
             <ul class="mb-0">
               <% @aws_setting.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
