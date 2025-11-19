@@ -63,9 +63,9 @@ module Admin
       end
 
       if uploader.upload(file_path)
-        path_str = file_path.to_s
+        path_str = archive_file_path(params[:filename].to_s).to_s
 
-        if File.exist?(path_str) && File.file?(path_str)
+        if File.exist?(path_str)
           begin
             File.unlink(path_str)
             log_info("Admin::ArchivesController: removed local file: #{path_str}")
@@ -74,7 +74,7 @@ module Admin
             redirect_to admin_archives_path, notice: "Uploaded #{File.basename(path_str)} to S3 but could not remove the local copy. Check file permissions." and return
           end
         else
-          log_error("Admin::ArchivesController: attempted to delete non-file path: #{path_str}")
+          Rails.logger.warn("Admin::ArchivesController: archive file not found for deletion: #{path_str}")
         end
 
         log_info("Admin::ArchivesController: uploaded #{File.basename(file_path)} to S3 via manual action")
@@ -136,7 +136,7 @@ module Admin
       if uploader.upload(result.file_path)
         path_str = result.file_path.to_s
 
-        if File.exist?(path_str) && File.file?(path_str)
+        if File.exist?(path_str)
           begin
             File.unlink(path_str)
             log_info("Admin::ArchivesController: removed local file after auto-upload: #{path_str}")
@@ -146,7 +146,7 @@ module Admin
             return true
           end
         else
-          log_error("Admin::ArchivesController: attempted to delete non-file path after auto-upload: #{path_str}")
+          Rails.logger.warn("Admin::ArchivesController: archive file not found for auto-upload deletion: #{path_str}")
         end
 
         flash[:notice] = "Uploaded #{result.file_name} to S3 and removed the local copy."
