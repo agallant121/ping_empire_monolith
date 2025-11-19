@@ -56,7 +56,11 @@ module Admin
       end
 
       if uploader.upload(file_path)
-        FileUtils.rm_f(file_path)
+        if File.exist?(file_path)
+          FileUtils.rm_f(file_path)
+        else
+          log_error("Admin::ArchivesController: local file missing after upload attempt: #{file_path}")
+        end
         log_info("Admin::ArchivesController: uploaded #{File.basename(file_path)} to S3 via manual action")
         redirect_to admin_archives_path, notice: "Uploaded #{File.basename(file_path)} to S3 and removed the local copy."
       else
@@ -82,12 +86,12 @@ module Admin
     end
 
     def export_flash_message(result)
-      view_context.safe_join([ result.message, download_link_for(result.file_name) ], " ")
+      view_context.safe_join([result.message, download_link_for(result.file_name)], " ")
     end
 
     def upload_failed_flash(result)
       message = "Saved #{result.archived_count} responses locally as #{result.file_name}, but uploading to S3 failed."
-      view_context.safe_join([ message, download_link_for(result.file_name) ], " ")
+      view_context.safe_join([message, download_link_for(result.file_name)], " ")
     end
 
     def download_link_for(file_name)
@@ -107,8 +111,18 @@ module Admin
       uploader = ArchiveDayOldPingsJob.build_s3_uploader
       return false unless uploader && result.file_path.present?
 
+      unless File.exist?(result.file_path)
+        flash[:alert] = "Archive could not be found for upload."
+        log_error("Admin::ArchivesController: missing file for auto-upload: #{result.file_path}")
+        return true
+      end
+
       if uploader.upload(result.file_path)
-        FileUtils.rm_f(result.file_path)
+        if File.exist?(result.file_path)
+          FileUtils.rm_f(result.file_path)
+        else
+          log_error("Admin::ArchivesController: local file missing after auto-upload attempt: #{result.file_path}")
+        end
         flash[:notice] = "Uploaded #{result.file_name} to S3 and removed the local copy."
         log_info("Admin::ArchivesController: automatic upload succeeded for #{result.file_name}")
       else
