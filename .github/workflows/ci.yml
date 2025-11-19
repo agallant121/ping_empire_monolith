@@ -19,12 +19,9 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for Rails security vulnerabilities
-        run: |
-          cd "$GITHUB_WORKSPACE"
-          bundle install --jobs 4 --retry 3
-          bundle exec brakeman -q --no-interactive --no-pager --force -I config/brakeman.ignore
-
+      - name: Scan for common Rails security vulnerabilities using static analysis
+        run: bin/brakeman --no-pager
+        
   scan_js:
     runs-on: ubuntu-latest
 
