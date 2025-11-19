@@ -43,7 +43,11 @@
     <% if user_signed_in? %>
       <nav class="navbar app-navbar container-xl">
         <%= link_to "Ping Empire", root_path, class: "navbar-brand brand-title" %>
-        <div class="ms-auto d-flex align-items-center">
+        <div class="ms-auto d-flex align-items-center gap-2">
+          <% if current_user.admin? %>
+            <%= link_to "Archives", admin_archives_path, class: "btn btn-link text-decoration-none admin-link" %>
+            <%= link_to "AWS Settings", admin_aws_settings_path, class: "btn btn-link text-decoration-none admin-link" %>
+          <% end %>
           <span class="nav-email me-2"><%= "Logged in as #{current_user.email}" %></span>
           <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
         </div>
