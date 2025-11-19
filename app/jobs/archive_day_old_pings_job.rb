@@ -1,33 +1,28 @@
-require "csv"
-
 class ArchiveDayOldPingsJob < ApplicationJob
   queue_as :default
 
   def perform
-    responses = Response.more_than_one_day_old
-    return if responses.empty?
+    ResponsesArchiveExporter.new.call
+  end
 
-    archive_dir = Rails.root.join("archive")
-    FileUtils.mkdir_p(archive_dir) # Ensure the folder exists
-
-    file_path = archive_dir.join("responses#{Time.current.strftime("%Y-%m-%d_%H-%M-%S")}.csv")
-
-    CSV.open(file_path, "w") do |csv|
-      csv << %w[id website_id status_code response_time created_at]
-      responses.find_each do |response|
-        csv << [
-          response.id,
-          response.website_id,
-          response.status_code,
-          response.response_time,
-          response.created_at
-        ]
-      end
+  def self.build_s3_uploader
+    if (settings = AwsArchiveSetting.current)
+      return settings.build_uploader
     end
 
-    file_saved = File.exist?(file_path) && File.size?(file_path) > 0
-    raise "CSV file not saved!" unless file_saved
+    bucket = ENV["AWS_S3_ARCHIVE_BUCKET"]
+    return if bucket.blank?
 
-    responses.delete_all if file_saved
+    S3ArchiveUploader.new(
+      bucket: bucket,
+      region: ENV.fetch("AWS_REGION"),
+      access_key_id: ENV.fetch("AWS_ACCESS_KEY_ID"),
+      secret_access_key: ENV.fetch("AWS_SECRET_ACCESS_KEY"),
+      session_token: ENV["AWS_SESSION_TOKEN"],
+      key_prefix: ENV["AWS_S3_ARCHIVE_PREFIX"]
+    )
+  rescue KeyError, ArgumentError => e
+    Rails.logger.error("Unable to configure S3 archive uploader: #{e.message}")
+    nil
   end
 end
