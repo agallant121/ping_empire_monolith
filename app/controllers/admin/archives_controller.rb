@@ -42,32 +42,47 @@ module Admin
       send_file file_path, filename: safe_name, type: "text/csv"
     end
 
-    def upload
-      uploader = ArchiveDayOldPingsJob.build_s3_uploader
-      unless uploader
-        redirect_to admin_archives_path, alert: "Connect your AWS credentials before uploading to S3."
-        return
-      end
-
-      file_path = archive_file_path(params[:filename])
-      unless File.exist?(file_path)
-        redirect_to admin_archives_path, alert: "Archive could not be found."
-        return
-      end
-
-      if uploader.upload(file_path)
-        if File.exist?(file_path)
-          FileUtils.rm_f(file_path)
-        else
-          log_error("Admin::ArchivesController: local file missing after upload attempt: #{file_path}")
-        end
-        log_info("Admin::ArchivesController: uploaded #{File.basename(file_path)} to S3 via manual action")
-        redirect_to admin_archives_path, notice: "Uploaded #{File.basename(file_path)} to S3 and removed the local copy."
-      else
-        log_error("Admin::ArchivesController: failed manual upload for #{File.basename(file_path)}")
-        redirect_to admin_archives_path, alert: "Upload failed. Check your AWS credentials and try again."
-      end
+  def upload
+    uploader = ArchiveDayOldPingsJob.build_s3_uploader
+    unless uploader
+      redirect_to admin_archives_path, alert: "Connect your AWS credentials before uploading to S3."
+      return
     end
+
+    file_name = params[:filename].to_s
+    if file_name.blank?
+      redirect_to admin_archives_path, alert: "Archive could not be found."
+      return
+    end
+
+    file_path = archive_file_path(file_name)
+    unless File.exist?(file_path)
+      redirect_to admin_archives_path, alert: "Archive could not be found."
+      return
+    end
+
+    if uploader.upload(file_path)
+      begin
+        path_str = file_path.to_s
+        if File.exist?(path_str) && File.file?(path_str)
+          FileUtils.rm_f(path_str)
+          log_info("Admin::ArchivesController: removed local file: #{path_str}")
+        else
+          log_error("Admin::ArchivesController: attempted to delete non-file path: #{path_str}")
+        end
+      rescue StandardError => e
+        log_error("Admin::ArchivesController: error removing local file #{file_path} after upload: #{e.class}: #{e.message}")
+        # Still succeed the upload flow — inform user that removal failed
+        redirect_to admin_archives_path, notice: "Uploaded #{File.basename(file_path)} to S3 but could not remove the local copy. Check file permissions." and return
+      end
+
+      log_info("Admin::ArchivesController: uploaded #{File.basename(file_path)} to S3 via manual action")
+      redirect_to admin_archives_path, notice: "Uploaded #{File.basename(file_path)} to S3 and removed the local copy."
+    else
+      log_error("Admin::ArchivesController: failed manual upload for #{File.basename(file_path)}")
+      redirect_to admin_archives_path, alert: "Upload failed. Check your AWS credentials and try again."
+    end
+  end
 
     private
 
@@ -118,11 +133,20 @@ module Admin
       end
 
       if uploader.upload(result.file_path)
-        if File.exist?(result.file_path)
-          FileUtils.rm_f(result.file_path)
-        else
-          log_error("Admin::ArchivesController: local file missing after auto-upload attempt: #{result.file_path}")
+        begin
+          path_str = result.file_path.to_s
+          if File.exist?(path_str) && File.file?(path_str)
+            FileUtils.rm_f(path_str)
+            log_info("Admin::ArchivesController: removed local file after auto-upload: #{path_str}")
+          else
+            log_error("Admin::ArchivesController: attempted to delete non-file path after auto-upload: #{path_str}")
+          end
+        rescue StandardError => e
+          flash[:alert] = upload_failed_flash(result)
+          log_error("Admin::ArchivesController: error removing file after auto-upload #{result.file_path}: #{e.class}: #{e.message}")
+          return true
         end
+
         flash[:notice] = "Uploaded #{result.file_name} to S3 and removed the local copy."
         log_info("Admin::ArchivesController: automatic upload succeeded for #{result.file_name}")
       else
