@@ -21,6 +21,7 @@ jobs:
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager -I config/brakeman.ignore
+        working-directory: .
 
   scan_js:
     runs-on: ubuntu-latest
