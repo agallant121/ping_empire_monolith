@@ -74,7 +74,7 @@ class S3ArchiveUploader
   end
 
   def object_key_for(file_path)
-    parts = [key_prefix, File.basename(file_path)].compact
+    parts = [ key_prefix, File.basename(file_path) ].compact
     parts.join("/")
   end
 
@@ -152,5 +152,4 @@ class S3ArchiveUploader
   def hmac(key, data)
     OpenSSL::HMAC.digest("sha256", key, data)
   end
-
 end

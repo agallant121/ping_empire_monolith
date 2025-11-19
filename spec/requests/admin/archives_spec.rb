@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "Admin::Archives", type: :request do
-
   let(:admin) { User.create!(email: "admin@example.com", password: "Password1!", role: 1) }
   let(:archive_glob) { Rails.root.join("archive", "responses*.csv") }
 
