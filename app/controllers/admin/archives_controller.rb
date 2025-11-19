@@ -86,12 +86,12 @@ module Admin
     end
 
     def export_flash_message(result)
-      view_context.safe_join([result.message, download_link_for(result.file_name)], " ")
+      view_context.safe_join([ result.message, download_link_for(result.file_name) ], " ")
     end
 
     def upload_failed_flash(result)
       message = "Saved #{result.archived_count} responses locally as #{result.file_name}, but uploading to S3 failed."
-      view_context.safe_join([message, download_link_for(result.file_name)], " ")
+      view_context.safe_join([ message, download_link_for(result.file_name) ], " ")
     end
 
     def download_link_for(file_name)
