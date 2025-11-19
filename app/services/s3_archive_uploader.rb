@@ -98,7 +98,7 @@ class S3ArchiveUploader
       "x-amz-date:#{amz_date}"
     ]
     headers << "x-amz-security-token:#{session_token}" if session_token.present?
-    headers.join("\n") + "\n"
+    headers.join("\n")
   end
 
   def signed_headers_list
