@@ -6,6 +6,7 @@ module Admin
       @archive_files = archive_files
       @s3_ready = ArchiveDayOldPingsJob.build_s3_uploader.present?
       @aws_setting = AwsArchiveSetting.current
+      @archive_directory = archive_directory
     end
 
     def export
@@ -81,7 +82,8 @@ module Admin
         redirect_to admin_archives_path, notice: "Uploaded #{File.basename(file_path)} to S3 and removed the local copy."
       else
         log_error("Admin::ArchivesController: failed manual upload for #{File.basename(file_path)}")
-        redirect_to admin_archives_path, alert: "Upload failed. Check your AWS credentials and try again."
+        error_detail = uploader.respond_to?(:last_error) ? uploader.last_error : nil
+        redirect_to admin_archives_path, alert: upload_error_message(error_detail)
       end
     end
 
@@ -105,8 +107,9 @@ module Admin
       view_context.safe_join([ result.message, download_link_for(result.file_name) ], " ")
     end
 
-    def upload_failed_flash(result)
+    def upload_failed_flash(result, error_detail = nil)
       message = "Saved #{result.archived_count} responses locally as #{result.file_name}, but uploading to S3 failed."
+      message = "#{message} #{upload_error_message(error_detail)}"
       view_context.safe_join([ message, download_link_for(result.file_name) ], " ")
     end
 
@@ -121,6 +124,13 @@ module Admin
     def archive_file_path(filename)
       safe_name = File.basename(filename.to_s)
       archive_directory.join(safe_name)
+    end
+
+    def upload_error_message(error_detail)
+      return "Upload failed. Check your AWS credentials and try again." if error_detail.blank?
+
+      sanitized_detail = error_detail.to_s.strip.sub(/\.*\z/, "")
+      "Upload failed: #{sanitized_detail}."
     end
 
     def attempt_auto_upload(result)
@@ -152,7 +162,8 @@ module Admin
         flash[:notice] = "Uploaded #{result.file_name} to S3 and removed the local copy."
         log_info("Admin::ArchivesController: automatic upload succeeded for #{result.file_name}")
       else
-        flash[:alert] = upload_failed_flash(result)
+        error_detail = uploader.respond_to?(:last_error) ? uploader.last_error : nil
+        flash[:alert] = upload_failed_flash(result, error_detail)
         log_error("Admin::ArchivesController: automatic upload failed for #{result.file_name}")
       end
 
