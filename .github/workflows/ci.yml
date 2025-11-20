@@ -20,11 +20,9 @@ jobs:
           bundler-cache: true
 
       - name: Scan for Rails security vulnerabilities
-        working-directory: ./ping_empire_monolith
         run: |
-          cd "$GITHUB_WORKSPACE"
           bundle install --jobs 4 --retry 3
-          bundle exec brakeman --no-pager --quiet --no-color --exit-on-error=false -I config/brakeman.ignore
+          bundle exec brakeman --force --no-pager --quiet --no-color
 
   scan_js:
     runs-on: ubuntu-latest
