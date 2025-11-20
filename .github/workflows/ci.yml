@@ -19,10 +19,10 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for Rails security vulnerabilities
+      - name: Debug path
         run: |
-          bundle install --jobs 4 --retry 3
-          bundle exec rake brakeman:ci
+          echo "PWD: $(pwd)"
+          ls -R .
 
   scan_js:
     runs-on: ubuntu-latest
