@@ -9,6 +9,14 @@
         <%= "Export every response that is more than a day old to a CSV so you can keep a long-term record. CSVs stay on this server until AWS credentials are configured (in which case the export automatically uploads the fresh file) or until an admin chooses to upload an older CSV to AWS S3 from the list below." %>
       </p>
 
+      <div class="alert alert-info py-2" role="alert">
+        <ul class="mb-0 small ps-3">
+          <li><%= "Exports try to upload the newly created CSV to S3 when credentials are configured; if that succeeds, the local copy is removed immediately." %></li>
+          <li><%= "Manual \"Upload to S3\" for an older CSV also removes the file locally after a successful upload." %></li>
+          <li><%= "If AWS is not configured, CSVs stay in the archive folder on this server until someone clears the filesystem." %></li>
+        </ul>
+      </div>
+
       <div class="alert alert-warning py-2" role="alert">
         <small>
           <%= "Exporting will permanently remove responses that are more than a day old after the CSV has been created, so only run this when you're ready to move that data elsewhere." %>
@@ -23,10 +31,23 @@
             <span class="badge bg-success">
               <% if @aws_setting&.bucket.present? %>
                 <%= "Configured for bucket" %> <%= @aws_setting.bucket %>
+
+                <% if @aws_setting.key_prefix.present? %>
+                  <span class="text-muted">(<%= "prefix:" %> <%= @aws_setting.key_prefix %>)</span>
+                <% end %>
               <% else %>
                 <%= "Configured" %>
               <% end %>
             </span>
+
+            <% if @aws_setting&.updated_at %>
+              <p class="text-muted small mb-0 mt-1">
+                <%= "Credentials last saved" %> <%= l(@aws_setting.updated_at, format: :long) %>
+              </p>
+              <p class="text-muted small mb-0">
+                <%= "Saved AWS credentials are reused for uploads; you only need to re-enter them when updating settings." %>
+              </p>
+            <% end %>
           <% else %>
             <span class="badge bg-secondary"><%= "Not connected" %></span>
           <% end %>
@@ -82,7 +103,24 @@
           </table>
         </div>
       <% else %>
-        <p class="text-muted mb-0"><%= "No local archives yet. Run an export to generate one." %></p>
+        <p class="text-muted mb-2"><%= "No local archives yet. Run an export to generate one." %></p>
+
+        <p class="text-muted small mb-0">
+          <%= "Local CSVs are written to" %> <code><%= @archive_directory %></code>
+          <%= "on this server." %>
+
+          <% if @s3_ready %>
+            <%= "They are removed after a successful S3 upload, so check" %>
+            <code>
+              <%= @aws_setting&.bucket %>
+              <%= "/" if @aws_setting&.bucket.present? && @aws_setting&.key_prefix.present? %>
+              <%= @aws_setting&.key_prefix %>
+            </code>
+            <%= "for files from earlier runs." %>
+          <% else %>
+            <%= "Files will disappear if the server filesystem is cleared or rebuilt." %>
+          <% end %>
+        </p>
       <% end %>
     </div>
   </div>
