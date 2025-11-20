@@ -71,20 +71,20 @@ class S3ArchiveUploader
 
   def error_message_for(response)
     code, message = parse_error_xml(response.body)
-    details = [code.presence, message.presence].compact.join(": ")
+    details = [ code.presence, message.presence ].compact.join(": ")
     details = "S3 returned #{response.code}" if details.blank?
     details
   end
 
   def parse_error_xml(body)
-    return [nil, nil] if body.blank?
+    return [ nil, nil ] if body.blank?
 
     document = REXML::Document.new(body)
     code = document.elements["//Code"]&.text
     message = document.elements["//Message"]&.text
-    [code, message]
+    [ code, message ]
   rescue REXML::ParseException
-    [nil, nil]
+    [ nil, nil ]
   end
 
   def normalize_prefix(prefix)
