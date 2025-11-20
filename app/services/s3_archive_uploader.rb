@@ -3,8 +3,11 @@
 require "digest"
 require "net/http"
 require "openssl"
+require "rexml/document"
 
 class S3ArchiveUploader
+  attr_reader :last_error
+
   def initialize(bucket:, region:, access_key_id:, secret_access_key:, session_token: nil, key_prefix: nil)
     raise ArgumentError, "bucket is required" if bucket.blank?
     raise ArgumentError, "region is required" if region.blank?
@@ -21,6 +24,8 @@ class S3ArchiveUploader
 
   def upload(file_path)
     raise ArgumentError, "file does not exist" unless File.exist?(file_path)
+
+    @last_error = nil
 
     begin
       body = File.binread(file_path)
@@ -41,10 +46,12 @@ class S3ArchiveUploader
         log_info("S3ArchiveUploader: uploaded #{file_path} to s3://#{bucket}/#{key}")
         true
       else
+        @last_error = error_message_for(response)
         log_error("S3 upload failed for #{file_path} with status #{response.code} - #{response.body}")
         false
       end
     rescue StandardError => e
+      @last_error = e.message
       log_error("S3 upload error for #{file_path}: #{e.message}")
       false
     end
@@ -60,6 +67,24 @@ class S3ArchiveUploader
 
   def log_info(message)
     Rails.logger.info(message) if defined?(Rails)
+  end
+
+  def error_message_for(response)
+    code, message = parse_error_xml(response.body)
+    details = [ code.presence, message.presence ].compact.join(": ")
+    details = "S3 returned #{response.code}" if details.blank?
+    details
+  end
+
+  def parse_error_xml(body)
+    return [ nil, nil ] if body.blank?
+
+    document = REXML::Document.new(body)
+    code = document.elements["//Code"]&.text
+    message = document.elements["//Message"]&.text
+    [ code, message ]
+  rescue REXML::ParseException
+    [ nil, nil ]
   end
 
   def normalize_prefix(prefix)
@@ -85,7 +110,7 @@ class S3ArchiveUploader
       "x-amz-date:#{amz_date}"
     ]
     headers << "x-amz-security-token:#{session_token}" if session_token.present?
-    headers.join("\n")
+    "#{headers.join("\n")}\n"
   end
 
   def signed_headers_list
