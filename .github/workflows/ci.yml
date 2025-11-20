@@ -22,7 +22,7 @@ jobs:
       - name: Scan for Rails security vulnerabilities
         run: |
           bundle install --jobs 4 --retry 3
-          bundle exec brakeman --force --no-pager --quiet --no-color
+          bundle exec rake brakeman:ci
 
   scan_js:
     runs-on: ubuntu-latest
