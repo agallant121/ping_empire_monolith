@@ -1,0 +1,89 @@
+<% content_for :body_class, "admin-archives" %>
+
+<div class="container-xl">
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <h1 class="h4 mb-3"><%= "Response Archives" %></h1>
+
+      <p class="text-muted mb-3">
+        <%= "Export every response that is more than a day old to a CSV so you can keep a long-term record. CSVs stay on this server until AWS credentials are configured (in which case the export automatically uploads the fresh file) or until an admin chooses to upload an older CSV to AWS S3 from the list below." %>
+      </p>
+
+      <div class="alert alert-warning py-2" role="alert">
+        <small>
+          <%= "Exporting will permanently remove responses that are more than a day old after the CSV has been created, so only run this when you're ready to move that data elsewhere." %>
+        </small>
+      </div>
+
+      <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
+        <div>
+          <p class="mb-1 fw-semibold"><%= "S3 Upload Status:" %></p>
+
+          <% if @s3_ready %>
+            <span class="badge bg-success">
+              <% if @aws_setting&.bucket.present? %>
+                <%= "Configured for bucket" %> <%= @aws_setting.bucket %>
+              <% else %>
+                <%= "Configured" %>
+              <% end %>
+            </span>
+          <% else %>
+            <span class="badge bg-secondary"><%= "Not connected" %></span>
+          <% end %>
+        </div>
+
+        <%= link_to "Configure AWS", admin_aws_settings_path, class: "btn btn-outline-secondary" %>
+        <%= button_to "Archive Responses Now", export_admin_archives_path, method: :post, class: "btn btn-primary ms-md-auto" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="h5 mb-3"><%= "Existing Local CSVs" %></h2>
+
+      <% if @archive_files.any? %>
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col"><%= "Filename" %></th>
+                <th scope="col"><%= "Generated" %></th>
+                <th scope="col"><%= "Size" %></th>
+                <th scope="col" class="text-end"><%= "Actions" %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @archive_files.each do |file| %>
+                <tr>
+                  <td><%= file.name %></td>
+                  <td><%= l(file.mtime, format: :long) %></td>
+                  <td><%= number_to_human_size(file.size) %></td>
+                  <td class="text-end">
+                    <div class="btn-group" role="group">
+                      <%= link_to "Download", download_admin_archives_path(filename: file.name), class: "btn btn-outline-secondary btn-sm" %>
+
+                      <% if @s3_ready %>
+                        <%= button_to "Upload to S3",
+                            upload_admin_archives_path(filename: file.name),
+                            method: :post,
+                            form: { data: { turbo_confirm: "Upload #{file.name} to S3 and remove it locally?" } },
+                            class: "btn btn-success btn-sm" %>
+                      <% else %>
+                        <button class="btn btn-success btn-sm" disabled title="<%= "Connect AWS first" %>">
+                          <%= "Upload to S3" %>
+                        </button>
+                      <% end %>
+                    </div>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0"><%= "No local archives yet. Run an export to generate one." %></p>
+      <% end %>
+    </div>
+  </div>
+</div>

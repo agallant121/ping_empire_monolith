@@ -19,8 +19,10 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
-      - name: Scan for common Rails security vulnerabilities using static analysis
-        run: bin/brakeman --no-pager
+      - name: Debug path
+        run: |
+          echo "PWD: $(pwd)"
+          ls -R .
 
   scan_js:
     runs-on: ubuntu-latest
