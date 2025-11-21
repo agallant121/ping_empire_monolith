@@ -1,11 +1,11 @@
 <p>
-  <strong>Status Code:</strong> <%= @response.status_code %><br>
-  <strong>Response Time:</strong> <%= @response.response_time %> ms<br>
-  <strong>Error:</strong> <%= @response.error.presence || "N/A" %>
+  <strong><%= t("responses.show.status_code_label") %></strong> <%= @response.status_code %><br>
+  <strong><%= t("responses.show.response_time_label") %></strong> <%= t("responses.common.response_time_unit", time: @response.response_time) %><br>
+  <strong><%= t("responses.show.error_label") %></strong> <%= @response.error.presence || t("responses.common.na") %>
 </p>
 
 <p>
-  <%= link_to "Edit this response", edit_website_response_path(@website, @response) %> |
-  <%= link_to "Destroy this response", website_response_path(@website, @response), method: :delete, data: { confirm: "Are you sure?" } %>
-  <%= link_to "Back", website_responses_path(@website) %>
+  <%= link_to t("responses.common.edit"), edit_website_response_path(@website, @response) %> |
+  <%= link_to t("responses.common.destroy"), website_response_path(@website, @response), method: :delete, data: { confirm: t("responses.common.confirm") } %>
+  <%= link_to t("responses.common.back"), website_responses_path(@website) %>
 </p>

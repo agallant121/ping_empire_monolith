@@ -1,35 +1,35 @@
 <section id="websites_summary" class="surface-block">
   <div class="surface-header w-100">
     <div>
-      <p class="surface-eyebrow"><%= "Monitoring Overview" %></p>
-      <h1 class="surface-title"><%= "Websites" %></h1>
-      <p class="surface-subtitle"><%= "Your command center for uptime, latency, and failure visibility across every mountain lake monitor." %></p>
+      <p class="surface-eyebrow"><%= t("websites.summary.eyebrow") %></p>
+      <h1 class="surface-title"><%= t("websites.summary.title") %></h1>
+      <p class="surface-subtitle"><%= t("websites.summary.subtitle") %></p>
     </div>
     <div class="ms-auto">
-      <%= link_to "Add a Website", new_website_path, class: "btn add-website-button" %>
+      <%= link_to t("websites.summary.add_website"), new_website_path, class: "btn add-website-button" %>
     </div>
   </div>
 
   <% unless current_user.website_count < 1 %>
     <div class="surface-toolbar">
       <%= form_with url: websites_path, method: :get, local: true, class: "search-panel" do %>
-        <%= text_field_tag :q, params[:q], class: "search-input", placeholder: "Search websites..." %>
-        <%= submit_tag "Search", class: "btn search-button" %>
+        <%= text_field_tag :q, params[:q], class: "search-input", placeholder: t("websites.summary.search_placeholder") %>
+        <%= submit_tag t("websites.summary.search"), class: "btn search-button" %>
       <% end %>
     </div>
   <% end %>
 
   <div class="stat-grid">
     <div class="stat-card stat-card--center">
-      <span class="stat-card__label"><%= "Total Websites" %></span>
+      <span class="stat-card__label"><%= t("websites.summary.total_websites_label") %></span>
       <span class="stat-card__value"><%= current_user.website_count %></span>
-      <p class="mb-0 surface-subtitle"><%= "All properties actively watched in your Ping Empire workspace." %></p>
+      <p class="mb-0 surface-subtitle"><%= t("websites.summary.total_websites_subtitle") %></p>
     </div>
 
     <%= link_to failures_websites_path, class: "stat-card stat-card--alert stat-card--link stat-card--center" do %>
-      <span class="stat-card__label"><%= "Today's Failures" %></span>
+      <span class="stat-card__label"><%= t("websites.summary.todays_failures_label") %></span>
       <span class="stat-card__value"><%= @failed_websites_count.to_i %></span>
-      <span class="badge">View failure log</span>
+      <span class="badge"><%= t("websites.summary.view_failure_log") %></span>
     <% end %>
   </div>
 </section>

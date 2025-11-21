@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>PingEmpireMonolith</title>
+    <title><%= t("layouts.application.title") %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -42,14 +42,14 @@
 
     <% if user_signed_in? %>
       <nav class="navbar app-navbar container-xl">
-        <%= link_to "Ping Empire", root_path, class: "navbar-brand brand-title" %>
+        <%= link_to t("layouts.application.brand"), root_path, class: "navbar-brand brand-title" %>
         <div class="ms-auto d-flex align-items-center gap-2">
           <% if current_user.admin? %>
-            <%= link_to "Archives", admin_archives_path, class: "btn btn-link text-decoration-none admin-link" %>
-            <%= link_to "AWS Settings", admin_aws_settings_path, class: "btn btn-link text-decoration-none admin-link" %>
+            <%= link_to t("layouts.application.archives"), admin_archives_path, class: "btn btn-link text-decoration-none admin-link" %>
+            <%= link_to t("layouts.application.aws_settings"), admin_aws_settings_path, class: "btn btn-link text-decoration-none admin-link" %>
           <% end %>
-          <span class="nav-email me-2"><%= "Logged in as #{current_user.email}" %></span>
-          <%= button_to "Logout", destroy_user_session_path, method: :delete, class: "btn logout-button" %>
+          <span class="nav-email me-2"><%= t("layouts.application.logged_in_as", email: current_user.email) %></span>
+          <%= button_to t("layouts.application.logout"), destroy_user_session_path, method: :delete, class: "btn logout-button" %>
         </div>
       </nav>
     <% end %>

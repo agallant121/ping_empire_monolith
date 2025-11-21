@@ -1,3 +1,3 @@
-<h1><%= "Edit Response" %></h1>
+<h1><%= t("responses.edit.title") %></h1>
 <%= render "form", response: @response %>
-<p><%= link_to "Back", website_responses_path(@website) %></p>
+<p><%= link_to t("responses.common.back"), website_responses_path(@website) %></p>

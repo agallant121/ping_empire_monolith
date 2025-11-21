@@ -7,17 +7,17 @@
             <table width="100%" cellpadding="0" cellspacing="0" role="presentation">
               <tr>
                 <td style="font-size: 15px; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.85;">
-                  <%= "Ping Empire" %>
+                  <%= t("mailers.notification_mailer.header_brand") %>
                 </td>
                 <td align="right" style="font-size: 14px;">
                   <span style="display: inline-block; background: rgba(255,255,255,0.18); border-radius: 999px; padding: 6px 16px; font-weight: 600;">
-                    <%= "Monitoring Alert" %>
+                    <%= t("mailers.notification_mailer.monitoring_alert") %>
                   </span>
                 </td>
               </tr>
             </table>
             <h1 style="margin: 18px 0 0; font-size: 24px; color: #fff;">
-              <%= "🚨 Website Alert: Possible Downtime" %>
+              <%= t("mailers.notification_mailer.alert_title") %>
             </h1>
             <p style="margin: 8px 0 0; font-size: 15px; color: rgba(255,255,255,0.85);">
               <%= @response.created_at.strftime("%b %e, %Y at %-l:%M%P %Z") %>
@@ -27,13 +27,13 @@
         <tr>
           <td style="padding: 34px 36px 30px;">
             <p style="font-size: 16px; color: #1f2d26; margin: 0 0 20px;">
-              <%= "Hello" %> <strong><%= @user.email %></strong><%= "," %>
+              <%= t("mailers.notification_mailer.greeting_html", email: @user.email).html_safe %>
             </p>
             <table width="100%" cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom: 24px; border: 1px solid rgba(79, 141, 107, 0.28); border-radius: 16px;">
               <tr>
                 <td style="padding: 18px 22px;">
                   <p style="margin: 0; font-size: 15px; color: rgba(31,45,38,0.7); letter-spacing: 0.04em; text-transform: uppercase;">
-                    <%= "Website" %>
+                    <%= t("mailers.notification_mailer.website_label") %>
                   </p>
                   <p style="margin: 6px 0 0; font-size: 18px; font-weight: 600; color: #2f7450;">
                     <%= @website.url %>
@@ -41,7 +41,7 @@
                 </td>
                 <td style="padding: 18px 22px; border-left: 1px solid rgba(79, 141, 107, 0.28);" width="40%">
                   <p style="margin: 0; font-size: 15px; color: rgba(31,45,38,0.7); letter-spacing: 0.04em; text-transform: uppercase;">
-                    <%= "Status" %>
+                    <%= t("mailers.notification_mailer.status_label") %>
                   </p>
                   <p style="margin: 6px 0 0; font-size: 18px; font-weight: 600; color: #d35b4b;">
                     <%= @response.status_code %>
@@ -51,7 +51,7 @@
             </table>
 
             <p style="font-size: 16px; color: #3a5d4d; line-height: 1.65; margin: 0 0 20px;">
-              <%= "We attempted to reach your website, but the request returned the status above. We will continue to monitor the uptime of this endpoint and notify you if the situation changes." %>
+              <%= t("mailers.notification_mailer.monitoring_message") %>
             </p>
 
             <% if @response.error.present? %>
@@ -59,7 +59,7 @@
                 <tr>
                   <td style="padding: 18px 22px;">
                     <p style="margin: 0; font-size: 15px; color: #581c16; text-transform: uppercase; letter-spacing: 0.05em;">
-                      <%= "Error details" %>
+                    <%= t("mailers.notification_mailer.error_details") %>
                     </p>
                     <p style="margin: 6px 0 0; font-size: 15px; color: #581c16; line-height: 1.5;">
                       <%= @response.error %>
@@ -70,21 +70,21 @@
             <% end %>
 
             <p style="font-size: 15px; color: rgba(31,45,38,0.7); margin: 0 0 26px;">
-              <%= "Need help right now? Reply to this email and a member of the Ping Empire team will jump in." %>
+              <%= t("mailers.notification_mailer.help") %>
             </p>
 
             <table cellpadding="0" cellspacing="0" role="presentation" style="margin-bottom: 20px;">
               <tr>
                 <td>
                   <a href="<%= root_url %>" style="display: inline-block; background:rgb(101, 207, 152); color: #fff; padding: 12px 26px; border-radius: 999px; font-size: 15px; font-weight: 600; text-decoration: none;">
-                    <%= "View Dashboard" %>
+                    <%= t("mailers.notification_mailer.view_dashboard") %>
                   </a>
                 </td>
               </tr>
             </table>
 
             <p style="font-size: 14px; color: rgba(58,93,77,0.7); margin: 0;">
-              <%= "– The" %> <strong><%= "Ping Empire" %></strong> <%= "Monitoring Team" %>
+              <%= t("mailers.notification_mailer.closing_html").html_safe %>
             </p>
           </td>
         </tr>

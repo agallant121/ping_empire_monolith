@@ -3,7 +3,7 @@
     <div class="row g-4">
       <% if websites.blank? %>
         <div class="col-12">
-          <p class="surface-subtitle mb-0"><%= "No websites found. Start by adding a new monitor above." %></p>
+          <p class="surface-subtitle mb-0"><%= t("websites.list.none_found") %></p>
         </div>
       <% else %>
         <% websites.each do |website| %>
@@ -17,20 +17,20 @@
                   </h5>
                   <% if website.responses.any? %>
                     <span class="status-chip <%= failed ? 'status-chip--alert' : 'status-chip--ok' %>">
-                      <%= failed ? "Attention" : "Stable" %>
+                      <%= failed ? t("websites.list.attention") : t("websites.list.stable") %>
                     </span>
                   <% end %>
                 </div>
 
                 <div class="site-card__meta">
-                  <span><strong><%= "Responses" %></strong> <%= website.responses.count %></span>
+                  <span><strong><%= t("websites.list.responses") %></strong> <%= website.responses.count %></span>
                   <% if website.responses.any? %>
                     <span class="site-card__timestamp">
-                      <%= "Last status #{website.latest_response.status_code}" %> ·
+                      <%= t("websites.list.last_status", code: website.latest_response.status_code) %> ·
                       <%= website.latest_response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %l:%M %p") %>
                     </span>
                   <% else %>
-                    <span class="site-card__timestamp"><%= "Awaiting first response." %></span>
+                    <span class="site-card__timestamp"><%= t("websites.list.awaiting_first") %></span>
                   <% end %>
                 </div>
               </div>

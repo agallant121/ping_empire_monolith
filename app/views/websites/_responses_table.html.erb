@@ -4,11 +4,11 @@
       <table class="table align-middle mb-0">
         <thead>
           <tr>
-            <th><%= "Response ID" %></th>
-            <th><%= "Status Code" %></th>
-            <th><%= "Response time (ms)" %></th>
-            <th><%= "Error" %></th>
-            <th><%= "Time of Ping" %></th>
+            <th><%= t("responses.common.id", default: "Response ID") %></th>
+            <th><%= t("responses.common.status_code") %></th>
+            <th><%= t("responses.common.response_time") %> (ms)</th>
+            <th><%= t("responses.common.error") %></th>
+            <th><%= t("shared.time_of_ping") %></th>
           </tr>
         </thead>
         <tbody>
@@ -17,7 +17,7 @@
               <td><%= response.id %></td>
               <td><%= response.status_code %></td>
               <td><%= response.response_time %></td>
-              <td><%= response.error.presence || "N/A" %></td>
+              <td><%= response.error.presence || t("responses.common.na") %></td>
               <td><%= response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%B %d, %Y %l:%M %p") %></td>
             </tr>
           <% end %>
@@ -29,6 +29,6 @@
       <%= paginate responses, params: local_assigns.fetch(:pagination_params, {}) %>
     </div>
   <% else %>
-    <p class="surface-subtitle mb-0"><%= local_assigns[:empty_message] || "No responses found." %></p>
+    <p class="surface-subtitle mb-0"><%= local_assigns[:empty_message] || t("websites.list.no_responses") %></p>
   <% end %>
 <% end %>
