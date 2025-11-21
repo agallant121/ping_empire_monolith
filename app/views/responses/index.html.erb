@@ -1,11 +1,11 @@
-<h1>Responses</h1>
+<h1><%= t("responses.index.title") %></h1>
 
 <table>
   <thead>
     <tr>
-      <th>Status Code</th>
-      <th>Response Time</th>
-      <th>Error</th>
+      <th><%= t("responses.common.status_code") %></th>
+      <th><%= t("responses.index.response_time_header") %></th>
+      <th><%= t("responses.common.error") %></th>
       <th></th>
     </tr>
   </thead>
@@ -13,13 +13,13 @@
     <% @responses.each do |response| %>
       <tr>
         <td><%= response.status_code %></td>
-        <td><%= response.response_time %> ms</td>
-        <td><%= response.error.presence || "N/A" %></td>
+        <td><%= t("responses.common.response_time_unit", time: response.response_time) %></td>
+        <td><%= response.error.presence || t("responses.common.na") %></td>
         <td>
-          <%= link_to "Show", [@website, response] %> |
-          <%= link_to "Edit this response", edit_website_response_path(@website, response) %> |
-          <%= link_to "Destroy this response", website_response_path(@website, response),
-            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+          <%= link_to t("responses.common.show"), [@website, response] %> |
+          <%= link_to t("responses.common.edit"), edit_website_response_path(@website, response) %> |
+          <%= link_to t("responses.common.destroy"), website_response_path(@website, response),
+            data: { turbo_method: :delete, turbo_confirm: t("responses.common.confirm") } %>
 
         </td>
       </tr>
@@ -28,7 +28,7 @@
 </table>
 
 <p>
-  <%= link_to "New response", new_website_response_path(@website) %> |
-  <%= link_to "Back", website_path(@website) %>
+  <%= link_to t("responses.index.new_response"), new_website_response_path(@website) %> |
+  <%= link_to t("responses.common.back"), website_path(@website) %>
 </p>
 

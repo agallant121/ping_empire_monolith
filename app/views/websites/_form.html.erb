@@ -12,10 +12,10 @@
   <div class="mb-3 lightly-transparent text-muted">
     <%= form.label :url, class: "form-label fw-semibold" %>
     <%= form.text_field :url, class: "form-control", placeholder: "https://example.com" %>
-    <div class="form-text text-muted"><%= "Enter a valid website URL (http or https)" %></div>
+    <div class="form-text text-muted"><%= t("websites.form.url_hint") %></div>
   </div>
 
   <div class="d-grid">
-    <%= form.submit "Save Website", class: "btn add-website-button" %>
+    <%= form.submit t("websites.form.save"), class: "btn add-website-button" %>
   </div>
 <% end %>

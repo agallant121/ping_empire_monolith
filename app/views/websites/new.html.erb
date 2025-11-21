@@ -1,12 +1,12 @@
-<% content_for :title, "New Website" %>
+<% content_for :title, t("websites.new.title") %>
 
 <div class="d-flex justify-content-end mb-3">
-  <%= link_to "Back to Websites", root_path, class: "btn btn-outline-secondary back-button" %>
+  <%= link_to t("websites.new.back"), root_path, class: "btn btn-outline-secondary back-button" %>
 </div>
 
 <div class="row justify-content-center mb-4">
   <div class="col-md-6 col-lg-5">
-    <h1 class="h3 mb-3 text-muted lightly-transparent"><%= "Add a New Website" %></h1>
+    <h1 class="h3 mb-3 text-muted lightly-transparent"><%= t("websites.new.heading") %></h1>
     <div class="card shadow-sm">
       <div class="card-body">
         <%= render "form", website: @website %>
@@ -17,7 +17,7 @@
 
 <div class="row justify-content-center">
   <div class="col-md-8">
-    <h2 class="h5 mb-3 lightly-transparent text-muted"><%= "Latest:" %></h2>
+    <h2 class="h5 mb-3 lightly-transparent text-muted"><%= t("websites.new.latest") %></h2>
       <%= render partial: "list", locals: { websites: @websites } %>
   </div>
 </div>

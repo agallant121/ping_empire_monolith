@@ -1,10 +1,10 @@
 <% content_for :body_class, "login-page" %>
 
 <div class="login-main">
-  <div class="login-brand"><%= "Ping Empire" %></div>
+  <div class="login-brand"><%= t("devise_custom.brand") %></div>
   <div class="login-card">
-    <h1><%= "Welcome back" %></h1>
-    <p class="login-meta"><%= "Sign in to keep watch over your mountain lake monitors." %></p>
+    <h1><%= t("devise_custom.welcome_back") %></h1>
+    <p class="login-meta"><%= t("devise_custom.sign_in_intro") %></p>
 
     <div class="login-socials">
       <%= button_to user_facebook_omniauth_authorize_path, method: :post, class: "btn", data: { turbo: false } do %>
@@ -23,28 +23,28 @@
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }) do |f| %>
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-user"></i></span>
-        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: "Email" %>
+        <%= f.email_field :email, autofocus: true, class: "form-control", placeholder: t("devise_custom.email_placeholder") %>
       </div>
 
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: "Password" %>
+        <%= f.password_field :password, autocomplete: "off", class: "form-control", placeholder: t("devise_custom.password_placeholder") %>
       </div>
 
       <div class="remember-me">
         <%= f.check_box :remember_me, class: "form-check-input", id: "remember_me" %>
-        <%= f.label :remember_me, "Remember me", class: "form-check-label" %>
+        <%= f.label :remember_me, t("devise_custom.remember_me"), class: "form-check-label" %>
       </div>
 
-      <%= f.submit "Login", class: "btn login_btn" %>
+      <%= f.submit t("devise_custom.login"), class: "btn login_btn" %>
     <% end %>
 
     <div class="login-links">
       <div class="login-meta">
-        <span><%= "Don't have an account?" %></span>
-        <%= link_to "Sign up", new_registration_path(resource_name) %>
+        <span><%= t("devise_custom.no_account") %></span>
+        <%= link_to t("devise_custom.sign_up"), new_registration_path(resource_name) %>
       </div>
-      <%= link_to "Forgot your password?", new_password_path(resource_name) %>
+      <%= link_to t("devise_custom.forgot_password"), new_password_path(resource_name) %>
     </div>
   </div>
 </div>

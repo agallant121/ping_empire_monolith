@@ -3,8 +3,8 @@
 <div class="container-sm">
   <div class="card shadow-sm">
     <div class="card-body">
-      <h1 class="h4 mb-3"><%= "AWS Archive Settings" %></h1>
-      <p class="text-muted"><%= "Provide the IAM credentials and bucket where CSV archives should be uploaded." %></p>
+      <h1 class="h4 mb-3"><%= t("admin.aws_settings.heading") %></h1>
+      <p class="text-muted"><%= t("admin.aws_settings.subheading") %></p>
 
       <%= form_with model: [:admin, @aws_setting], url: admin_aws_settings_path, method: (@aws_setting.persisted? ? :patch : :post), class: "vstack gap-3" do |form| %>
         <div>
@@ -20,12 +20,12 @@
         <div>
           <%= form.label :session_token, class: "form-label" %>
           <%= form.text_field :session_token, class: "form-control", autocomplete: "off" %>
-          <div class="form-text"><%= "Optional. Only needed for temporary credentials." %></div>
+          <div class="form-text"><%= t("admin.aws_settings.session_token_optional") %></div>
         </div>
 
         <div>
           <%= form.label :region, class: "form-label" %>
-          <%= form.text_field :region, class: "form-control", placeholder: "us-east-1", required: true %>
+          <%= form.text_field :region, class: "form-control", placeholder: t("admin.aws_settings.region_placeholder", default: "us-east-1"), required: true %>
         </div>
 
         <div>
@@ -35,13 +35,13 @@
 
         <div>
           <%= form.label :key_prefix, class: "form-label" %>
-          <%= form.text_field :key_prefix, class: "form-control", placeholder: "archives/optional-folder" %>
-          <div class="form-text"><%= "Optional. We'll prepend this prefix to every uploaded CSV." %></div>
+          <%= form.text_field :key_prefix, class: "form-control", placeholder: t("admin.aws_settings.key_prefix_placeholder", default: "archives/optional-folder") %>
+          <div class="form-text"><%= t("admin.aws_settings.key_prefix_optional") %></div>
         </div>
 
         <% if @aws_setting.errors.any? %>
           <div class="alert alert-danger">
-            <p class="mb-2"><%= "Please fix the following:" %></p>
+            <p class="mb-2"><%= t("admin.aws_settings.fix_errors") %></p>
             <ul class="mb-0">
               <% @aws_setting.errors.full_messages.each do |message| %>
                 <li><%= message %></li>
@@ -51,8 +51,8 @@
         <% end %>
 
         <div class="d-flex align-items-center gap-3">
-          <%= form.submit(@aws_setting.persisted? ? "Update AWS Settings" : "Save AWS Settings", class: "btn btn-primary") %>
-          <%= link_to "Back to Archives", admin_archives_path, class: "btn btn-link" %>
+          <%= form.submit(@aws_setting.persisted? ? t("admin.aws_settings.update") : t("admin.aws_settings.save"), class: "btn btn-primary") %>
+          <%= link_to t("admin.aws_settings.back_to_archives"), admin_archives_path, class: "btn btn-link" %>
         </div>
       <% end %>
     </div>

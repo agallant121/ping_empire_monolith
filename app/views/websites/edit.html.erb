@@ -1,12 +1,12 @@
-<% content_for :title, "Edit Website" %>
+<% content_for :title, t("websites.edit.title") %>
 
 <div class="d-flex justify-content-end mb-3">
-  <%= link_to "Back to Websites", root_path, class: "btn btn-outline-secondary back-button" %>
+  <%= link_to t("websites.edit.back"), root_path, class: "btn btn-outline-secondary back-button" %>
 </div>
 
 <div class="row justify-content-center">
   <div class="col-md-6 col-lg-5">
-    <h1 class="h3 mb-3 lightly-transparent"><%= "Edit Website" %></h1>
+    <h1 class="h3 mb-3 lightly-transparent"><%= t("websites.edit.heading") %></h1>
     <div class="card shadow-sm">
       <div class="card-body">
         <%= render "form", website: @website %>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Change Password</title>
+    <title><%= t("devise_custom.change_password_title") %></title>
 
     <!-- Bootstrap 4 -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" crossorigin="anonymous">
@@ -18,7 +18,7 @@
       <div class="d-flex justify-content-center h-100">
         <div class="card lightly-transparent">
           <div class="card-header">
-            <h3><%= "Change Your Password" %></h3>
+            <h3><%= t("devise_custom.change_password_title") %></h3>
           </div>
 
           <div class="card-body">
@@ -30,29 +30,29 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control", placeholder: "New Password" %>
+                <%= f.password_field :password, autofocus: true, autocomplete: "new-password", class: "form-control", placeholder: t("devise_custom.new_password_placeholder") %>
               </div>
 
               <% if @minimum_password_length %>
-                <p class="text-muted small mb-3"><%= "(#{@minimum_password_length} characters minimum)" %></p>
+                <p class="text-muted small mb-3"><%= t("devise_custom.password_length_hint", count: @minimum_password_length) %></p>
               <% end %>
 
               <div class="input-group form-group">
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fas fa-key"></i></span>
                 </div>
-                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm New Password" %>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: t("devise_custom.new_password_confirmation_placeholder") %>
               </div>
 
               <div class="form-group text-center">
-                <%= f.submit "Change Password", class: "btn btn-sm btn-primary px-4" %>
+                <%= f.submit t("devise_custom.change_password_cta"), class: "btn btn-sm btn-primary px-4" %>
               </div>
             <% end %>
           </div>
 
           <div class="card-footer mt-2">
             <div class="d-flex justify-content-center">
-              <%= link_to "Back to Login", new_session_path(resource_name) %>
+              <%= link_to t("devise_custom.back_to_login"), new_session_path(resource_name) %>
             </div>
           </div>
         </div>

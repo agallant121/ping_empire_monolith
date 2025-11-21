@@ -1,10 +1,10 @@
 <% content_for :body_class, "login-page" %>
 
 <div class="login-main">
-  <div class="login-brand"><%= "Ping Empire" %></div>
+  <div class="login-brand"><%= t("devise_custom.brand") %></div>
   <div class="login-card">
-    <h1><%= "Create your account" %></h1>
-    <p class="login-meta"><%= "Join the community to keep your monitors in sync." %></p>
+    <h1><%= t("devise_custom.create_account") %></h1>
+    <p class="login-meta"><%= t("devise_custom.create_account_subtitle") %></p>
 
     <div class="login-socials">
       <%= button_to user_facebook_omniauth_authorize_path, method: :post, data: { turbo: false }, class: "btn" do %>
@@ -25,26 +25,26 @@
 
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("devise_custom.email_placeholder") %>
       </div>
 
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: "Password" %>
+        <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("devise_custom.password_placeholder") %>
       </div>
 
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-lock"></i></span>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: "Confirm Password" %>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control", placeholder: t("devise_custom.password_confirmation_placeholder") %>
       </div>
 
-      <%= f.submit "Create account", class: "btn login_btn" %>
+      <%= f.submit t("devise_custom.create_account_cta"), class: "btn login_btn" %>
     <% end %>
 
     <div class="login-links">
       <div class="login-meta">
-        <span><%= "Already have an account?" %></span>
-        <%= link_to "Sign in", new_session_path(resource_name) %>
+        <span><%= t("devise_custom.already_account") %></span>
+        <%= link_to t("devise_custom.sign_in"), new_session_path(resource_name) %>
       </div>
     </div>
   </div>

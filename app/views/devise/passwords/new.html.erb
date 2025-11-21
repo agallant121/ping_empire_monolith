@@ -1,26 +1,26 @@
 <% content_for :body_class, "login-page" %>
 
 <div class="login-main">
-  <div class="login-brand"><%= "Ping Empire" %></div>
+  <div class="login-brand"><%= t("devise_custom.brand") %></div>
   <div class="login-card">
-    <h1><%= "Reset your password" %></h1>
-    <p class="login-meta"><%= "We'll send instructions to the email linked with your account." %></p>
+    <h1><%= t("devise_custom.reset_password_title") %></h1>
+    <p class="login-meta"><%= t("devise_custom.reset_password_subtitle") %></p>
 
     <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }, data: { turbo: false }) do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <div class="input-group">
         <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: t("devise_custom.email_placeholder") %>
       </div>
 
-      <%= f.submit "Send reset instructions", class: "btn login_btn" %>
+      <%= f.submit t("devise_custom.send_reset"), class: "btn login_btn" %>
     <% end %>
 
     <div class="login-links">
       <div class="login-meta">
-        <span><%= "Remember your password?" %></span>
-        <%= link_to "Sign in", new_session_path(resource_name) %>
+        <span><%= t("devise_custom.remember_password") %></span>
+        <%= link_to t("devise_custom.sign_in"), new_session_path(resource_name) %>
       </div>
     </div>
   </div>

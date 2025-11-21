@@ -3,75 +3,75 @@
 <div class="container-xl">
   <div class="card shadow-sm mb-4">
     <div class="card-body">
-      <h1 class="h4 mb-3"><%= "Response Archives" %></h1>
+      <h1 class="h4 mb-3"><%= t("admin.archives.heading") %></h1>
 
       <p class="text-muted mb-3">
-        <%= "Export every response that is more than a day old to a CSV so you can keep a long-term record. CSVs stay on this server until AWS credentials are configured (in which case the export automatically uploads the fresh file) or until an admin chooses to upload an older CSV to AWS S3 from the list below." %>
+        <%= t("admin.archives.description") %>
       </p>
 
       <div class="alert alert-info py-2" role="alert">
         <ul class="mb-0 small ps-3">
-          <li><%= "Exports try to upload the newly created CSV to S3 when credentials are configured; if that succeeds, the local copy is removed immediately." %></li>
-          <li><%= "Manual \"Upload to S3\" for an older CSV also removes the file locally after a successful upload." %></li>
-          <li><%= "If AWS is not configured, CSVs stay in the archive folder on this server until someone clears the filesystem." %></li>
+          <li><%= t("admin.archives.info_automatic_upload") %></li>
+          <li><%= t("admin.archives.info_manual_upload") %></li>
+          <li><%= t("admin.archives.info_no_credentials") %></li>
         </ul>
       </div>
 
       <div class="alert alert-warning py-2" role="alert">
         <small>
-          <%= "Exporting will permanently remove responses that are more than a day old after the CSV has been created, so only run this when you're ready to move that data elsewhere." %>
+          <%= t("admin.archives.warning") %>
         </small>
       </div>
 
       <div class="d-flex flex-column flex-md-row align-items-md-center gap-3">
         <div>
-          <p class="mb-1 fw-semibold"><%= "S3 Upload Status:" %></p>
+          <p class="mb-1 fw-semibold"><%= t("admin.archives.s3_status") %></p>
 
           <% if @s3_ready %>
             <span class="badge bg-success">
               <% if @aws_setting&.bucket.present? %>
-                <%= "Configured for bucket" %> <%= @aws_setting.bucket %>
+                <%= t("admin.archives.configured_for_bucket") %> <%= @aws_setting.bucket %>
 
                 <% if @aws_setting.key_prefix.present? %>
-                  <span class="text-muted">(<%= "prefix:" %> <%= @aws_setting.key_prefix %>)</span>
+                  <span class="text-muted">(<%= t("admin.archives.prefix_label") %> <%= @aws_setting.key_prefix %>)</span>
                 <% end %>
               <% else %>
-                <%= "Configured" %>
+                <%= t("admin.archives.configured") %>
               <% end %>
             </span>
 
             <% if @aws_setting&.updated_at %>
               <p class="text-muted small mb-0 mt-1">
-                <%= "Credentials last saved" %> <%= l(@aws_setting.updated_at, format: :long) %>
+                <%= t("admin.archives.credentials_last_saved") %> <%= l(@aws_setting.updated_at, format: :long) %>
               </p>
               <p class="text-muted small mb-0">
-                <%= "Saved AWS credentials are reused for uploads; you only need to re-enter them when updating settings." %>
+                <%= t("admin.archives.credentials_reuse_hint") %>
               </p>
             <% end %>
           <% else %>
-            <span class="badge bg-secondary"><%= "Not connected" %></span>
+            <span class="badge bg-secondary"><%= t("admin.archives.not_connected") %></span>
           <% end %>
         </div>
 
-        <%= link_to "Configure AWS", admin_aws_settings_path, class: "btn btn-outline-secondary" %>
-        <%= button_to "Archive Responses Now", export_admin_archives_path, method: :post, class: "btn btn-primary ms-md-auto" %>
+        <%= link_to t("admin.archives.configure_aws"), admin_aws_settings_path, class: "btn btn-outline-secondary" %>
+        <%= button_to t("admin.archives.archive_now"), export_admin_archives_path, method: :post, class: "btn btn-primary ms-md-auto" %>
       </div>
     </div>
   </div>
 
   <div class="card shadow-sm">
     <div class="card-body">
-      <h2 class="h5 mb-3"><%= "Existing Local CSVs" %></h2>
+      <h2 class="h5 mb-3"><%= t("admin.archives.existing_csvs") %></h2>
 
       <% if @archive_files.any? %>
         <div class="table-responsive">
           <table class="table">
             <thead>
               <tr>
-                <th scope="col"><%= "Filename" %></th>
-                <th scope="col"><%= "Generated" %></th>
-                <th scope="col"><%= "Size" %></th>
-                <th scope="col" class="text-end"><%= "Actions" %></th>
+                <th scope="col"><%= t("admin.archives.filename") %></th>
+                <th scope="col"><%= t("admin.archives.generated") %></th>
+                <th scope="col"><%= t("admin.archives.size") %></th>
+                <th scope="col" class="text-end"><%= t("admin.archives.actions") %></th>
               </tr>
             </thead>
             <tbody>
@@ -82,17 +82,17 @@
                   <td><%= number_to_human_size(file.size) %></td>
                   <td class="text-end">
                     <div class="btn-group" role="group">
-                      <%= link_to "Download", download_admin_archives_path(filename: file.name), class: "btn btn-outline-secondary btn-sm" %>
+                      <%= link_to t("admin.archives.download"), download_admin_archives_path(filename: file.name), class: "btn btn-outline-secondary btn-sm" %>
 
                       <% if @s3_ready %>
-                        <%= button_to "Upload to S3",
+                        <%= button_to t("admin.archives.upload_to_s3"),
                             upload_admin_archives_path(filename: file.name),
                             method: :post,
-                            form: { data: { turbo_confirm: "Upload #{file.name} to S3 and remove it locally?" } },
+                            form: { data: { turbo_confirm: t("admin.archives.upload_confirm", filename: file.name) } },
                             class: "btn btn-success btn-sm" %>
                       <% else %>
-                        <button class="btn btn-success btn-sm" disabled title="<%= "Connect AWS first" %>">
-                          <%= "Upload to S3" %>
+                        <button class="btn btn-success btn-sm" disabled title="<%= t("admin.archives.connect_first_title") %>">
+                          <%= t("admin.archives.upload_to_s3") %>
                         </button>
                       <% end %>
                     </div>
@@ -103,22 +103,22 @@
           </table>
         </div>
       <% else %>
-        <p class="text-muted mb-2"><%= "No local archives yet. Run an export to generate one." %></p>
+        <p class="text-muted mb-2"><%= t("admin.archives.no_archives") %></p>
 
         <p class="text-muted small mb-0">
-          <%= "Local CSVs are written to" %> <code><%= @archive_directory %></code>
-          <%= "on this server." %>
+          <%= t("admin.archives.local_csvs_written_to") %> <code><%= @archive_directory %></code>
+          <%= t("admin.archives.on_this_server") %>
 
           <% if @s3_ready %>
-            <%= "They are removed after a successful S3 upload, so check" %>
+            <%= t("admin.archives.removed_after_upload") %>
             <code>
               <%= @aws_setting&.bucket %>
               <%= "/" if @aws_setting&.bucket.present? && @aws_setting&.key_prefix.present? %>
               <%= @aws_setting&.key_prefix %>
             </code>
-            <%= "for files from earlier runs." %>
+            <%= t("admin.archives.earlier_runs") %>
           <% else %>
-            <%= "Files will disappear if the server filesystem is cleared or rebuilt." %>
+            <%= t("admin.archives.filesystem_warning") %>
           <% end %>
         </p>
       <% end %>
