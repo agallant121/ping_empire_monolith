@@ -1,31 +1,215 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  layouts:
+    application:
+      title: "PingEmpireMonolith"
+      brand: "Ping Empire"
+      archives: "Archives"
+      aws_settings: "AWS Settings"
+      logged_in_as: "Logged in as %{email}"
+      logout: "Logout"
+  admin:
+    archives:
+      heading: "Response Archives"
+      description: "Export every response that is more than a day old to a CSV so you can keep a long-term record. CSVs stay on this server until AWS credentials are configured (in which case the export automatically uploads the fresh file) or until an admin chooses to upload an older CSV to AWS S3 from the list below."
+      info_automatic_upload: "Exports try to upload the newly created CSV to S3 when credentials are configured; if that succeeds, the local copy is removed immediately."
+      info_manual_upload: "Manual \"Upload to S3\" for an older CSV also removes the file locally after a successful upload."
+      info_no_credentials: "If AWS is not configured, CSVs stay in the archive folder on this server until someone clears the filesystem."
+      warning: "Exporting will permanently remove responses that are more than a day old after the CSV has been created, so only run this when you're ready to move that data elsewhere."
+      s3_status: "S3 Upload Status:"
+      configured_for_bucket: "Configured for bucket"
+      prefix_label: "prefix:"
+      configured: "Configured"
+      credentials_last_saved: "Credentials last saved"
+      credentials_reuse_hint: "Saved AWS credentials are reused for uploads; you only need to re-enter them when updating settings."
+      not_connected: "Not connected"
+      configure_aws: "Configure AWS"
+      archive_now: "Archive Responses Now"
+      existing_csvs: "Existing Local CSVs"
+      filename: "Filename"
+      generated: "Generated"
+      size: "Size"
+      actions: "Actions"
+      download: "Download"
+      upload_to_s3: "Upload to S3"
+      upload_confirm: "Upload %{filename} to S3 and remove it locally?"
+      connect_first_title: "Connect AWS first"
+      no_archives: "No local archives yet. Run an export to generate one."
+      local_csvs_written_to: "Local CSVs are written to"
+      on_this_server: "on this server."
+      removed_after_upload: "They are removed after a successful S3 upload, so check"
+      earlier_runs: "for files from earlier runs."
+      filesystem_warning: "Files will disappear if the server filesystem is cleared or rebuilt."
+    aws_settings:
+      heading: "AWS Archive Settings"
+      subheading: "Provide the IAM credentials and bucket where CSV archives should be uploaded."
+      session_token_optional: "Optional. Only needed for temporary credentials."
+      region_placeholder: "us-east-1"
+      key_prefix_optional: "Optional. We'll prepend this prefix to every uploaded CSV."
+      key_prefix_placeholder: "archives/optional-folder"
+      fix_errors: "Please fix the following:"
+      update: "Update AWS Settings"
+      save: "Save AWS Settings"
+      back_to_archives: "Back to Archives"
+  websites:
+    summary:
+      eyebrow: "Monitoring Overview"
+      title: "Websites"
+      subtitle: "Your command center for uptime, latency, and failure visibility across every mountain lake monitor."
+      add_website: "Add a Website"
+      search_placeholder: "Search websites..."
+      search: "Search"
+      total_websites_label: "Total Websites"
+      total_websites_subtitle: "All properties actively watched in your Ping Empire workspace."
+      todays_failures_label: "Today's Failures"
+      view_failure_log: "View failure log"
+    list:
+      none_found: "No websites found. Start by adding a new monitor above."
+      attention: "Attention"
+      stable: "Stable"
+      responses: "Responses"
+      last_status: "Last status %{code}"
+      awaiting_first: "Awaiting first response."
+      no_responses: "No responses found."
+    show:
+      eyebrow: "Website Detail"
+      subtitle_prefix: "Live telemetry for"
+      edit: "Edit website"
+      destroy: "Destroy website"
+      destroy_confirm: "Are you sure you want to remove this website?"
+      back: "Back"
+      show_all: "Show All Responses"
+      show_failed: "Show Today's Failed Responses"
+      showing_failed: "Showing today's failed responses only."
+      total_responses_label: "Total Responses"
+      total_responses_subtitle: "Historical responses captured for this site."
+      failed_today_label: "Failed Today"
+      failed_today_subtitle: "Incidents detected within the last 24 hours."
+      last_response_label: "Last Response"
+      no_responses_yet: "There are no responses yet for this website."
+      empty_failed: "No failed responses have been recorded today for this website."
+    form:
+      url_hint: "Enter a valid website URL (http or https)"
+      save: "Save Website"
+    new:
+      title: "New Website"
+      back: "Back to Websites"
+      heading: "Add a New Website"
+      latest: "Latest:"
+    edit:
+      title: "Edit Website"
+      heading: "Edit Website"
+      back: "Back to Websites"
+    failures:
+      eyebrow: "Incident Report"
+      title: "Today's Failed Responses"
+      subtitle: "Pinpoint outages detected across your monitored properties since midnight."
+      back: "Back to Websites"
+      status_label: "Status"
+      all_clear: "All clear"
+      all_clear_subtitle: "No failed responses have been recorded since midnight."
+      impacted_label: "Impacted Websites"
+      impacted_subtitle: "Properties reporting downtime since midnight."
+      failed_label: "Failed Responses"
+      failed_subtitle: "Individual incidents captured in the same period."
+      observation_label: "Observation Window"
+      website_header: "Website"
+      failures_today_header: "Failures Today"
+      last_failure_header: "Last Failure"
+      em_dash: "—"
+    shared:
+      url_label: "URL:"
+  responses:
+    common:
+      id: "Response ID"
+      status_code: "Status Code"
+      response_time: "Response Time"
+      response_time_unit: "%{time} ms"
+      error: "Error"
+      na: "N/A"
+      show: "Show"
+      edit: "Edit this response"
+      destroy: "Destroy this response"
+      confirm: "Are you sure?"
+      back: "Back"
+    index:
+      title: "Responses"
+      new_response: "New response"
+      response_time_header: "Response Time"
+    show:
+      status_code_label: "Status Code:"
+      response_time_label: "Response Time:"
+      error_label: "Error:"
+    form:
+      errors_heading:
+        one: "%{count} error prohibited this response from being saved:"
+        other: "%{count} errors prohibited this response from being saved:"
+      submit: "Save Response"
+    new:
+      title: "New Response"
+    edit:
+      title: "Edit Response"
+  mailers:
+    failure_alert_mailer:
+      title: "⚠️ Website Failure Alert"
+      message_html: "The website <strong style=\"color: #0d6efd;\">%{url}</strong> has experienced <strong style=\"color: #c0392b;\">%{count}</strong> failed response(s) in the past 24 hours."
+      review: "Please review the issue to ensure uptime is restored indefinitely."
+      closing_html: "– The <strong>Ping Empire</strong> Monitoring Team"
+    notification_mailer:
+      header_brand: "Ping Empire"
+      monitoring_alert: "Monitoring Alert"
+      alert_title: "🚨 Website Alert: Possible Downtime"
+      greeting_html: "Hello <strong>%{email}</strong>,"
+      website_label: "Website"
+      status_label: "Status"
+      monitoring_message: "We attempted to reach your website, but the request returned the status above. We will continue to monitor the uptime of this endpoint and notify you if the situation changes."
+      error_details: "Error details"
+      help: "Need help right now? Reply to this email and a member of the Ping Empire team will jump in."
+      view_dashboard: "View Dashboard"
+      closing_html: "– The <strong>Ping Empire</strong> Monitoring Team"
+  devise_custom:
+    brand: "Ping Empire"
+    welcome_back: "Welcome back"
+    sign_in_intro: "Sign in to keep watch over your mountain lake monitors."
+    email_placeholder: "Email"
+    password_placeholder: "Password"
+    remember_me: "Remember me"
+    login: "Login"
+    no_account: "Don't have an account?"
+    sign_up: "Sign up"
+    forgot_password: "Forgot your password?"
+    sign_in_with: "Sign in with %{provider}"
+    create_account: "Create your account"
+    create_account_subtitle: "Join the community to keep your monitors in sync."
+    password_confirmation_placeholder: "Confirm Password"
+    create_account_cta: "Create account"
+    already_account: "Already have an account?"
+    sign_in: "Sign in"
+    reset_password_title: "Reset your password"
+    reset_password_subtitle: "We'll send instructions to the email linked with your account."
+    send_reset: "Send reset instructions"
+    remember_password: "Remember your password?"
+    change_password_title: "Change Your Password"
+    new_password_placeholder: "New Password"
+    new_password_confirmation_placeholder: "Confirm New Password"
+    change_password_cta: "Change Password"
+    back_to_login: "Back to Login"
+    resend_confirmation: "Resend confirmation instructions"
+    resend_unlock: "Resend unlock instructions"
+    resend_confirmation_title: "Resend confirmation instructions"
+    unlock_instructions_title: "Resend unlock instructions"
+    edit_heading: "Edit %{resource}"
+    waiting_confirmation: "Currently waiting confirmation for: %{email}"
+    password_change_hint: "leave blank if you don't want to change it"
+    password_length_hint: "%{count} characters minimum"
+    current_password_hint: "we need your current password to confirm your changes"
+    update: "Update"
+    cancel_account: "Cancel my account"
+    unhappy: "Unhappy?"
+    back: "Back"
+    confirmation_prompt: "Are you sure?"
+    resend_confirmation_button: "Resend confirmation instructions"
+    resend_unlock_button: "Resend unlock instructions"
+  shared:
+    status: "Status"
+    failures_today: "Failures Today"
+    time_of_ping: "Time of Ping"

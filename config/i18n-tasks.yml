@@ -1,0 +1,24 @@
+base_locale: en
+locales:
+  - en
+  - es
+  - fr
+
+# Where i18n-tasks loads translations from.
+data:
+  read:
+    - config/locales/%{locale}.yml
+    - config/locales/**/*.%{locale}.yml
+  write:
+    - config/locales/%{locale}.yml
+
+# Configure where i18n-tasks looks for keys in the codebase.
+search:
+  paths:
+    - app
+    - config
+  relative_roots:
+    - app/views
+    - app/controllers
+    - app/helpers
+    - app/mailers
