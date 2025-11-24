@@ -43,13 +43,22 @@
     <% if user_signed_in? %>
       <nav class="navbar app-navbar container-xl">
         <%= link_to t("layouts.application.brand"), root_path, class: "navbar-brand brand-title" %>
-        <div class="ms-auto d-flex align-items-center gap-2">
+        <div class="ms-auto d-flex align-items-center gap-3">
           <% if current_user.admin? %>
             <%= link_to t("layouts.application.archives"), admin_archives_path, class: "btn btn-link text-decoration-none admin-link" %>
             <%= link_to t("layouts.application.aws_settings"), admin_aws_settings_path, class: "btn btn-link text-decoration-none admin-link" %>
           <% end %>
           <span class="nav-email me-2"><%= t("layouts.application.logged_in_as", email: current_user.email) %></span>
-          <%= button_to t("layouts.application.logout"), destroy_user_session_path, method: :delete, class: "btn logout-button" %>
+          <div class="d-flex align-items-center gap-2">
+            <%= form_with model: current_user, url: language_preference_path, method: :put, local: true, class: "language-switcher" do |form| %>
+              <span class="language-switcher__icon" aria-hidden="true">
+                <i class="fas fa-globe-americas"></i>
+              </span>
+              <label class="visually-hidden" for="language-select"><%= t("layouts.application.language") %></label>
+              <%= form.select :preferred_language, language_options_for_select, { selected: current_user.preferred_language }, class: "language-select form-select form-select-sm", id: "language-select", onchange: "this.form.submit()" %>
+            <% end %>
+            <%= button_to t("layouts.application.logout"), destroy_user_session_path, method: :delete, class: "btn logout-button" %>
+          </div>
         </div>
       </nav>
     <% end %>

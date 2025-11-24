@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: "users/omniauth_callbacks"
   }
 
+  resource :language_preference, only: [ :update ]
+
   resources :websites do
     collection do
       get :failures
