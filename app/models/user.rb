@@ -10,11 +10,12 @@ class User < ApplicationRecord
 
   has_many :websites, dependent: :destroy
 
-  ROLES = { user: 0, admin: 1 }.freeze
+  enum :role, { user: 0, admin: 1, supervisor: 2 }
   LANGUAGE_OPTIONS = %w[en es fr].freeze
 
-  scope :admins, -> { where(role: 1) }
-  scope :regular_users, -> { where(role: 0) }
+  scope :admins, -> { where(role: roles[:admin]) }
+  scope :regular_users, -> { where(role: roles[:user]) }
+  scope :supervisors, -> { where(role: roles[:supervisor]) }
 
   before_validation :set_default_language
   validates :preferred_language, inclusion: { in: LANGUAGE_OPTIONS }
@@ -44,12 +45,8 @@ class User < ApplicationRecord
     @website_count ||= websites.count
   end
 
-  def admin?
-    role == 1
-  end
-
-  def regular_user?
-    role == 0
+  def admin_area_access?
+    admin? || supervisor?
   end
 
   private
