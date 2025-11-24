@@ -1,0 +1,77 @@
+<div class="container py-4">
+  <div class="row">
+    <div class="col-lg-5 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h2 class="h4 mb-3"><%= t('.invite_heading') %></h2>
+          <p class="text-muted"><%= t('.invite_subheading') %></p>
+
+          <%= form_with model: @user, url: admin_users_path, class: "d-grid gap-3" do |form| %>
+            <div>
+              <%= form.label :email, t('.email_label'), class: "form-label" %>
+              <%= form.email_field :email, class: "form-control", required: true, placeholder: t('.email_placeholder') %>
+            </div>
+
+            <div>
+              <%= form.label :role, t('.role_label'), class: "form-label" %>
+              <%= form.select :role, options_for_select([[t('.roles.viewer'), :user], [t('.roles.admin'), :admin]]), {}, class: "form-select" %>
+              <div class="form-text"><%= t('.role_help') %></div>
+            </div>
+
+            <%= form.submit t('.invite_submit'), class: "btn btn-primary" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-7">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0"><%= t('.people_heading') %></h2>
+            <span class="badge bg-secondary"><%= t('.user_count', count: @users.size) %></span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr>
+                  <th scope="col"><%= t('.columns.email') %></th>
+                  <th scope="col" class="text-center"><%= t('.columns.role') %></th>
+                  <th scope="col" class="text-end"><%= t('.columns.actions') %></th>
+                </tr>
+              </thead>
+              <tbody>
+                <% @users.each do |user| %>
+                  <tr>
+                    <td><%= user.email %></td>
+                    <td class="text-center">
+                      <% if user.supervisor? %>
+                        <span class="badge bg-light text-dark"><%= t('.supervisor_badge') %></span>
+                      <% else %>
+                        <%= form_with model: user, url: admin_user_path(user), method: :patch, class: "d-flex align-items-center justify-content-center gap-2 mb-0" do |form| %>
+                          <%= form.select :role,
+                            options_for_select([[t('.roles.viewer'), :user], [t('.roles.admin'), :admin]], selected: user.role),
+                            {},
+                            class: "form-select form-select-sm w-auto" %>
+                          <%= form.submit t('.save_role'), class: "btn btn-outline-primary btn-sm" %>
+                        <% end %>
+                      <% end %>
+                    </td>
+                    <td class="text-end">
+                      <% if user.supervisor? %>
+                        <span class="text-muted"><%= t('.primary_supervisor_label') %></span>
+                      <% else %>
+                        <%= button_to t('.remove_user'), admin_user_path(user), method: :delete, data: { turbo_confirm: t('.remove_confirm', email: user.email) }, class: "btn btn-outline-danger btn-sm" %>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

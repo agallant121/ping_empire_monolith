@@ -6,9 +6,9 @@ module Admin
     private
 
     def require_admin!
-      return if current_user&.admin?
+      return if current_user&.admin_area_access?
 
-      redirect_to(root_path, alert: "You are not authorized to access that area.")
+      redirect_to(root_path, alert: t("admin.base.not_authorized"))
     end
   end
 end

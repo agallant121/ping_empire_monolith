@@ -29,6 +29,7 @@ Rails.application.routes.draw do
         get :download
       end
     end
+    resources :users, only: [ :index, :create, :destroy, :update ], controller: "users"
   end
 
   # Health check

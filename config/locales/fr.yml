@@ -1,289 +1,369 @@
+---
 fr:
-  layouts:
-    application:
-      title: "PingEmpireMonolith"
-      brand: "Ping Empire"
-      admin_dashboard: "Admin"
-      archives: "Archives"
-      aws_settings: "Paramètres AWS"
-      logged_in_as: "Connecté en tant que %{email}"
-      logout: "Se déconnecter"
-      language: "Langue"
-      profile: "Profil"
-  languages:
-    en: "Anglais"
-    es: "Espagnol"
-    fr: "Français"
+  admin:
+    archives:
+      actions: Actions
+      archive_now: Archiver les réponses maintenant
+      configure_aws: Configurer AWS
+      configured: Configuré
+      configured_for_bucket: Configuré pour le bucket
+      connect_first_title: Connectez AWS d'abord
+      credentials_last_saved: Identifiants enregistrés pour la dernière fois
+      credentials_reuse_hint: Les identifiants AWS enregistrés sont réutilisés pour
+        les téléversements; vous ne devez les ressaisir qu'en cas de mise à jour.
+      description: Exportez chaque réponse de plus d'un jour vers un CSV pour conserver
+        un enregistrement à long terme. Les CSV restent sur ce serveur jusqu'à ce
+        que les identifiants AWS soient configurés (auquel cas l'export envoie automatiquement
+        le nouveau fichier) ou jusqu'à ce qu'un administrateur choisisse de téléverser
+        un ancien CSV vers AWS S3 depuis la liste ci-dessous.
+      download: Télécharger
+      earlier_runs: pour les fichiers des exécutions précédentes.
+      existing_csvs: CSVs locaux existants
+      filename: Nom de fichier
+      filesystem_warning: Les fichiers disparaîtront si le système de fichiers du
+        serveur est nettoyé ou reconstruit.
+      generated: Généré
+      heading: Archives des réponses
+      info_automatic_upload: Les exports essaient de téléverser le CSV nouvellement
+        créé vers S3 lorsque des identifiants sont configurés; en cas de réussite,
+        la copie locale est supprimée immédiatement.
+      info_manual_upload: Le téléversement manuel vers S3 d'un ancien CSV supprime
+        également le fichier local après un envoi réussi.
+      info_no_credentials: Si AWS n'est pas configuré, les CSV restent dans le dossier
+        d'archives sur ce serveur jusqu'à ce que quelqu'un nettoie le système de fichiers.
+      local_csvs_written_to: Les CSV locaux sont enregistrés dans
+      no_archives: Pas encore d'archives locales. Lancez une exportation pour en générer
+        une.
+      not_connected: Non connecté
+      on_this_server: sur ce serveur.
+      prefix_label: 'préfixe :'
+      removed_after_upload: Ils sont supprimés après un téléversement réussi vers
+        S3, vérifiez donc
+      s3_status: 'Statut du téléversement S3 :'
+      size: Taille
+      upload_confirm: Téléverser %{filename} sur S3 et le supprimer localement ?
+      upload_to_s3: Téléverser sur S3
+      warning: L'exportation supprimera définitivement les réponses de plus d'un jour
+        après la création du CSV, alors exécutez-la uniquement lorsque vous êtes prêt
+        à déplacer ces données ailleurs.
+    aws_settings:
+      back_to_archives: Retour aux archives
+      fix_errors: 'Corrigez ce qui suit :'
+      heading: Paramètres d'archive AWS
+      key_prefix_optional: Optionnel. Nous préfixerons chaque CSV téléversé avec cette
+        valeur.
+      key_prefix_placeholder: archives/dossier-optionnel
+      region_placeholder: us-east-1
+      save: Enregistrer les paramètres AWS
+      session_token_optional: Optionnel. Uniquement nécessaire pour des identifiants
+        temporaires.
+      subheading: Fournissez les identifiants IAM et le bucket où les CSV doivent
+        être téléversés.
+      update: Mettre à jour les paramètres AWS
+    base:
+      not_authorized: Vous n'êtes pas autorisé à accéder à cette zone.
+    dashboard:
+      archive_generated: Généré
+      archive_history_heading: Exports d'archives récents
+      archive_history_help: Un aperçu des fichiers CSV les plus récents produits par
+        les exports automatiques.
+      archive_name: Nom du fichier
+      archive_size: Taille
+      configure_aws: Configurer AWS
+      exports_label: Exports récents
+      eyebrow: Vue d'ensemble administrateur
+      heading: Tableau de bord admin
+      incidents_help: 'Réponses échouées depuis minuit : %{count}.'
+      incidents_label: Sites avec incidents aujourd'hui
+      latest_export: Dernier généré à %{timestamp}
+      no_archives_yet: Aucune archive n'a encore été générée.
+      no_exports: Aucun export d'archives trouvé pour le moment.
+      s3_bucket_label: 'Bucket : %{bucket}'
+      s3_connected: Prêt pour les envois
+      s3_disconnected: Non connecté
+      s3_help: Ajoutez des identifiants AWS pour activer les envois automatiques.
+      s3_status_label: Connectivité S3
+      subheading: Un point d'entrée unique pour les comptes, incidents, exports et
+        statut AWS.
+      total_sites_help: Sites web suivis sur tous les comptes.
+      total_sites_label: Sites surveillés au total
+      view_archives: Aller aux archives
+    users:
+      flash:
+        create:
+          failure: Impossible d'ajouter l'utilisateur.
+          success: Accès utilisateur ajouté.
+        destroy:
+          self: Vous ne pouvez pas supprimer votre propre compte.
+          success: Utilisateur supprimé.
+          supervisor_blocked: Les superviseurs ne peuvent pas être supprimés ici.
+        update:
+          failure: Impossible de mettre à jour le rôle.
+          invalid_role: Sélection de rôle invalide.
+          success: Rôle mis à jour pour %{email}.
+          supervisor_blocked: Les superviseurs ne peuvent pas être modifiés ici.
+      index:
+        columns:
+          actions: Actions
+          email: E-mail
+          role: Rôle
+        email_label: E-mail
+        email_placeholder: utilisateur@exemple.com
+        invite_heading: Inviter un utilisateur
+        invite_submit: Ajouter l'utilisateur
+        people_heading: Personnes avec accès
+        primary_supervisor_label: Superviseur principal
+        remove_confirm: Supprimer %{email} ?
+        remove_user: Supprimer
+        role_help: Les superviseurs peuvent promouvoir les utilisateurs plus tard
+          si nécessaire.
+        role_label: Niveau d'accès
+        roles:
+          admin: Admin
+          viewer: Lecteur
+        save_role: Enregistrer
+        supervisor_badge: Superviseur
+        user_count:
+          one: "%{count} utilisateur"
+          other: "%{count} utilisateurs"
+      not_authorized: Vous n'êtes pas autorisé à accéder à cette zone.
   devise:
     passwords:
-      updated_short: "Mot de passe modifié avec succès."
-  time:
-    formats:
-      long: "%d %B %Y %H:%M"
+      updated_short: Mot de passe modifié avec succès.
+  devise_custom:
+    already_account: Vous avez déjà un compte ?
+    back: Retour
+    back_to_login: Retour à la connexion
+    brand: Ping Empire
+    cancel_account: Supprimer mon compte
+    change_password_cta: Changer le mot de passe
+    change_password_subtitle: Choisissez un nouveau mot de passe pour sécuriser votre
+      compte.
+    change_password_title: Modifiez votre mot de passe
+    confirmation_prompt: Êtes-vous sûr ?
+    create_account: Créez votre compte
+    create_account_cta: Créer un compte
+    create_account_subtitle: Rejoignez la communauté pour garder vos moniteurs synchronisés.
+    current_password_hint: nous avons besoin de votre mot de passe actuel pour confirmer
+      les changements
+    edit_heading: Modifier %{resource}
+    email_placeholder: E-mail
+    forgot_password: Mot de passe oublié ?
+    login: Connexion
+    new_password_confirmation_placeholder: Confirmer le nouveau mot de passe
+    new_password_placeholder: Nouveau mot de passe
+    no_account: Vous n'avez pas de compte ?
+    password_change_hint: laissez vide si vous ne voulez pas la changer
+    password_confirmation_placeholder: Confirmer le mot de passe
+    password_length_hint: "%{count} caractères minimum"
+    password_placeholder: Mot de passe
+    preferred_language: Langue préférée
+    remember_me: Se souvenir de moi
+    remember_password: Vous souvenez-vous de votre mot de passe ?
+    resend_confirmation: Renvoyer les instructions de confirmation
+    resend_confirmation_button: Renvoyer les instructions de confirmation
+    resend_confirmation_title: Renvoyer les instructions de confirmation
+    resend_unlock: Renvoyer les instructions de déverrouillage
+    resend_unlock_button: Renvoyer les instructions de déverrouillage
+    reset_password_subtitle: Nous enverrons des instructions à l'e-mail associé à
+      votre compte.
+    reset_password_title: Réinitialisez votre mot de passe
+    send_reset: Envoyer les instructions de réinitialisation
+    sign_in: Se connecter
+    sign_in_intro: Connectez-vous pour surveiller vos moniteurs de lac de montagne.
+    sign_in_with: Se connecter avec %{provider}
+    sign_up: Inscription
+    unhappy: Mécontent ?
+    unlock_instructions_title: Renvoyer les instructions de déverrouillage
+    update: Mettre à jour
+    waiting_confirmation: 'Confirmation en attente pour : %{email}'
+    welcome_back: Content de vous revoir
   language_preferences:
-    updated: "Langue changée en %{language}."
-    failed: "Nous n'avons pas pu enregistrer votre préférence de langue. Veuillez réessayer."
-  admin:
-    dashboard:
-      eyebrow: "Vue d'ensemble administrateur"
-      heading: "Tableau de bord admin"
-      subheading: "Un point d'entrée unique pour les comptes, incidents, exports et statut AWS."
-      view_archives: "Aller aux archives"
-      configure_aws: "Configurer AWS"
-      total_sites_label: "Sites surveillés au total"
-      total_sites_help: "Sites web suivis sur tous les comptes."
-      incidents_label: "Sites avec incidents aujourd'hui"
-      incidents_help: "Réponses échouées depuis minuit : %{count}."
-      s3_status_label: "Connectivité S3"
-      s3_connected: "Prêt pour les envois"
-      s3_disconnected: "Non connecté"
-      s3_bucket_label: "Bucket : %{bucket}"
-      s3_help: "Ajoutez des identifiants AWS pour activer les envois automatiques."
-      exports_label: "Exports récents"
-      latest_export: "Dernier généré à %{timestamp}"
-      no_exports: "Aucun export d'archives trouvé pour le moment."
-      archive_history_heading: "Exports d'archives récents"
-      archive_history_help: "Un aperçu des fichiers CSV les plus récents produits par les exports automatiques."
-      archive_name: "Nom du fichier"
-      archive_generated: "Généré"
-      archive_size: "Taille"
-      no_archives_yet: "Aucune archive n'a encore été générée."
-    archives:
-      heading: "Archives des réponses"
-      description: "Exportez chaque réponse de plus d'un jour vers un CSV pour conserver un enregistrement à long terme. Les CSV restent sur ce serveur jusqu'à ce que les identifiants AWS soient configurés (auquel cas l'export envoie automatiquement le nouveau fichier) ou jusqu'à ce qu'un administrateur choisisse de téléverser un ancien CSV vers AWS S3 depuis la liste ci-dessous."
-      info_automatic_upload: "Les exports essaient de téléverser le CSV nouvellement créé vers S3 lorsque des identifiants sont configurés; en cas de réussite, la copie locale est supprimée immédiatement."
-      info_manual_upload: "Le téléversement manuel vers S3 d'un ancien CSV supprime également le fichier local après un envoi réussi."
-      info_no_credentials: "Si AWS n'est pas configuré, les CSV restent dans le dossier d'archives sur ce serveur jusqu'à ce que quelqu'un nettoie le système de fichiers."
-      warning: "L'exportation supprimera définitivement les réponses de plus d'un jour après la création du CSV, alors exécutez-la uniquement lorsque vous êtes prêt à déplacer ces données ailleurs."
-      s3_status: "Statut du téléversement S3 :"
-      configured_for_bucket: "Configuré pour le bucket"
-      prefix_label: "préfixe :"
-      configured: "Configuré"
-      credentials_last_saved: "Identifiants enregistrés pour la dernière fois"
-      credentials_reuse_hint: "Les identifiants AWS enregistrés sont réutilisés pour les téléversements; vous ne devez les ressaisir qu'en cas de mise à jour."
-      not_connected: "Non connecté"
-      configure_aws: "Configurer AWS"
-      archive_now: "Archiver les réponses maintenant"
-      existing_csvs: "CSVs locaux existants"
-      filename: "Nom de fichier"
-      generated: "Généré"
-      size: "Taille"
-      actions: "Actions"
-      download: "Télécharger"
-      upload_to_s3: "Téléverser sur S3"
-      upload_confirm: "Téléverser %{filename} sur S3 et le supprimer localement ?"
-      connect_first_title: "Connectez AWS d'abord"
-      no_archives: "Pas encore d'archives locales. Lancez une exportation pour en générer une."
-      local_csvs_written_to: "Les CSV locaux sont enregistrés dans"
-      on_this_server: "sur ce serveur."
-      removed_after_upload: "Ils sont supprimés après un téléversement réussi vers S3, vérifiez donc"
-      earlier_runs: "pour les fichiers des exécutions précédentes."
-      filesystem_warning: "Les fichiers disparaîtront si le système de fichiers du serveur est nettoyé ou reconstruit."
-    aws_settings:
-      heading: "Paramètres d'archive AWS"
-      subheading: "Fournissez les identifiants IAM et le bucket où les CSV doivent être téléversés."
-      session_token_optional: "Optionnel. Uniquement nécessaire pour des identifiants temporaires."
-      region_placeholder: "us-east-1"
-      key_prefix_optional: "Optionnel. Nous préfixerons chaque CSV téléversé avec cette valeur."
-      key_prefix_placeholder: "archives/dossier-optionnel"
-      fix_errors: "Corrigez ce qui suit :"
-      update: "Mettre à jour les paramètres AWS"
-      save: "Enregistrer les paramètres AWS"
-      back_to_archives: "Retour aux archives"
-  websites:
-    summary:
-      eyebrow: "Vue d'ensemble du suivi"
-      title: "Sites web"
-      subtitle: "Votre centre de commande pour la visibilité sur la disponibilité, la latence et les échecs de chaque moniteur du lac de montagne."
-      add_website: "Ajouter un site web"
-      search_placeholder: "Rechercher des sites web..."
-      search: "Rechercher"
-      total_websites_label: "Total des sites web"
-      total_websites_subtitle: "Toutes les propriétés surveillées activement dans votre espace de travail Ping Empire."
-      todays_failures_label: "Échecs du jour"
-      view_failure_log: "Voir le journal des échecs"
-    list:
-      none_found: "Aucun site web trouvé. Commencez par ajouter un nouveau moniteur ci-dessus."
-      attention: "Attention"
-      stable: "Stable"
-      responses: "Réponses"
-      last_status: "Dernier statut %{code}"
-      awaiting_first: "En attente de la première réponse."
-      no_responses: "Aucune réponse trouvée."
-    show:
-      eyebrow: "Détail du site web"
-      subtitle_prefix: "Télémétrie en direct pour"
-      edit: "Modifier le site web"
-      destroy: "Supprimer le site web"
-      destroy_confirm: "Êtes-vous sûr de vouloir supprimer ce site web ?"
-      back: "Retour"
-      show_all: "Afficher toutes les réponses"
-      show_failed: "Afficher les réponses échouées d'aujourd'hui"
-      showing_failed: "Affichage uniquement des réponses échouées d'aujourd'hui."
-      total_responses_label: "Total des réponses"
-      total_responses_subtitle: "Réponses historiques enregistrées pour ce site."
-      failed_today_label: "Échecs aujourd'hui"
-      failed_today_subtitle: "Incidents détectés au cours des dernières 24 heures."
-      last_response_label: "Dernière réponse"
-      no_responses_yet: "Il n'y a pas encore de réponses pour ce site web."
-      empty_failed: "Aucune réponse échouée n'a été enregistrée aujourd'hui pour ce site web."
-    form:
-      url_hint: "Saisissez une URL de site valide (http ou https)"
-      save: "Enregistrer le site web"
-    new:
-      title: "Nouveau site web"
-      back: "Retour aux sites web"
-      heading: "Ajouter un nouveau site web"
-      latest: "Dernier :"
-    edit:
-      title: "Modifier le site web"
-      heading: "Modifier le site web"
-      back: "Retour aux sites web"
-    failures:
-      eyebrow: "Rapport d'incident"
-      title: "Réponses échouées d'aujourd'hui"
-      subtitle: "Repérez les pannes détectées sur vos propriétés surveillées depuis minuit."
-      back: "Retour aux sites web"
-      status_label: "Statut"
-      all_clear: "Tout est normal"
-      all_clear_subtitle: "Aucune réponse échouée n'a été enregistrée depuis minuit."
-      impacted_label: "Sites impactés"
-      impacted_subtitle: "Propriétés signalant une indisponibilité depuis minuit."
-      failed_label: "Réponses échouées"
-      failed_subtitle: "Incidents individuels capturés sur la même période."
-      observation_label: "Fenêtre d'observation"
-      website_header: "Site web"
-      failures_today_header: "Échecs aujourd'hui"
-      last_failure_header: "Dernier échec"
-      em_dash: "—"
-    shared:
-      url_label: "URL :"
+    failed: Nous n'avons pas pu enregistrer votre préférence de langue. Veuillez réessayer.
+    updated: Langue changée en %{language}.
+  languages:
+    en: Anglais
+    es: Espagnol
+    fr: Français
+  layouts:
+    application:
+      admin_dashboard: Admin
+      archives: Archives
+      aws_settings: Paramètres AWS
+      brand: Ping Empire
+      language: Langue
+      logged_in_as: Connecté en tant que %{email}
+      logout: Se déconnecter
+      manage_users: Gérer les utilisateurs
+      profile: Profil
+      title: PingEmpireMonolith
+  mailers:
+    failure_alert_mailer:
+      closing_html: "– L'équipe de surveillance <strong>Ping Empire</strong>"
+      message_html: 'Le site web <strong style="color: #0d6efd;">%{url}</strong> a
+        connu <strong style="color: #c0392b;">%{count}</strong> réponse(s) échouée(s)
+        au cours des 24 dernières heures.'
+      review: Veuillez examiner le problème afin de rétablir la disponibilité de façon
+        durable.
+      title: "⚠️ Alerte d'échec du site web"
+    notification_mailer:
+      alert_title: "🚨 Alerte site web : indisponibilité possible"
+      closing_html: "– L'équipe de surveillance <strong>Ping Empire</strong>"
+      error_details: Détails de l'erreur
+      greeting_html: Bonjour <strong>%{email}</strong>,
+      header_brand: Ping Empire
+      help: Besoin d'aide immédiatement ? Répondez à cet e-mail et un membre de l'équipe
+        Ping Empire interviendra.
+      monitoring_alert: Alerte de surveillance
+      monitoring_message: Nous avons tenté d'atteindre votre site web, mais la requête
+        a renvoyé l'état ci-dessus. Nous continuerons de surveiller la disponibilité
+        de ce point de terminaison et vous informerons si la situation évolue.
+      status_label: Statut
+      view_dashboard: Voir le tableau de bord
+      website_label: Site web
+  profiles:
+    account:
+      cancel: Annuler
+      description: Maintenez à jour votre e-mail de connexion et votre langue préférée.
+      email: E-mail
+      heading: Détails du profil
+      preferred_language: Langue préférée
+      save: Enregistrer le profil
+    eyebrow: Compte
+    oauth:
+      connect: Connecter
+      connected: Connecté
+      description: Utilisez l'authentification unique avec vos fournisseurs liés.
+      disconnect: Déconnecter
+      disconnect_confirm: Déconnecter %{provider} de ce compte ?
+      disconnected: Non connecté
+      facebook: Facebook
+      google: Google
+      heading: Comptes connectés
+      twitter: Twitter
+    oauth_disconnected: Connexion %{provider} supprimée.
+    oauth_not_connected: Ce fournisseur n'est pas lié à votre compte.
+    password:
+      cta_hint: Nous enverrons les instructions à l’adresse e-mail de votre compte.
+      description: Envoyez-vous un lien de réinitialisation à tout moment pour modifier
+        votre mot de passe.
+      heading: Mot de passe et récupération
+      send_reset: Envoyer le lien de réinitialisation
+    reset_sent: Les instructions de réinitialisation du mot de passe ont été envoyées
+      par e-mail.
+    subtitle: Gérez vos coordonnées, vos options de récupération et vos méthodes de
+      connexion.
+    title: Profil et sécurité
+    update_failed: Nous n'avons pas pu enregistrer votre profil. Veuillez vérifier
+      le formulaire et réessayer.
+    updated: Profil mis à jour avec succès.
   responses:
     common:
-      id: "ID de réponse"
-      status_code: "Code d'état"
-      response_time: "Temps de réponse"
+      back: Retour
+      confirm: Êtes-vous sûr ?
+      destroy: Supprimer cette réponse
+      edit: Modifier cette réponse
+      error: Erreur
+      id: ID de réponse
+      na: N/A
+      response_time: Temps de réponse
       response_time_unit: "%{time} ms"
-      error: "Erreur"
-      na: "N/A"
-      show: "Afficher"
-      edit: "Modifier cette réponse"
-      destroy: "Supprimer cette réponse"
-      confirm: "Êtes-vous sûr ?"
-      back: "Retour"
-    index:
-      title: "Réponses"
-      new_response: "Nouvelle réponse"
-      response_time_header: "Temps de réponse"
-    show:
-      status_code_label: "Code d'état :"
-      response_time_label: "Temps de réponse :"
-      error_label: "Erreur :"
+      show: Afficher
+      status_code: Code d'état
+    edit:
+      title: Modifier la réponse
     form:
       errors_heading:
         one: "%{count} erreur a empêché l'enregistrement de cette réponse :"
         other: "%{count} erreurs ont empêché l'enregistrement de cette réponse :"
-      submit: "Enregistrer la réponse"
+      submit: Enregistrer la réponse
+    index:
+      new_response: Nouvelle réponse
+      response_time_header: Temps de réponse
+      title: Réponses
     new:
-      title: "Nouvelle réponse"
-    edit:
-      title: "Modifier la réponse"
-  mailers:
-    failure_alert_mailer:
-      title: "⚠️ Alerte d'échec du site web"
-      message_html: "Le site web <strong style=\"color: #0d6efd;\">%{url}</strong> a connu <strong style=\"color: #c0392b;\">%{count}</strong> réponse(s) échouée(s) au cours des 24 dernières heures."
-      review: "Veuillez examiner le problème afin de rétablir la disponibilité de façon durable."
-      closing_html: "– L'équipe de surveillance <strong>Ping Empire</strong>"
-    notification_mailer:
-      header_brand: "Ping Empire"
-      monitoring_alert: "Alerte de surveillance"
-      alert_title: "🚨 Alerte site web : indisponibilité possible"
-      greeting_html: "Bonjour <strong>%{email}</strong>,"
-      website_label: "Site web"
-      status_label: "Statut"
-      monitoring_message: "Nous avons tenté d'atteindre votre site web, mais la requête a renvoyé l'état ci-dessus. Nous continuerons de surveiller la disponibilité de ce point de terminaison et vous informerons si la situation évolue."
-      error_details: "Détails de l'erreur"
-      help: "Besoin d'aide immédiatement ? Répondez à cet e-mail et un membre de l'équipe Ping Empire interviendra."
-      view_dashboard: "Voir le tableau de bord"
-      closing_html: "– L'équipe de surveillance <strong>Ping Empire</strong>"
-  devise_custom:
-    brand: "Ping Empire"
-    welcome_back: "Content de vous revoir"
-    sign_in_intro: "Connectez-vous pour surveiller vos moniteurs de lac de montagne."
-    email_placeholder: "E-mail"
-    password_placeholder: "Mot de passe"
-    remember_me: "Se souvenir de moi"
-    login: "Connexion"
-    no_account: "Vous n'avez pas de compte ?"
-    sign_up: "Inscription"
-    forgot_password: "Mot de passe oublié ?"
-    sign_in_with: "Se connecter avec %{provider}"
-    create_account: "Créez votre compte"
-    create_account_subtitle: "Rejoignez la communauté pour garder vos moniteurs synchronisés."
-    password_confirmation_placeholder: "Confirmer le mot de passe"
-    create_account_cta: "Créer un compte"
-    already_account: "Vous avez déjà un compte ?"
-    sign_in: "Se connecter"
-    reset_password_title: "Réinitialisez votre mot de passe"
-    reset_password_subtitle: "Nous enverrons des instructions à l'e-mail associé à votre compte."
-    send_reset: "Envoyer les instructions de réinitialisation"
-    change_password_title: "Modifiez votre mot de passe"
-    change_password_subtitle: "Choisissez un nouveau mot de passe pour sécuriser votre compte."
-    new_password_placeholder: "Nouveau mot de passe"
-    new_password_confirmation_placeholder: "Confirmer le nouveau mot de passe"
-    change_password_cta: "Changer le mot de passe"
-    back_to_login: "Retour à la connexion"
-    remember_password: "Vous souvenez-vous de votre mot de passe ?"
-    resend_confirmation: "Renvoyer les instructions de confirmation"
-    resend_unlock: "Renvoyer les instructions de déverrouillage"
-    resend_confirmation_title: "Renvoyer les instructions de confirmation"
-    unlock_instructions_title: "Renvoyer les instructions de déverrouillage"
-    edit_heading: "Modifier %{resource}"
-    preferred_language: "Langue préférée"
-    waiting_confirmation: "Confirmation en attente pour : %{email}"
-    password_change_hint: "laissez vide si vous ne voulez pas la changer"
-    password_length_hint: "%{count} caractères minimum"
-    current_password_hint: "nous avons besoin de votre mot de passe actuel pour confirmer les changements"
-    update: "Mettre à jour"
-    cancel_account: "Supprimer mon compte"
-    unhappy: "Mécontent ?"
-    back: "Retour"
-    confirmation_prompt: "Êtes-vous sûr ?"
-    resend_confirmation_button: "Renvoyer les instructions de confirmation"
-    resend_unlock_button: "Renvoyer les instructions de déverrouillage"
-  profiles:
-    eyebrow: "Compte"
-    title: "Profil et sécurité"
-    subtitle: "Gérez vos coordonnées, vos options de récupération et vos méthodes de connexion."
-    updated: "Profil mis à jour avec succès."
-    update_failed: "Nous n'avons pas pu enregistrer votre profil. Veuillez vérifier le formulaire et réessayer."
-    reset_sent: "Les instructions de réinitialisation du mot de passe ont été envoyées par e-mail."
-    oauth_disconnected: "Connexion %{provider} supprimée."
-    oauth_not_connected: "Ce fournisseur n'est pas lié à votre compte."
-    account:
-      heading: "Détails du profil"
-      description: "Maintenez à jour votre e-mail de connexion et votre langue préférée."
-      email: "E-mail"
-      preferred_language: "Langue préférée"
-      cancel: "Annuler"
-      save: "Enregistrer le profil"
-    password:
-      heading: "Mot de passe et récupération"
-      description: "Envoyez-vous un lien de réinitialisation à tout moment pour modifier votre mot de passe."
-      cta_hint: "Nous enverrons les instructions à l’adresse e-mail de votre compte."
-      send_reset: "Envoyer le lien de réinitialisation"
-    oauth:
-      heading: "Comptes connectés"
-      description: "Utilisez l'authentification unique avec vos fournisseurs liés."
-      google: "Google"
-      facebook: "Facebook"
-      twitter: "Twitter"
-      connected: "Connecté"
-      disconnected: "Non connecté"
-      connect: "Connecter"
-      disconnect: "Déconnecter"
-      disconnect_confirm: "Déconnecter %{provider} de ce compte ?"
+      title: Nouvelle réponse
+    show:
+      error_label: 'Erreur :'
+      response_time_label: 'Temps de réponse :'
+      status_code_label: 'Code d''état :'
   shared:
-    status: "Statut"
-    failures_today: "Échecs aujourd'hui"
-    time_of_ping: "Heure du ping"
+    failures_today: Échecs aujourd'hui
+    status: Statut
+    time_of_ping: Heure du ping
+  time:
+    formats:
+      long: "%d %B %Y %H:%M"
+  websites:
+    edit:
+      back: Retour aux sites web
+      heading: Modifier le site web
+      title: Modifier le site web
+    failures:
+      all_clear: Tout est normal
+      all_clear_subtitle: Aucune réponse échouée n'a été enregistrée depuis minuit.
+      back: Retour aux sites web
+      em_dash: "—"
+      eyebrow: Rapport d'incident
+      failed_label: Réponses échouées
+      failed_subtitle: Incidents individuels capturés sur la même période.
+      failures_today_header: Échecs aujourd'hui
+      impacted_label: Sites impactés
+      impacted_subtitle: Propriétés signalant une indisponibilité depuis minuit.
+      last_failure_header: Dernier échec
+      observation_label: Fenêtre d'observation
+      status_label: Statut
+      subtitle: Repérez les pannes détectées sur vos propriétés surveillées depuis
+        minuit.
+      title: Réponses échouées d'aujourd'hui
+      website_header: Site web
+    form:
+      save: Enregistrer le site web
+      url_hint: Saisissez une URL de site valide (http ou https)
+    list:
+      attention: Attention
+      awaiting_first: En attente de la première réponse.
+      last_status: Dernier statut %{code}
+      no_responses: Aucune réponse trouvée.
+      none_found: Aucun site web trouvé. Commencez par ajouter un nouveau moniteur
+        ci-dessus.
+      responses: Réponses
+      stable: Stable
+    new:
+      back: Retour aux sites web
+      heading: Ajouter un nouveau site web
+      latest: 'Dernier :'
+      title: Nouveau site web
+    shared:
+      url_label: 'URL :'
+    show:
+      back: Retour
+      destroy: Supprimer le site web
+      destroy_confirm: Êtes-vous sûr de vouloir supprimer ce site web ?
+      edit: Modifier le site web
+      empty_failed: Aucune réponse échouée n'a été enregistrée aujourd'hui pour ce
+        site web.
+      eyebrow: Détail du site web
+      failed_today_label: Échecs aujourd'hui
+      failed_today_subtitle: Incidents détectés au cours des dernières 24 heures.
+      last_response_label: Dernière réponse
+      no_responses_yet: Il n'y a pas encore de réponses pour ce site web.
+      show_all: Afficher toutes les réponses
+      show_failed: Afficher les réponses échouées d'aujourd'hui
+      showing_failed: Affichage uniquement des réponses échouées d'aujourd'hui.
+      subtitle_prefix: Télémétrie en direct pour
+      total_responses_label: Total des réponses
+      total_responses_subtitle: Réponses historiques enregistrées pour ce site.
+    summary:
+      add_website: Ajouter un site web
+      eyebrow: Vue d'ensemble du suivi
+      search: Rechercher
+      search_placeholder: Rechercher des sites web...
+      subtitle: Votre centre de commande pour la visibilité sur la disponibilité,
+        la latence et les échecs de chaque moniteur du lac de montagne.
+      title: Sites web
+      todays_failures_label: Échecs du jour
+      total_websites_label: Total des sites web
+      total_websites_subtitle: Toutes les propriétés surveillées activement dans votre
+        espace de travail Ping Empire.
+      view_failure_log: Voir le journal des échecs
