@@ -49,7 +49,8 @@
 .app-navbar .user-menu__list .dropdown-item:hover,
 .app-navbar .user-menu__list .dropdown-item:focus-visible {
   background-color: rgba(47, 116, 80, 0.1);
-  color: var(--color-forest-700);
+  color: var(--color-forest-900);
+  font-size: 1.12rem;
 }
 
 .app-navbar .logout-button {
