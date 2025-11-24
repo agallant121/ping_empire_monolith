@@ -2,10 +2,15 @@ Rails.application.routes.draw do
   root "websites#index"
 
   devise_for :users, controllers: {
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: "users/passwords"
   }
 
   resource :language_preference, only: [ :update ]
+  resource :profile, only: [ :show, :update ] do
+    post :send_reset_password
+    delete :disconnect_oauth
+  end
 
   resources :websites do
     collection do
