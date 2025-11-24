@@ -1,0 +1,114 @@
+<% content_for :body_class, "admin-dashboard" %>
+
+<div class="container-xl">
+  <div class="card shadow-sm mb-4">
+    <div class="card-body">
+      <p class="text-uppercase text-muted fw-semibold small mb-1"><%= t("admin.dashboard.eyebrow") %></p>
+      <div class="d-flex flex-column flex-md-row align-items-md-center gap-3 mb-2">
+        <h1 class="h4 mb-0"><%= t("admin.dashboard.heading") %></h1>
+        <div class="ms-md-auto d-flex flex-wrap gap-2">
+          <%= link_to t("admin.dashboard.configure_aws"), admin_aws_settings_path, class: "btn btn-outline-secondary btn-sm" %>
+        </div>
+      </div>
+      <p class="text-muted mb-0"><%= t("admin.dashboard.subheading") %></p>
+    </div>
+  </div>
+
+  <div class="row g-3 mb-4">
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <p class="text-muted text-uppercase small mb-1"><%= t("admin.dashboard.total_sites_label") %></p>
+          <p class="display-6 fw-semibold mb-1"><%= @total_websites %></p>
+          <p class="text-muted small mb-0"><%= t("admin.dashboard.total_sites_help") %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <p class="text-muted text-uppercase small mb-1"><%= t("admin.dashboard.incidents_label") %></p>
+          <p class="display-6 fw-semibold mb-1"><%= @incident_websites %></p>
+          <p class="text-muted small mb-0"><%= t("admin.dashboard.incidents_help", count: @failed_responses_today) %></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <div class="d-flex align-items-start justify-content-between">
+            <div>
+              <p class="text-muted text-uppercase small mb-1"><%= t("admin.dashboard.s3_status_label") %></p>
+              <% if @s3_ready %>
+                <span class="badge bg-success"><%= t("admin.dashboard.s3_connected") %></span>
+                <% if @aws_setting&.bucket.present? %>
+                  <p class="text-muted small mb-0 mt-2"><%= t("admin.dashboard.s3_bucket_label", bucket: @aws_setting.bucket) %></p>
+                <% end %>
+              <% else %>
+                <span class="badge bg-secondary"><%= t("admin.dashboard.s3_disconnected") %></span>
+                <p class="text-muted small mb-0 mt-2"><%= t("admin.dashboard.s3_help") %></p>
+              <% end %>
+            </div>
+            <i class="fas fa-cloud-upload-alt text-muted"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <p class="text-muted text-uppercase small mb-1"><%= t("admin.dashboard.exports_label") %></p>
+          <% if @archive_files.any? %>
+            <p class="display-6 fw-semibold mb-1"><%= @archive_files.size %></p>
+            <p class="text-muted small mb-0"><%= t("admin.dashboard.latest_export", timestamp: l(@archive_files.first.mtime, format: :long)) %></p>
+          <% else %>
+            <p class="display-6 fw-semibold mb-1">0</p>
+            <p class="text-muted small mb-0"><%= t("admin.dashboard.no_exports") %></p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-body">
+      <div class="d-flex flex-column flex-md-row align-items-md-center gap-3 mb-3">
+        <div>
+          <h2 class="h5 mb-1"><%= t("admin.dashboard.archive_history_heading") %></h2>
+          <p class="text-muted small mb-0"><%= t("admin.dashboard.archive_history_help") %></p>
+        </div>
+        <div class="ms-md-auto">
+          <%= link_to t("admin.dashboard.view_archives"), admin_archives_path, class: "btn btn-outline-primary btn-sm" %>
+        </div>
+      </div>
+
+      <% if @archive_files.any? %>
+        <div class="table-responsive">
+          <table class="table align-middle mb-0">
+            <thead>
+              <tr>
+                <th scope="col"><%= t("admin.dashboard.archive_name") %></th>
+                <th scope="col"><%= t("admin.dashboard.archive_generated") %></th>
+                <th scope="col"><%= t("admin.dashboard.archive_size") %></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @archive_files.each do |file| %>
+                <tr>
+                  <td><%= file.name %></td>
+                  <td><%= l(file.mtime, format: :long) %></td>
+                  <td><%= number_to_human_size(file.size) %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      <% else %>
+        <p class="text-muted mb-0"><%= t("admin.dashboard.no_archives_yet") %></p>
+      <% end %>
+    </div>
+  </div>
+</div>
