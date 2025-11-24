@@ -9,4 +9,14 @@ module ApplicationHelper
       "info"
     end
   end
+
+  def language_options_for_select
+    User::LANGUAGE_OPTIONS.map do |locale|
+      [ t("languages.#{locale}"), locale ]
+    end
+  end
+
+  def current_language_label
+    t("languages.#{I18n.locale}")
+  end
 end
