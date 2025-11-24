@@ -1,290 +1,359 @@
+---
 es:
+  admin:
+    archives:
+      actions: Acciones
+      archive_now: Archivar respuestas ahora
+      configure_aws: Configurar AWS
+      configured: Configurado
+      configured_for_bucket: Configurado para el bucket
+      connect_first_title: Conecta AWS primero
+      credentials_last_saved: Credenciales guardadas por última vez
+      credentials_reuse_hint: Las credenciales de AWS guardadas se reutilizan para
+        las cargas; solo necesitas volver a introducirlas al actualizar la configuración.
+      description: Exporta cada respuesta de más de un día a un CSV para mantener
+        un registro a largo plazo. Los CSV permanecen en este servidor hasta que se
+        configuren las credenciales de AWS (en cuyo caso la exportación carga automáticamente
+        el archivo nuevo) o hasta que un administrador decida cargar un CSV antiguo
+        a AWS S3 desde la lista inferior.
+      download: Descargar
+      earlier_runs: para ver archivos de ejecuciones anteriores.
+      existing_csvs: CSVs locales existentes
+      filename: Nombre de archivo
+      filesystem_warning: Los archivos desaparecerán si se limpia o reconstruye el
+        sistema de archivos del servidor.
+      generated: Generado
+      heading: Archivos de respuestas
+      info_automatic_upload: Las exportaciones intentan cargar el CSV recién creado
+        a S3 cuando hay credenciales configuradas; si tiene éxito, la copia local
+        se elimina inmediatamente.
+      info_manual_upload: La carga manual a S3 de un CSV antiguo también elimina el
+        archivo local después de una carga correcta.
+      info_no_credentials: Si AWS no está configurado, los CSV permanecen en la carpeta
+        de archivos de este servidor hasta que alguien limpie el sistema de archivos.
+      local_csvs_written_to: Los CSV locales se escriben en
+      no_archives: Aún no hay archivos locales. Ejecuta una exportación para generar
+        uno.
+      not_connected: No conectado
+      on_this_server: en este servidor.
+      prefix_label: 'prefijo:'
+      removed_after_upload: Se eliminan después de una carga exitosa a S3, así que
+        revisa
+      s3_status: 'Estado de carga a S3:'
+      size: Tamaño
+      upload_confirm: "¿Subir %{filename} a S3 y eliminarlo localmente?"
+      upload_to_s3: Subir a S3
+      warning: La exportación eliminará permanentemente las respuestas de más de un
+        día después de crear el CSV, así que ejecútala solo cuando estés listo para
+        mover esos datos a otro lugar.
+    aws_settings:
+      back_to_archives: Volver a archivos
+      fix_errors: 'Corrige lo siguiente:'
+      heading: Configuración de archivos en AWS
+      key_prefix_optional: Opcional. Antepondremos este prefijo a cada CSV cargado.
+      key_prefix_placeholder: archivos/carpeta-opcional
+      region_placeholder: us-east-1
+      save: Guardar configuración de AWS
+      session_token_optional: Opcional. Solo se necesita para credenciales temporales.
+      subheading: Proporciona las credenciales de IAM y el bucket donde deben cargarse
+        los archivos CSV.
+      update: Actualizar configuración de AWS
+    base:
+      not_authorized: No estás autorizado para acceder a esa área.
+    dashboard:
+      archive_generated: Generado
+      archive_history_heading: Exportaciones de archivos recientes
+      archive_history_help: Una vista rápida de los CSV más recientes escritos por
+        las exportaciones automáticas.
+      archive_name: Nombre de archivo
+      archive_size: Tamaño
+      configure_aws: Configurar AWS
+      exports_label: Exportaciones recientes
+      eyebrow: Resumen de administrador
+      heading: Panel de administrador
+      incidents_help: 'Respuestas fallidas registradas desde medianoche: %{count}.'
+      incidents_label: Sitios con incidentes hoy
+      latest_export: Última generada a las %{timestamp}
+      no_archives_yet: Aún no se han generado archivos.
+      no_exports: Aún no se encontraron exportaciones de archivos.
+      s3_bucket_label: 'Bucket: %{bucket}'
+      s3_connected: Listo para cargas
+      s3_disconnected: No conectado
+      s3_help: Agrega credenciales de AWS para habilitar cargas automáticas.
+      s3_status_label: Conectividad S3
+      subheading: Un punto de partida único para conteos, incidentes, archivos de
+        exportación y conectividad AWS.
+      total_sites_help: Sitios web rastreados en todas las cuentas.
+      total_sites_label: Sitios monitoreados totales
+      view_archives: Ir a archivos
+    users:
+      flash:
+        create:
+          failure: No se pudo agregar al usuario.
+          success: Acceso de usuario agregado.
+        destroy:
+          self: No puedes eliminar tu propia cuenta.
+          success: Usuario eliminado.
+          supervisor_blocked: Los supervisores no se pueden eliminar aquí.
+        update:
+          failure: No se pudo actualizar el rol.
+          invalid_role: Selección de rol no válida.
+          success: Rol actualizado para %{email}.
+          supervisor_blocked: Los supervisores no se pueden cambiar aquí.
+      index:
+        columns:
+          actions: Acciones
+          email: Correo electrónico
+          role: Rol
+        email_label: Correo electrónico
+        email_placeholder: usuario@ejemplo.com
+        invite_heading: Invitar a un usuario
+        invite_submit: Agregar usuario
+        people_heading: Personas con acceso
+        primary_supervisor_label: Supervisor principal
+        remove_confirm: "¿Eliminar %{email}?"
+        remove_user: Eliminar
+        role_help: Los supervisores pueden ascender usuarios más tarde si es necesario.
+        role_label: Nivel de acceso
+        roles:
+          admin: Administrador
+          viewer: Visor
+        save_role: Guardar
+        supervisor_badge: Supervisor
+        user_count:
+          one: "%{count} usuario"
+          other: "%{count} usuarios"
+      not_authorized: No estás autorizado para acceder a esa área.
+  devise:
+  devise_custom:
+    already_account: "¿Ya tienes una cuenta?"
+    back: Volver
+    back_to_login: Volver al inicio de sesión
+    brand: Ping Empire
+    cancel_account: Cancelar mi cuenta
+    change_password_cta: Cambiar contraseña
+    change_password_subtitle: Elige una nueva contraseña para mantener segura tu cuenta.
+    change_password_title: Cambia tu contraseña
+    confirmation_prompt: "¿Estás seguro?"
+    create_account: Crea tu cuenta
+    create_account_cta: Crear cuenta
+    create_account_subtitle: Únete a la comunidad para mantener tus monitores sincronizados.
+    current_password_hint: necesitamos tu contraseña actual para confirmar los cambios
+    edit_heading: Editar %{resource}
+    email_placeholder: Correo electrónico
+    forgot_password: "¿Olvidaste tu contraseña?"
+    login: Iniciar sesión
+    new_password_confirmation_placeholder: Confirmar nueva contraseña
+    new_password_placeholder: Nueva contraseña
+    no_account: "¿No tienes una cuenta?"
+    password_change_hint: déjalo en blanco si no quieres cambiarla
+    password_confirmation_placeholder: Confirmar contraseña
+    password_length_hint: "%{count} caracteres como mínimo"
+    password_placeholder: Contraseña
+    preferred_language: Idioma preferido
+    remember_me: Recuérdame
+    remember_password: "¿Recordaste tu contraseña?"
+    resend_confirmation: Reenviar instrucciones de confirmación
+    resend_confirmation_button: Reenviar instrucciones de confirmación
+    resend_confirmation_title: Reenviar instrucciones de confirmación
+    resend_unlock: Reenviar instrucciones de desbloqueo
+    resend_unlock_button: Reenviar instrucciones de desbloqueo
+    reset_password_subtitle: Enviaremos instrucciones al correo asociado a tu cuenta.
+    reset_password_title: Restablece tu contraseña
+    send_reset: Enviar instrucciones de restablecimiento
+    sign_in: Inicia sesión
+    sign_in_intro: Inicia sesión para vigilar tus monitores del lago de montaña.
+    sign_in_with: Inicia sesión con %{provider}
+    sign_up: Regístrate
+    unhappy: "¿Insatisfecho?"
+    unlock_instructions_title: Reenviar instrucciones de desbloqueo
+    update: Actualizar
+    waiting_confirmation: 'Esperando confirmación para: %{email}'
+    welcome_back: Bienvenido de nuevo
+  language_preferences:
+    failed: No pudimos guardar tu preferencia de idioma. Inténtalo de nuevo.
+    updated: Idioma cambiado a %{language}.
+  languages:
+    en: Inglés
+    es: Español
+    fr: Francés
   layouts:
     application:
-      title: "PingEmpireMonolith"
-      brand: "Ping Empire"
-      admin_dashboard: "Admin"
-      archives: "Archivos"
-      aws_settings: "Configuración de AWS"
-      logged_in_as: "Conectado como %{email}"
-      logout: "Cerrar sesión"
-      language: "Idioma"
-      profile: "Perfil"
-  languages:
-    en: "Inglés"
-    es: "Español"
-    fr: "Francés"
-  devise:
-    passwords:
-      updated_short: "Contraseña cambiada correctamente."
-  time:
-    formats:
-      long: "%d de %B de %Y %H:%M"
-  language_preferences:
-    updated: "Idioma cambiado a %{language}."
-    failed: "No pudimos guardar tu preferencia de idioma. Inténtalo de nuevo."
-  admin:
-    dashboard:
-      eyebrow: "Resumen de administrador"
-      heading: "Panel de administrador"
-      subheading: "Un punto de partida único para conteos, incidentes, archivos de exportación y conectividad AWS."
-      view_archives: "Ir a archivos"
-      configure_aws: "Configurar AWS"
-      total_sites_label: "Sitios monitoreados totales"
-      total_sites_help: "Sitios web rastreados en todas las cuentas."
-      incidents_label: "Sitios con incidentes hoy"
-      incidents_help: "Respuestas fallidas registradas desde medianoche: %{count}."
-      s3_status_label: "Conectividad S3"
-      s3_connected: "Listo para cargas"
-      s3_disconnected: "No conectado"
-      s3_bucket_label: "Bucket: %{bucket}"
-      s3_help: "Agrega credenciales de AWS para habilitar cargas automáticas."
-      exports_label: "Exportaciones recientes"
-      latest_export: "Última generada a las %{timestamp}"
-      no_exports: "Aún no se encontraron exportaciones de archivos."
-      archive_history_heading: "Exportaciones de archivos recientes"
-      archive_history_help: "Una vista rápida de los CSV más recientes escritos por las exportaciones automáticas."
-      archive_name: "Nombre de archivo"
-      archive_generated: "Generado"
-      archive_size: "Tamaño"
-      no_archives_yet: "Aún no se han generado archivos."
-    archives:
-      heading: "Archivos de respuestas"
-      description: "Exporta cada respuesta de más de un día a un CSV para mantener un registro a largo plazo. Los CSV permanecen en este servidor hasta que se configuren las credenciales de AWS (en cuyo caso la exportación carga automáticamente el archivo nuevo) o hasta que un administrador decida cargar un CSV antiguo a AWS S3 desde la lista inferior."
-      info_automatic_upload: "Las exportaciones intentan cargar el CSV recién creado a S3 cuando hay credenciales configuradas; si tiene éxito, la copia local se elimina inmediatamente."
-      info_manual_upload: "La carga manual a S3 de un CSV antiguo también elimina el archivo local después de una carga correcta."
-      info_no_credentials: "Si AWS no está configurado, los CSV permanecen en la carpeta de archivos de este servidor hasta que alguien limpie el sistema de archivos."
-      warning: "La exportación eliminará permanentemente las respuestas de más de un día después de crear el CSV, así que ejecútala solo cuando estés listo para mover esos datos a otro lugar."
-      s3_status: "Estado de carga a S3:"
-      configured_for_bucket: "Configurado para el bucket"
-      prefix_label: "prefijo:"
-      configured: "Configurado"
-      credentials_last_saved: "Credenciales guardadas por última vez"
-      credentials_reuse_hint: "Las credenciales de AWS guardadas se reutilizan para las cargas; solo necesitas volver a introducirlas al actualizar la configuración."
-      not_connected: "No conectado"
-      configure_aws: "Configurar AWS"
-      archive_now: "Archivar respuestas ahora"
-      existing_csvs: "CSVs locales existentes"
-      filename: "Nombre de archivo"
-      generated: "Generado"
-      size: "Tamaño"
-      actions: "Acciones"
-      download: "Descargar"
-      upload_to_s3: "Subir a S3"
-      upload_confirm: "¿Subir %{filename} a S3 y eliminarlo localmente?"
-      connect_first_title: "Conecta AWS primero"
-      no_archives: "Aún no hay archivos locales. Ejecuta una exportación para generar uno."
-      local_csvs_written_to: "Los CSV locales se escriben en"
-      on_this_server: "en este servidor."
-      removed_after_upload: "Se eliminan después de una carga exitosa a S3, así que revisa"
-      earlier_runs: "para ver archivos de ejecuciones anteriores."
-      filesystem_warning: "Los archivos desaparecerán si se limpia o reconstruye el sistema de archivos del servidor."
-    aws_settings:
-      heading: "Configuración de archivos en AWS"
-      subheading: "Proporciona las credenciales de IAM y el bucket donde deben cargarse los archivos CSV."
-      session_token_optional: "Opcional. Solo se necesita para credenciales temporales."
-      region_placeholder: "us-east-1"
-      key_prefix_optional: "Opcional. Antepondremos este prefijo a cada CSV cargado."
-      key_prefix_placeholder: "archivos/carpeta-opcional"
-      fix_errors: "Corrige lo siguiente:"
-      update: "Actualizar configuración de AWS"
-      save: "Guardar configuración de AWS"
-      back_to_archives: "Volver a archivos"
-  websites:
-    summary:
-      eyebrow: "Resumen de monitoreo"
-      title: "Sitios web"
-      subtitle: "Tu centro de mando para visibilidad de disponibilidad, latencia y fallos en cada monitor del lago de montaña."
-      add_website: "Agregar un sitio web"
-      search_placeholder: "Buscar sitios web..."
-      search: "Buscar"
-      total_websites_label: "Sitios web totales"
-      total_websites_subtitle: "Todas las propiedades vigiladas activamente en tu espacio de trabajo de Ping Empire."
-      todays_failures_label: "Fallos de hoy"
-      view_failure_log: "Ver registro de fallos"
-    list:
-      none_found: "No se encontraron sitios web. Comienza agregando un nuevo monitor arriba."
-      attention: "Atención"
-      stable: "Estable"
-      responses: "Respuestas"
-      last_status: "Último estado %{code}"
-      awaiting_first: "Esperando la primera respuesta."
-      no_responses: "No se encontraron respuestas."
-    show:
-      eyebrow: "Detalle del sitio web"
-      subtitle_prefix: "Telemetría en vivo de"
-      edit: "Editar sitio web"
-      destroy: "Eliminar sitio web"
-      destroy_confirm: "¿Seguro que quieres eliminar este sitio web?"
-      back: "Volver"
-      show_all: "Mostrar todas las respuestas"
-      show_failed: "Mostrar las respuestas fallidas de hoy"
-      showing_failed: "Mostrando solo las respuestas fallidas de hoy."
-      total_responses_label: "Respuestas totales"
-      total_responses_subtitle: "Respuestas históricas registradas para este sitio."
-      failed_today_label: "Fallidas hoy"
-      failed_today_subtitle: "Incidentes detectados en las últimas 24 horas."
-      last_response_label: "Última respuesta"
-      no_responses_yet: "Aún no hay respuestas para este sitio web."
-      empty_failed: "No se han registrado respuestas fallidas hoy para este sitio web."
-    form:
-      url_hint: "Ingresa una URL de sitio web válida (http o https)"
-      save: "Guardar sitio web"
-    new:
-      title: "Nuevo sitio web"
-      back: "Volver a sitios web"
-      heading: "Agregar un nuevo sitio web"
-      latest: "Último:"
-    edit:
-      title: "Editar sitio web"
-      heading: "Editar sitio web"
-      back: "Volver a sitios web"
-    failures:
-      eyebrow: "Informe de incidentes"
-      title: "Respuestas fallidas de hoy"
-      subtitle: "Detecta las interrupciones registradas en tus propiedades monitorizadas desde la medianoche."
-      back: "Volver a sitios web"
-      status_label: "Estado"
-      all_clear: "Sin incidentes"
-      all_clear_subtitle: "No se han registrado respuestas fallidas desde la medianoche."
-      impacted_label: "Sitios afectados"
-      impacted_subtitle: "Propiedades que informan tiempo de inactividad desde la medianoche."
-      failed_label: "Respuestas fallidas"
-      failed_subtitle: "Incidentes individuales capturados en el mismo período."
-      observation_label: "Ventana de observación"
-      website_header: "Sitio web"
-      failures_today_header: "Fallos hoy"
-      last_failure_header: "Último fallo"
-      em_dash: "—"
-    shared:
-      url_label: "URL:"
+      admin_dashboard: Admin
+      archives: Archivos
+      aws_settings: Configuración de AWS
+      brand: Ping Empire
+      language: Idioma
+      logged_in_as: Conectado como %{email}
+      logout: Cerrar sesión
+      manage_users: Gestionar usuarios
+      profile: Perfil
+      title: PingEmpireMonolith
+  mailers:
+    failure_alert_mailer:
+      closing_html: "– El equipo de monitoreo de <strong>Ping Empire</strong>"
+      message_html: 'El sitio web <strong style="color: #0d6efd;">%{url}</strong>
+        ha tenido <strong style="color: #c0392b;">%{count}</strong> respuesta(s) fallida(s)
+        en las últimas 24 horas.'
+      review: Revisa el problema para asegurar que el tiempo de actividad se restaure
+        de forma permanente.
+      title: "⚠️ Alerta de fallo del sitio web"
+    notification_mailer:
+      alert_title: "🚨 Alerta de sitio web: posible inactividad"
+      closing_html: "– El equipo de monitoreo de <strong>Ping Empire</strong>"
+      error_details: Detalles del error
+      greeting_html: Hola <strong>%{email}</strong>,
+      header_brand: Ping Empire
+      help: "¿Necesitas ayuda ahora mismo? Responde este correo y alguien del equipo
+        de Ping Empire te ayudará."
+      monitoring_alert: Alerta de monitoreo
+      monitoring_message: Intentamos acceder a tu sitio web, pero la solicitud devolvió
+        el estado anterior. Seguiremos monitoreando la disponibilidad de este endpoint
+        y te notificaremos si la situación cambia.
+      status_label: Estado
+      view_dashboard: Ver panel
+      website_label: Sitio web
+  profiles:
+    account:
+      cancel: Cancelar
+      description: Mantén actualizados tu correo de inicio de sesión y tu idioma preferido.
+      email: Correo electrónico
+      heading: Detalles del perfil
+      preferred_language: Idioma preferido
+      save: Guardar perfil
+    eyebrow: Cuenta
+    oauth:
+      connect: Conectar
+      connected: Conectado
+      description: Usa inicio de sesión único con cualquiera de tus proveedores vinculados.
+      disconnect: Desconectar
+      disconnect_confirm: "¿Desconectar %{provider} de esta cuenta?"
+      disconnected: No conectado
+      facebook: Facebook
+      google: Google
+      heading: Cuentas conectadas
+      twitter: Twitter
+    oauth_disconnected: Conexión con %{provider} eliminada.
+    oauth_not_connected: Ese proveedor no está vinculado a tu cuenta.
+    password:
+      cta_hint: Te enviaremos las instrucciones a tu correo de la cuenta.
+      description: Envíate un enlace de restablecimiento en cualquier momento para
+        cambiar tu contraseña.
+      heading: Contraseña y recuperación
+      send_reset: Enviar enlace de restablecimiento
+    reset_sent: Se enviaron por correo las instrucciones para restablecer la contraseña.
+    subtitle: Administra tus datos de contacto, opciones de recuperación y métodos
+      de inicio de sesión.
+    title: Perfil y seguridad
+    update_failed: No pudimos guardar tu perfil. Revisa el formulario e inténtalo
+      de nuevo.
+    updated: Perfil actualizado correctamente.
   responses:
     common:
-      id: "ID de respuesta"
-      status_code: "Código de estado"
-      response_time: "Tiempo de respuesta"
-      response_time_unit: "%{time} ms"
-      error: "Error"
-      na: "N/D"
-      show: "Mostrar"
-      edit: "Editar esta respuesta"
-      destroy: "Eliminar esta respuesta"
+      back: Volver
       confirm: "¿Estás seguro?"
-      back: "Volver"
-    index:
-      title: "Respuestas"
-      new_response: "Nueva respuesta"
-      response_time_header: "Tiempo de respuesta"
-    show:
-      status_code_label: "Código de estado:"
-      response_time_label: "Tiempo de respuesta:"
-      error_label: "Error:"
+      destroy: Eliminar esta respuesta
+      edit: Editar esta respuesta
+      error: Error
+      id: ID de respuesta
+      na: N/D
+      response_time: Tiempo de respuesta
+      response_time_unit: "%{time} ms"
+      show: Mostrar
+      status_code: Código de estado
+    edit:
+      title: Editar respuesta
     form:
       errors_heading:
         one: "%{count} error impidió guardar esta respuesta:"
         other: "%{count} errores impidieron guardar esta respuesta:"
-      submit: "Guardar respuesta"
+      submit: Guardar respuesta
+    index:
+      new_response: Nueva respuesta
+      response_time_header: Tiempo de respuesta
+      title: Respuestas
     new:
-      title: "Nueva respuesta"
-    edit:
-      title: "Editar respuesta"
-  mailers:
-    failure_alert_mailer:
-      title: "⚠️ Alerta de fallo del sitio web"
-      message_html: "El sitio web <strong style=\"color: #0d6efd;\">%{url}</strong> ha tenido <strong style=\"color: #c0392b;\">%{count}</strong> respuesta(s) fallida(s) en las últimas 24 horas."
-      review: "Revisa el problema para asegurar que el tiempo de actividad se restaure de forma permanente."
-      closing_html: "– El equipo de monitoreo de <strong>Ping Empire</strong>"
-    notification_mailer:
-      header_brand: "Ping Empire"
-      monitoring_alert: "Alerta de monitoreo"
-      alert_title: "🚨 Alerta de sitio web: posible inactividad"
-      greeting_html: "Hola <strong>%{email}</strong>,"
-      website_label: "Sitio web"
-      status_label: "Estado"
-      monitoring_message: "Intentamos acceder a tu sitio web, pero la solicitud devolvió el estado anterior. Seguiremos monitoreando la disponibilidad de este endpoint y te notificaremos si la situación cambia."
-      error_details: "Detalles del error"
-      help: "¿Necesitas ayuda ahora mismo? Responde este correo y alguien del equipo de Ping Empire te ayudará."
-      view_dashboard: "Ver panel"
-      closing_html: "– El equipo de monitoreo de <strong>Ping Empire</strong>"
-  devise_custom:
-    brand: "Ping Empire"
-    welcome_back: "Bienvenido de nuevo"
-    sign_in_intro: "Inicia sesión para vigilar tus monitores del lago de montaña."
-    email_placeholder: "Correo electrónico"
-    password_placeholder: "Contraseña"
-    remember_me: "Recuérdame"
-    login: "Iniciar sesión"
-    no_account: "¿No tienes una cuenta?"
-    sign_up: "Regístrate"
-    forgot_password: "¿Olvidaste tu contraseña?"
-    sign_in_with: "Inicia sesión con %{provider}"
-    create_account: "Crea tu cuenta"
-    create_account_subtitle: "Únete a la comunidad para mantener tus monitores sincronizados."
-    password_confirmation_placeholder: "Confirmar contraseña"
-    create_account_cta: "Crear cuenta"
-    already_account: "¿Ya tienes una cuenta?"
-    sign_in: "Inicia sesión"
-    reset_password_title: "Restablece tu contraseña"
-    reset_password_subtitle: "Enviaremos instrucciones al correo asociado a tu cuenta."
-    send_reset: "Enviar instrucciones de restablecimiento"
-    change_password_title: "Cambia tu contraseña"
-    change_password_subtitle: "Elige una nueva contraseña para mantener segura tu cuenta."
-    new_password_placeholder: "Nueva contraseña"
-    new_password_confirmation_placeholder: "Confirmar nueva contraseña"
-    change_password_cta: "Cambiar contraseña"
-    back_to_login: "Volver al inicio de sesión"
-    remember_password: "¿Recordaste tu contraseña?"
-    resend_confirmation: "Reenviar instrucciones de confirmación"
-    resend_unlock: "Reenviar instrucciones de desbloqueo"
-    resend_confirmation_title: "Reenviar instrucciones de confirmación"
-    unlock_instructions_title: "Reenviar instrucciones de desbloqueo"
-    edit_heading: "Editar %{resource}"
-    preferred_language: "Idioma preferido"
-    waiting_confirmation: "Esperando confirmación para: %{email}"
-    password_change_hint: "déjalo en blanco si no quieres cambiarla"
-    password_length_hint: "%{count} caracteres como mínimo"
-    current_password_hint: "necesitamos tu contraseña actual para confirmar los cambios"
-    update: "Actualizar"
-    cancel_account: "Cancelar mi cuenta"
-    unhappy: "¿Insatisfecho?"
-    back: "Volver"
-    confirmation_prompt: "¿Estás seguro?"
-    resend_confirmation_button: "Reenviar instrucciones de confirmación"
-    resend_unlock_button: "Reenviar instrucciones de desbloqueo"
-  profiles:
-    eyebrow: "Cuenta"
-    title: "Perfil y seguridad"
-    subtitle: "Administra tus datos de contacto, opciones de recuperación y métodos de inicio de sesión."
-    updated: "Perfil actualizado correctamente."
-    update_failed: "No pudimos guardar tu perfil. Revisa el formulario e inténtalo de nuevo."
-    reset_sent: "Se enviaron por correo las instrucciones para restablecer la contraseña."
-    oauth_disconnected: "Conexión con %{provider} eliminada."
-    oauth_not_connected: "Ese proveedor no está vinculado a tu cuenta."
-    account:
-      heading: "Detalles del perfil"
-      description: "Mantén actualizados tu correo de inicio de sesión y tu idioma preferido."
-      email: "Correo electrónico"
-      preferred_language: "Idioma preferido"
-      cancel: "Cancelar"
-      save: "Guardar perfil"
-    password:
-      heading: "Contraseña y recuperación"
-      description: "Envíate un enlace de restablecimiento en cualquier momento para cambiar tu contraseña."
-      cta_hint: "Te enviaremos las instrucciones a tu correo de la cuenta."
-      send_reset: "Enviar enlace de restablecimiento"
-    oauth:
-      heading: "Cuentas conectadas"
-      description: "Usa inicio de sesión único con cualquiera de tus proveedores vinculados."
-      google: "Google"
-      facebook: "Facebook"
-      twitter: "Twitter"
-      connected: "Conectado"
-      disconnected: "No conectado"
-      connect: "Conectar"
-      disconnect: "Desconectar"
-      disconnect_confirm: "¿Desconectar %{provider} de esta cuenta?"
+      title: Nueva respuesta
+    show:
+      error_label: 'Error:'
+      response_time_label: 'Tiempo de respuesta:'
+      status_code_label: 'Código de estado:'
   shared:
-    status: "Estado"
-    failures_today: "Fallos hoy"
-    time_of_ping: "Hora del ping"
-  devise:
+    failures_today: Fallos hoy
+    status: Estado
+    time_of_ping: Hora del ping
+  time:
+    formats:
+      long: "%d de %B de %Y %H:%M"
+  websites:
+    edit:
+      back: Volver a sitios web
+      heading: Editar sitio web
+      title: Editar sitio web
+    failures:
+      all_clear: Sin incidentes
+      all_clear_subtitle: No se han registrado respuestas fallidas desde la medianoche.
+      back: Volver a sitios web
+      em_dash: "—"
+      eyebrow: Informe de incidentes
+      failed_label: Respuestas fallidas
+      failed_subtitle: Incidentes individuales capturados en el mismo período.
+      failures_today_header: Fallos hoy
+      impacted_label: Sitios afectados
+      impacted_subtitle: Propiedades que informan tiempo de inactividad desde la medianoche.
+      last_failure_header: Último fallo
+      observation_label: Ventana de observación
+      status_label: Estado
+      subtitle: Detecta las interrupciones registradas en tus propiedades monitorizadas
+        desde la medianoche.
+      title: Respuestas fallidas de hoy
+      website_header: Sitio web
+    form:
+      save: Guardar sitio web
+      url_hint: Ingresa una URL de sitio web válida (http o https)
+    list:
+      attention: Atención
+      awaiting_first: Esperando la primera respuesta.
+      last_status: Último estado %{code}
+      no_responses: No se encontraron respuestas.
+      none_found: No se encontraron sitios web. Comienza agregando un nuevo monitor
+        arriba.
+      responses: Respuestas
+      stable: Estable
+    new:
+      back: Volver a sitios web
+      heading: Agregar un nuevo sitio web
+      latest: 'Último:'
+      title: Nuevo sitio web
+    shared:
+      url_label: 'URL:'
+    show:
+      back: Volver
+      destroy: Eliminar sitio web
+      destroy_confirm: "¿Seguro que quieres eliminar este sitio web?"
+      edit: Editar sitio web
+      empty_failed: No se han registrado respuestas fallidas hoy para este sitio web.
+      eyebrow: Detalle del sitio web
+      failed_today_label: Fallidas hoy
+      failed_today_subtitle: Incidentes detectados en las últimas 24 horas.
+      last_response_label: Última respuesta
+      no_responses_yet: Aún no hay respuestas para este sitio web.
+      show_all: Mostrar todas las respuestas
+      show_failed: Mostrar las respuestas fallidas de hoy
+      showing_failed: Mostrando solo las respuestas fallidas de hoy.
+      subtitle_prefix: Telemetría en vivo de
+      total_responses_label: Respuestas totales
+      total_responses_subtitle: Respuestas históricas registradas para este sitio.
+    summary:
+      add_website: Agregar un sitio web
+      eyebrow: Resumen de monitoreo
+      search: Buscar
+      search_placeholder: Buscar sitios web...
+      subtitle: Tu centro de mando para visibilidad de disponibilidad, latencia y
+        fallos en cada monitor del lago de montaña.
+      title: Sitios web
+      todays_failures_label: Fallos de hoy
+      total_websites_label: Sitios web totales
+      total_websites_subtitle: Todas las propiedades vigiladas activamente en tu espacio
+        de trabajo de Ping Empire.
+      view_failure_log: Ver registro de fallos
