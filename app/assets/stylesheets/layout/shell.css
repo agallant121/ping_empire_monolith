@@ -4,6 +4,8 @@
   border: 1px solid var(--color-outline);
   box-shadow: var(--shadow-lg);
   backdrop-filter: blur(18px);
+  position: relative;
+  z-index: 1100;
   margin: clamp(1.5rem, 2.5vw, 2.75rem) auto 0;
   padding: 0.85rem clamp(1.75rem, 3vw, 3rem);
   max-width: 1320px;
@@ -15,8 +17,48 @@
   font-size: 0.95rem;
 }
 
+.app-navbar .user-menu-toggle {
+  background: rgba(47, 116, 80, 0.1);
+  color: var(--color-ink);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-sm);
+  padding-inline: 1rem;
+}
+
+.app-navbar .user-menu-toggle:hover,
+.app-navbar .user-menu-toggle:focus-visible {
+  background: rgba(47, 116, 80, 0.18);
+  color: var(--color-forest-700);
+}
+
+.app-navbar .user-menu__list {
+  min-width: 13rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-outline);
+  box-shadow: var(--shadow-md);
+  background: var(--color-panel);
+  backdrop-filter: blur(10px);
+  z-index: 1200;
+}
+
+.app-navbar .user-menu__list .dropdown-item {
+  color: var(--color-ink);
+  padding: 0.65rem 1rem;
+}
+
+.app-navbar .user-menu__list .dropdown-item:hover,
+.app-navbar .user-menu__list .dropdown-item:focus-visible {
+  background-color: rgba(47, 116, 80, 0.1);
+  color: var(--color-forest-700);
+}
+
 .app-navbar .logout-button {
   margin-left: 1.25rem;
+}
+
+.app-navbar .admin-link {
+  padding: 0.35rem 0.65rem;
+  color: var(--color-forest-700);
 }
 
 .app-main {

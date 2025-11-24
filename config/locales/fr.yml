@@ -8,10 +8,14 @@ fr:
       logged_in_as: "Connecté en tant que %{email}"
       logout: "Se déconnecter"
       language: "Langue"
+      profile: "Profil"
   languages:
     en: "Anglais"
     es: "Espagnol"
     fr: "Français"
+  devise:
+    passwords:
+      updated_short: "Mot de passe modifié avec succès."
   time:
     formats:
       long: "%d %B %Y %H:%M"
@@ -198,12 +202,13 @@ fr:
     reset_password_title: "Réinitialisez votre mot de passe"
     reset_password_subtitle: "Nous enverrons des instructions à l'e-mail associé à votre compte."
     send_reset: "Envoyer les instructions de réinitialisation"
-    remember_password: "Vous souvenez-vous de votre mot de passe ?"
     change_password_title: "Modifiez votre mot de passe"
+    change_password_subtitle: "Choisissez un nouveau mot de passe pour sécuriser votre compte."
     new_password_placeholder: "Nouveau mot de passe"
     new_password_confirmation_placeholder: "Confirmer le nouveau mot de passe"
     change_password_cta: "Changer le mot de passe"
     back_to_login: "Retour à la connexion"
+    remember_password: "Vous souvenez-vous de votre mot de passe ?"
     resend_confirmation: "Renvoyer les instructions de confirmation"
     resend_unlock: "Renvoyer les instructions de déverrouillage"
     resend_confirmation_title: "Renvoyer les instructions de confirmation"
@@ -221,6 +226,38 @@ fr:
     confirmation_prompt: "Êtes-vous sûr ?"
     resend_confirmation_button: "Renvoyer les instructions de confirmation"
     resend_unlock_button: "Renvoyer les instructions de déverrouillage"
+  profiles:
+    eyebrow: "Compte"
+    title: "Profil et sécurité"
+    subtitle: "Gérez vos coordonnées, vos options de récupération et vos méthodes de connexion."
+    updated: "Profil mis à jour avec succès."
+    update_failed: "Nous n'avons pas pu enregistrer votre profil. Veuillez vérifier le formulaire et réessayer."
+    reset_sent: "Les instructions de réinitialisation du mot de passe ont été envoyées par e-mail."
+    oauth_disconnected: "Connexion %{provider} supprimée."
+    oauth_not_connected: "Ce fournisseur n'est pas lié à votre compte."
+    account:
+      heading: "Détails du profil"
+      description: "Maintenez à jour votre e-mail de connexion et votre langue préférée."
+      email: "E-mail"
+      preferred_language: "Langue préférée"
+      cancel: "Annuler"
+      save: "Enregistrer le profil"
+    password:
+      heading: "Mot de passe et récupération"
+      description: "Envoyez-vous un lien de réinitialisation à tout moment pour modifier votre mot de passe."
+      cta_hint: "Nous enverrons les instructions à l’adresse e-mail de votre compte."
+      send_reset: "Envoyer le lien de réinitialisation"
+    oauth:
+      heading: "Comptes connectés"
+      description: "Utilisez l'authentification unique avec vos fournisseurs liés."
+      google: "Google"
+      facebook: "Facebook"
+      twitter: "Twitter"
+      connected: "Connecté"
+      disconnected: "Non connecté"
+      connect: "Connecter"
+      disconnect: "Déconnecter"
+      disconnect_confirm: "Déconnecter %{provider} de ce compte ?"
   shared:
     status: "Statut"
     failures_today: "Échecs aujourd'hui"

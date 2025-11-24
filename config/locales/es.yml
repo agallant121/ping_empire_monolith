@@ -8,10 +8,14 @@ es:
       logged_in_as: "Conectado como %{email}"
       logout: "Cerrar sesión"
       language: "Idioma"
+      profile: "Perfil"
   languages:
     en: "Inglés"
     es: "Español"
     fr: "Francés"
+  devise:
+    passwords:
+      updated_short: "Contraseña cambiada correctamente."
   time:
     formats:
       long: "%d de %B de %Y %H:%M"
@@ -198,12 +202,13 @@ es:
     reset_password_title: "Restablece tu contraseña"
     reset_password_subtitle: "Enviaremos instrucciones al correo asociado a tu cuenta."
     send_reset: "Enviar instrucciones de restablecimiento"
-    remember_password: "¿Recordaste tu contraseña?"
     change_password_title: "Cambia tu contraseña"
+    change_password_subtitle: "Elige una nueva contraseña para mantener segura tu cuenta."
     new_password_placeholder: "Nueva contraseña"
     new_password_confirmation_placeholder: "Confirmar nueva contraseña"
     change_password_cta: "Cambiar contraseña"
     back_to_login: "Volver al inicio de sesión"
+    remember_password: "¿Recordaste tu contraseña?"
     resend_confirmation: "Reenviar instrucciones de confirmación"
     resend_unlock: "Reenviar instrucciones de desbloqueo"
     resend_confirmation_title: "Reenviar instrucciones de confirmación"
@@ -221,7 +226,40 @@ es:
     confirmation_prompt: "¿Estás seguro?"
     resend_confirmation_button: "Reenviar instrucciones de confirmación"
     resend_unlock_button: "Reenviar instrucciones de desbloqueo"
+  profiles:
+    eyebrow: "Cuenta"
+    title: "Perfil y seguridad"
+    subtitle: "Administra tus datos de contacto, opciones de recuperación y métodos de inicio de sesión."
+    updated: "Perfil actualizado correctamente."
+    update_failed: "No pudimos guardar tu perfil. Revisa el formulario e inténtalo de nuevo."
+    reset_sent: "Se enviaron por correo las instrucciones para restablecer la contraseña."
+    oauth_disconnected: "Conexión con %{provider} eliminada."
+    oauth_not_connected: "Ese proveedor no está vinculado a tu cuenta."
+    account:
+      heading: "Detalles del perfil"
+      description: "Mantén actualizados tu correo de inicio de sesión y tu idioma preferido."
+      email: "Correo electrónico"
+      preferred_language: "Idioma preferido"
+      cancel: "Cancelar"
+      save: "Guardar perfil"
+    password:
+      heading: "Contraseña y recuperación"
+      description: "Envíate un enlace de restablecimiento en cualquier momento para cambiar tu contraseña."
+      cta_hint: "Te enviaremos las instrucciones a tu correo de la cuenta."
+      send_reset: "Enviar enlace de restablecimiento"
+    oauth:
+      heading: "Cuentas conectadas"
+      description: "Usa inicio de sesión único con cualquiera de tus proveedores vinculados."
+      google: "Google"
+      facebook: "Facebook"
+      twitter: "Twitter"
+      connected: "Conectado"
+      disconnected: "No conectado"
+      connect: "Conectar"
+      disconnect: "Desconectar"
+      disconnect_confirm: "¿Desconectar %{provider} de esta cuenta?"
   shared:
     status: "Estado"
     failures_today: "Fallos hoy"
     time_of_ping: "Hora del ping"
+  devise:
