@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
+    root to: "dashboard#show"
     resource :aws_settings, only: [ :show, :create, :update ], controller: "aws_settings"
     resources :archives, only: [ :index ] do
       collection do
