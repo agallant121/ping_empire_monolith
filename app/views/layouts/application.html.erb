@@ -58,13 +58,21 @@
                 <span class="nav-email"><%= t("layouts.application.logged_in_as", email: current_user.email) %></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end user-menu__list" aria-labelledby="userMenu">
-                <% if current_user.admin? %>
+                <% if current_user.admin_area_access? %>
                   <li>
                     <%= link_to admin_root_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
                       <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
                       <span><%= t("layouts.application.admin_dashboard") %></span>
                     <% end %>
                   </li>
+                  <% if current_user.supervisor? %>
+                    <li>
+                      <%= link_to admin_users_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                        <i class="fas fa-users" aria-hidden="true"></i>
+                        <span><%= t("layouts.application.manage_users") %></span>
+                      <% end %>
+                    </li>
+                  <% end %>
                   <li>
                     <%= link_to admin_archives_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
                       <i class="fas fa-archive" aria-hidden="true"></i>
