@@ -8,6 +8,11 @@
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
 
+  <div class="field">
+    <%= f.label :preferred_language, t("devise_custom.preferred_language") %><br />
+    <%= f.select :preferred_language, language_options_for_select, { selected: resource.preferred_language || I18n.default_locale }, class: "form-select" %>
+  </div>
+
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div><%= t("devise_custom.waiting_confirmation", email: resource.unconfirmed_email) %></div>
   <% end %>

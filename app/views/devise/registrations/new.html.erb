@@ -29,6 +29,11 @@
       </div>
 
       <div class="input-group">
+        <span class="input-group-text"><i class="fas fa-language"></i></span>
+        <%= f.select :preferred_language, language_options_for_select, { selected: resource.preferred_language || I18n.default_locale }, class: "form-select" %>
+      </div>
+
+      <div class="input-group">
         <span class="input-group-text"><i class="fas fa-lock"></i></span>
         <%= f.password_field :password, autocomplete: "new-password", class: "form-control", placeholder: t("devise_custom.password_placeholder") %>
       </div>
