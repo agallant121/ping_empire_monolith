@@ -24,9 +24,9 @@ module Admin
 
       message_key = if user == current_user
                       "self"
-                    elsif user.supervisor?
+      elsif user.supervisor?
                       "supervisor_blocked"
-                    end
+      end
 
       if message_key
         redirect_to admin_users_path, alert: t("admin.users.flash.destroy.#{message_key}")
