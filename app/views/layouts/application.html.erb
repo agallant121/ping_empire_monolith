@@ -44,10 +44,6 @@
       <nav class="navbar app-navbar container-xl">
         <%= link_to t("layouts.application.brand"), root_path, class: "navbar-brand brand-title" %>
         <div class="ms-auto d-flex align-items-center gap-2">
-          <% if current_user.admin? %>
-            <%= link_to t("layouts.application.archives"), admin_archives_path, class: "btn btn-link text-decoration-none admin-link" %>
-            <%= link_to t("layouts.application.aws_settings"), admin_aws_settings_path, class: "btn btn-link text-decoration-none admin-link" %>
-          <% end %>
           <div class="d-flex align-items-center gap-2">
             <%= form_with model: current_user, url: language_preference_path, method: :put, local: true, class: "language-switcher" do |form| %>
               <span class="language-switcher__icon" aria-hidden="true">
@@ -62,8 +58,40 @@
                 <span class="nav-email"><%= t("layouts.application.logged_in_as", email: current_user.email) %></span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end user-menu__list" aria-labelledby="userMenu">
-                <li><%= link_to t("layouts.application.profile"), profile_path, class: "dropdown-item" %></li>
-                <li><%= link_to t("layouts.application.logout"), destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item" %></li>
+                <% if current_user.admin? %>
+                  <li>
+                    <%= link_to admin_root_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                      <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                      <span><%= t("layouts.application.admin_dashboard") %></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to admin_archives_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                      <i class="fas fa-archive" aria-hidden="true"></i>
+                      <span><%= t("layouts.application.archives") %></span>
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to admin_aws_settings_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                      <i class="fas fa-cloud" aria-hidden="true"></i>
+                      <span><%= t("layouts.application.aws_settings") %></span>
+                    <% end %>
+                  </li>
+                  <li><hr class="dropdown-divider"></li>
+                <% end %>
+                <li>
+                  <%= link_to profile_path, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                    <i class="fas fa-address-card" aria-hidden="true"></i>
+                    <span><%= t("layouts.application.profile") %></span>
+                  <% end %>
+                </li>
+
+                <li>
+                  <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: "dropdown-item d-flex align-items-center gap-2" do %>
+                    <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+                    <span><%= t("layouts.application.logout") %></span>
+                  <% end %>
+                </li>              
               </ul>
             </div>
           </div>
