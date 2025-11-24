@@ -11,9 +11,13 @@ class User < ApplicationRecord
   has_many :websites, dependent: :destroy
 
   ROLES = { user: 0, admin: 1 }.freeze
+  LANGUAGE_OPTIONS = %w[en es fr].freeze
 
   scope :admins, -> { where(role: 1) }
   scope :regular_users, -> { where(role: 0) }
+
+  before_validation :set_default_language
+  validates :preferred_language, inclusion: { in: LANGUAGE_OPTIONS }
 
   def self.from_omniauth(auth)
     user = where(provider: auth.provider, uid: auth.uid).first
@@ -46,5 +50,11 @@ class User < ApplicationRecord
 
   def regular_user?
     role == 0
+  end
+
+  private
+
+  def set_default_language
+    self.preferred_language ||= I18n.default_locale.to_s
   end
 end
