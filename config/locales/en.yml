@@ -7,6 +7,17 @@ en:
       aws_settings: "AWS Settings"
       logged_in_as: "Logged in as %{email}"
       logout: "Logout"
+      language: "Language"
+  languages:
+    en: "English"
+    es: "Spanish"
+    fr: "French"
+  time:
+    formats:
+      long: "%B %d, %Y %I:%M %p"
+  language_preferences:
+    updated: "Language changed to %{language}."
+    failed: "We couldn't save your language preference. Please try again."
   admin:
     archives:
       heading: "Response Archives"
@@ -198,6 +209,7 @@ en:
     resend_confirmation_title: "Resend confirmation instructions"
     unlock_instructions_title: "Resend unlock instructions"
     edit_heading: "Edit %{resource}"
+    preferred_language: "Preferred language"
     waiting_confirmation: "Currently waiting confirmation for: %{email}"
     password_change_hint: "leave blank if you don't want to change it"
     password_length_hint: "%{count} characters minimum"
