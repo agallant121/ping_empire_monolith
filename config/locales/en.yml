@@ -308,6 +308,10 @@ en:
     list:
       attention: Attention
       awaiting_first: Awaiting first response.
+      all_status: All statuses
+      bulk_help: Select sites to remove them in one action.
+      failing_status: Failing
+      healthy_status: Healthy
       last_status: Last status %{code}
       no_responses: No responses found.
       none_found: No websites found. Start by adding a new monitor above.
@@ -339,6 +343,8 @@ en:
       total_responses_subtitle: Historical responses captured for this site.
     summary:
       add_website: Add a Website
+      bulk_add: Bulk add
+      bulk_add_placeholder: "Enter URLs separated by commas or new lines"
       eyebrow: Monitoring Overview
       search: Search
       search_placeholder: Search websites...
