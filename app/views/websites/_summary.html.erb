@@ -2,19 +2,54 @@
   <div class="surface-header w-100">
     <div>
       <p class="surface-eyebrow"><%= t("websites.summary.eyebrow") %></p>
-      <h1 class="surface-title"><%= t("websites.summary.title") %></h1>
+      <h1 class="surface-title mb-1"><%= t("websites.summary.title") %></h1>
       <p class="surface-subtitle"><%= t("websites.summary.subtitle") %></p>
     </div>
-    <div class="ms-auto">
+
+    <div class="d-flex gap-2 ms-auto flex-wrap justify-content-end">
       <%= link_to t("websites.summary.add_website"), new_website_path, class: "btn add-website-button" %>
     </div>
   </div>
 
   <% unless current_user.website_count < 1 %>
-    <div class="surface-toolbar">
-      <%= form_with url: websites_path, method: :get, local: true, class: "search-panel" do %>
-        <%= text_field_tag :q, params[:q], class: "search-input", placeholder: t("websites.summary.search_placeholder") %>
-        <%= submit_tag t("websites.summary.search"), class: "btn search-button" %>
+    <div class="control-grid">
+      <%= form_with url: websites_path, method: :get, class: "control-card", local: true do %>
+        <div>
+          <p class="control-card__eyebrow"><%= t("websites.summary.search") %></p>
+          <p class="surface-subtitle mb-2"><%= t("websites.summary.search_placeholder") %></p>
+        </div>
+
+        <div class="control-row control-row--search">
+          <%= text_field_tag :q, params[:q], class: "form-control", placeholder: t("websites.summary.search_placeholder") %>
+
+          <div class="d-grid">
+            <%= submit_tag t("websites.summary.search"), class: "btn search-button" %>
+          </div>
+
+          <div class="status-toggle">
+            <%= radio_button_tag :status, "healthy", (params[:status].presence || "healthy") == "healthy", id: "status_healthy", class: "btn-check", onchange: "this.form.requestSubmit()" %>
+            <label class="status-toggle__pill" for="status_healthy">
+              <%= t("websites.list.healthy_status") %>
+            </label>
+
+            <%= radio_button_tag :status, "failing", params[:status] == "failing", id: "status_failing", class: "btn-check", onchange: "this.form.requestSubmit()" %>
+            <label class="status-toggle__pill" for="status_failing">
+              <%= t("websites.list.failing_status") %>
+            </label>
+          </div>
+        </div>
+      <% end %>
+
+      <%= form_with url: bulk_create_websites_path, class: "control-card control-card--muted", local: true do %>
+        <div class="control-card__header">
+          <div>
+            <p class="control-card__eyebrow"><%= t("websites.summary.bulk_add") %></p>
+            <p class="surface-subtitle mb-2"><%= t("websites.summary.bulk_add_placeholder") %></p>
+          </div>
+          <%= submit_tag t("websites.summary.bulk_add"), class: "btn add-website-button" %>
+        </div>
+
+        <%= text_area_tag :urls, nil, rows: 3, class: "form-control", placeholder: "https://example.com\nhttps://status.example.com" %>
       <% end %>
     </div>
   <% end %>
@@ -33,3 +68,4 @@
     <% end %>
   </div>
 </section>
+
