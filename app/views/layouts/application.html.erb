@@ -21,20 +21,29 @@
     <% if flash.any? %>
       <div class="flash-region container-xl">
         <% flash.each do |type, message| %>
-          <% css_class =
-            case type.to_sym
+          <% type_sym = type.to_sym %>
+          <% positive_alert = type_sym == :alert && message.to_s.match?(/success/i) %>
+          <% display_type = positive_alert ? :notice : type_sym %>
+          <% css_class, icon_class, heading =
+            case display_type
             when :notice
-              "flash-success"
+              ["flash-success", "fas fa-check-circle text-success"]
             when :alert
-              "flash-error"
+              ["flash-error", "fas fa-exclamation-triangle text-danger"]
             else
-              "flash-info"
+              ["flash-info", "fas fa-info-circle text-info"]
             end
           %>
 
-          <div class="flash-message <%= css_class %> alert alert-dismissible fade show d-flex align-items-center" role="alert">
-            <span class="flex-grow-1"><%= message %></span>
-            <button type="button" class="btn-close ms-3" data-bs-dismiss="alert" aria-label="Close"></button>
+          <div class="flash-message <%= css_class %> alert alert-dismissible fade show" role="alert">
+            <div class="flash-icon" aria-hidden="true">
+              <i class="<%= icon_class %>"></i>
+            </div>
+            <div class="flash-copy flex-grow-1">
+              <span class="flash-heading"><%= heading %></span>
+              <span class="flash-body"><%= message %></span>
+            </div>
+            <button type="button" class="flash-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
           </div>
         <% end %>
       </div>

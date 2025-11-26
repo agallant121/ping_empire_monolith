@@ -22,6 +22,29 @@ es:
       filename: Nombre de archivo
       filesystem_warning: Los archivos desaparecerán si se limpia o reconstruye el
         sistema de archivos del servidor.
+      flash:
+        auto_upload_missing_file: Archive could not be found for upload. Export again
+          or download the latest CSV before retrying.
+        aws_missing: AWS credentials are missing. Add them in AWS Settings, then return
+          here to upload.
+        download_missing: Archive could not be found.
+        download_now: Download it now
+        export_failed: Archiving failed and nothing was uploaded. Verify disk space,
+          check AWS/S3 connectivity, then retry. Error - %{error}
+        file_missing: Archive could not be found on disk. Export a new archive, then
+          upload it.
+        filename_missing: Archive name is missing. Refresh the page and pick a file
+          to upload.
+        no_data: No responses were exported because there was no data older than one
+          day. Try again later or adjust your retention settings.
+        upload_failed: Saved %{count} responses locally as %{filename}, but uploading
+          to S3 failed.
+        upload_failed_base: Upload failed. Confirm AWS credentials, bucket permissions,
+          and network access, then retry from Archives.
+        upload_failed_detail: 'Details: %{detail}.'
+        upload_success: Uploaded %{filename} to S3 and removed the local copy.
+        upload_success_without_delete: Uploaded %{filename} to S3 but could not remove
+          the local copy. Check file permissions.
       generated: Generado
       heading: Archivos de respuestas
       info_automatic_upload: Las exportaciones intentan cargar el CSV recién creado
