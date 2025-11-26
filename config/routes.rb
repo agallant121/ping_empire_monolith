@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   resources :websites do
     collection do
+      post :bulk_create
       get :failures
     end
     resources :responses
