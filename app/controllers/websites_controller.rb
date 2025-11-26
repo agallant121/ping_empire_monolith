@@ -4,23 +4,103 @@ class WebsitesController < ApplicationController
   before_action :set_websites, only: %i[ new create ]
 
   def index
-    @websites = current_user.websites
+    @websites = filtered_websites
     @failed_websites_count = current_user.websites.with_failures_since(Time.current.beginning_of_day).count
-    @websites = @websites.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
-    @websites = @websites.recent.includes(:responses).page(params[:page]).per(12)
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
   end
 
   def failures
+    set_failure_stats
+  end
+
+  def show
+    failures_cutoff = Time.current.beginning_of_day
+    failed_scope = @website.responses
+                               .where("status_code >= :min_status OR error IS NOT NULL", min_status: 400)
+                               .where("created_at >= ?", failures_cutoff)
+
+    @failed_responses_total = failed_scope.count
+    @show_failed_only = params[:failed] == "true"
+
+    scoped_responses = @show_failed_only ? failed_scope : @website.responses
+    @responses = scoped_responses.order(created_at: :desc).page(params[:page]).per(15)
+
+    @pagination_params = {}
+  end
+
+  def new
+    @website = Website.new
+  end
+
+  def edit
+  end
+
+  def create
+    @website = current_user.websites.new(website_params)
+
+    if @website.save
+      redirect_to @website, notice: "Website was successfully created."
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @website.update(website_params)
+      redirect_to @website, notice: "Website was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @website.destroy!
+    redirect_to root_path, status: :see_other, alert: "Website was successfully destroyed."
+  end
+
+  def bulk_create
+    urls = params[:urls].to_s.split(/\r?\n|,/).map(&:strip).reject(&:blank?)
+    urls.each { |url| current_user.websites.find_or_create_by(url: url) }
+
+    @websites = filtered_websites
+
+    redirect_to websites_path, notice: "Websites added."
+  end
+
+  private
+
+  def filtered_websites
+    scope = current_user.websites
+    scope = scope.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+
+    status = params[:status].presence || "healthy"
+
+    if status == "failing"
+      failing_ids = scope.with_failures_since(Time.current.beginning_of_day).select(:id)
+      scope = scope.where(id: failing_ids)
+    elsif status == "healthy"
+      failing_ids = scope.with_failures_since(Time.current.beginning_of_day).select(:id)
+      scope = scope.where.not(id: failing_ids)
+    end
+
+    scope.recent.includes(:responses).page(params[:page]).per(12)
+  end
+
+  def set_website
+    @website = current_user.websites.find(params[:id])
+  end
+
+  def set_websites
+    @websites = current_user.websites.recent.page(params[:page]).per(9)
+  end
+
+  def set_failure_stats
     @cutoff_time = Time.current.beginning_of_day
     scoped_websites = current_user.websites.with_failures_since(@cutoff_time)
     website_ids = scoped_websites.pluck(:id)
-    @websites = current_user.websites.where(id: website_ids).order(:url)
-    @failed_websites_count = website_ids.size
+    @websites = current_user.websites.where(id: website_ids)
+    @websites = @websites.where("url ILIKE ?", "%#{params[:q]}%") if params[:q].present?
+    @websites = @websites.order(:url)
+    @failed_websites_count = @websites.size
 
     if website_ids.empty?
       @failure_counts = Hash.new(0)
@@ -51,70 +131,8 @@ class WebsitesController < ApplicationController
     @failed_response_count = @failure_counts.values.sum
   end
 
-  def show
-    failures_cutoff = Time.current.beginning_of_day
-    failed_scope = @website.responses
-                               .where("status_code >= :min_status OR error IS NOT NULL", min_status: 400)
-                               .where("created_at >= ?", failures_cutoff)
-
-    @failed_responses_total = failed_scope.count
-    @show_failed_only = params[:failed] == "true"
-
-    scoped_responses = @show_failed_only ? failed_scope : @website.responses
-    @responses = scoped_responses.order(created_at: :desc).page(params[:page]).per(15)
-
-    @pagination_params = { format: :turbo_stream }
-    @pagination_params[:failed] = "true" if @show_failed_only
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
-  end
-
-  def new
-    @website = Website.new
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream
-    end
-  end
-
-  def edit
-  end
-
-  def create
-    @website = current_user.websites.new(website_params)
-
-    if @website.save
-      redirect_to @website, notice: "Website was successfully created."
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def update
-    if @website.update(website_params)
-      redirect_to @website, notice: "Website was successfully updated."
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @website.destroy!
-    redirect_to root_path, status: :see_other, alert: "Website was successfully destroyed."
-  end
-
-  private
-
-  def set_website
-    @website = current_user.websites.find(params[:id])
-  end
-
-  def set_websites
-    @websites = current_user.websites.recent.page(params[:page]).per(9)
+  def failure_partials_locals
+    { websites: @websites, failure_counts: @failure_counts, last_failure_at: @last_failure_at }
   end
 
   def website_params

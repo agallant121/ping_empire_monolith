@@ -17,6 +17,15 @@
       <p class="mb-0 surface-subtitle"><%= t("websites.failures.all_clear_subtitle") %></p>
     </div>
   <% else %>
+    <div class="surface-toolbar">
+      <%= form_with url: failures_websites_path, method: :get, class: "search-row", local: true do %>
+        <div class="search-panel">
+          <%= text_field_tag :q, params[:q], class: "search-input", placeholder: t("websites.summary.search_placeholder") %>
+        </div>
+        <%= submit_tag t("websites.summary.search"), class: "btn search-button" %>
+      <% end %>
+    </div>
+
     <div class="stat-grid mb-4">
       <div class="stat-card stat-card--alert stat-card--center">
         <span class="stat-card__label"><%= t("websites.failures.impacted_label") %></span>
@@ -35,39 +44,6 @@
       </div>
     </div>
 
-    <section class="surface-block surface-block--nested">
-      <div class="table-responsive data-table-wrapper">
-        <table class="table align-middle mb-0">
-          <thead>
-            <tr>
-              <th scope="col"><%= t("websites.failures.website_header") %></th>
-              <th scope="col" class="text-center"><%= t("websites.failures.failures_today_header") %></th>
-              <th scope="col"><%= t("websites.failures.last_failure_header") %></th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @websites.each do |website| %>
-              <% failure_count = @failure_counts[website.id].to_i %>
-              <% last_failure_at = @last_failure_at[website.id] %>
-              <tr class="table-danger">
-                <td class="fw-semibold">
-                  <%= link_to website.url, website_path(website, failed: true), class: "text-decoration-none" %>
-                </td>
-                <td class="text-center">
-                  <span class="status-chip status-chip--alert"><%= failure_count %></span>
-                </td>
-                <td>
-                  <% if last_failure_at.present? %>
-                    <%= last_failure_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %l:%M %p") %>
-                  <% else %>
-                    <span class="surface-subtitle"><%= t("websites.failures.em_dash") %></span>
-                  <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      </div>
-    </section>
+    <%= render partial: "websites/failure_table", locals: { websites: @websites, failure_counts: @failure_counts, last_failure_at: @last_failure_at } %>
   <% end %>
 </section>
