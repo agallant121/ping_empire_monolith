@@ -14,7 +14,10 @@ module Admin
 
       if result.status == :no_data
         log_info("Admin::ArchivesController: export skipped because there were no responses older than one day")
-        redirect_to admin_archives_path, alert: result.message
+        redirect_to(
+          admin_archives_path,
+          alert: "No responses were exported because there was no data older than one day. Try again later or adjust your retention settings."
+        )
         return
       end
 
@@ -29,7 +32,10 @@ module Admin
       redirect_to admin_archives_path
     rescue StandardError => e
       log_error("Admin::ArchivesController: export failed - #{e.message}")
-      redirect_to admin_archives_path, alert: "Unable to archive responses: #{e.message}"
+      redirect_to(
+        admin_archives_path,
+        alert: "Archiving failed and nothing was uploaded. Verify disk space, check AWS/S3 connectivity, then retry. Error: #{e.message}"
+      )
     end
 
     def download
@@ -47,19 +53,22 @@ module Admin
     def upload
       uploader = ArchiveDayOldPingsJob.build_s3_uploader
       unless uploader
-        redirect_to admin_archives_path, alert: "Connect your AWS credentials before uploading to S3."
+        redirect_to(
+          admin_archives_path,
+          alert: "AWS credentials are missing. Add them in AWS Settings, then return here to upload."
+        )
         return
       end
 
       file_name = params[:filename].to_s
       if file_name.blank?
-        redirect_to admin_archives_path, alert: "Archive could not be found."
+        redirect_to admin_archives_path, alert: "Archive name is missing. Refresh the page and pick a file to upload."
         return
       end
 
       file_path = archive_file_path(file_name)
       unless File.exist?(file_path)
-        redirect_to admin_archives_path, alert: "Archive could not be found."
+        redirect_to admin_archives_path, alert: "Archive could not be found on disk. Export a new archive, then upload it."
         return
       end
 
@@ -127,10 +136,11 @@ module Admin
     end
 
     def upload_error_message(error_detail)
-      return "Upload failed. Check your AWS credentials and try again." if error_detail.blank?
+      base_message = "Upload failed. Confirm AWS credentials, bucket permissions, and network access, then retry from Archives."
+      return base_message if error_detail.blank?
 
       sanitized_detail = error_detail.to_s.strip.sub(/\.*\z/, "")
-      "Upload failed: #{sanitized_detail}."
+      "#{base_message} Details: #{sanitized_detail}."
     end
 
     def attempt_auto_upload(result)
@@ -138,7 +148,7 @@ module Admin
       return false unless uploader && result.file_path.present?
 
       unless File.exist?(result.file_path)
-        flash[:alert] = "Archive could not be found for upload."
+        flash[:alert] = "Archive could not be found for upload. Export again or download the latest CSV before retrying."
         log_error("Admin::ArchivesController: missing file for auto-upload: #{result.file_path}")
         return true
       end
