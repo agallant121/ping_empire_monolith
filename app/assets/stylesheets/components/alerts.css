@@ -1,36 +1,90 @@
 .flash-region {
-  max-width: 1240px;
-  width: calc(100% - 2.5rem);
-  margin: clamp(1.25rem, 3vw, 2rem) auto 0;
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+  margin-top: clamp(0.75rem, 2vw, 1.25rem);
 }
 
 .flash-message {
-  padding: 0.85rem 1.5rem;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  width: min(640px, 100%);
+  margin: 0 auto;
+  padding: 0.75rem 1rem;
   border-radius: var(--radius-md);
   font-weight: 500;
   letter-spacing: 0.02em;
   border: 1px solid var(--color-outline);
   box-shadow: var(--shadow-sm);
-  background: linear-gradient(135deg, rgba(240, 248, 244, 0.9) 0%, rgba(232, 245, 238, 0.95) 100%);
+  background: #f1f8f5;
   color: var(--color-ink);
+  text-align: center;
+  column-gap: 0.75rem;
+}
+
+.flash-icon {
+  font-size: 1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.flash-copy {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.flash-heading {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink-strong, #0c1f1a);
+}
+
+.flash-body {
+  font-size: 0.97rem;
+  color: var(--color-ink);
+  line-height: 1.2;
 }
 
 .flash-success {
   border-color: rgba(90, 155, 121, 0.45);
-  background: linear-gradient(135deg, rgba(208, 237, 221, 0.92) 0%, rgba(186, 226, 206, 0.95) 100%);
+  background: #e0f0e7;
 }
 
 .flash-error {
   border-color: rgba(228, 131, 131, 0.45);
-  background: linear-gradient(135deg, rgba(251, 225, 220, 0.95) 0%, rgba(246, 205, 198, 0.95) 100%);
+  background: #fbe1dc;
   color: var(--color-danger-text);
 }
 
 .flash-info {
   border-color: rgba(90, 155, 121, 0.32);
-  background: linear-gradient(135deg, rgba(216, 238, 227, 0.9) 0%, rgba(200, 231, 217, 0.92) 100%);
+  background: #e6f3ed;
 }
 
-.alert .btn-close {
-  filter: invert(88%) sepia(4%) saturate(432%) hue-rotate(158deg) brightness(103%) contrast(99%);
+.flash-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: inherit;
+  align-self: center;
+}
+
+.flash-close:focus {
+  outline: 2px solid var(--color-outline);
+  outline-offset: 2px;
 }
