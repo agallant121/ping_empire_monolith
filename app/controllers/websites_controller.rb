@@ -205,7 +205,7 @@ class WebsitesController < ApplicationController
     if @show_failed_only
       return I18n.t("websites.show.empty_failed") if @range_start.nil?
 
-      return I18n.t("websites.show.empty_failed_range", range: @range_label)
+      I18n.t("websites.show.empty_failed_range", range: @range_label)
     else
       I18n.t("websites.show.empty_range", range: @range_label)
     end
