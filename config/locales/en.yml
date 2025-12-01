@@ -303,6 +303,13 @@ en:
   time:
     formats:
       long: "%B %d, %Y %I:%M %p"
+  views:
+    pagination:
+      first: First
+      last: Last
+      next: Next
+      previous: Previous
+      truncate: Truncate
   websites:
     edit:
       back: Back to Websites
@@ -353,15 +360,37 @@ en:
       destroy_confirm: Are you sure you want to remove this website?
       edit: Edit website
       empty_failed: No failed responses have been recorded today for this website.
+      empty_failed_range: No failed responses recorded for this website in the last
+        %{range}.
+      empty_range: No responses found for this website in the last %{range}.
       eyebrow: Website Detail
-      failed_today_label: Failed Today
-      failed_today_subtitle: Incidents detected within the last 24 hours.
+      failed_in_range_label: Failed Responses
+      failed_in_range_subtitle: Incidents detected within the last %{range}.
+      failed_today_label: Échecs aujourd'hui
+      failed_today_subtitle: Incidents détectés au cours des dernières 24 heures.
+      filters_label: Filters
       last_response_label: Last Response
+      latency_caption: Latency trend uses the latest %{count} responses in the selected
+        window.
+      latency_meta: Avg %{avg} ms · Max %{max} ms
+      latency_trend_label: Latency trend
+      latest_points: Last %{count} results
+      no_latency_data: No latency data to visualize for this window.
       no_responses_yet: There are no responses yet for this website.
+      no_value: "—"
+      ranges:
+        24h: 24 hours
+        30d: 30 days
+        7d: 7 days
+        all: All time
       show_all: Show All Responses
-      show_failed: Show Today's Failed Responses
+      show_failed: Show Failed Responses
       showing_failed: Showing today's failed responses only.
+      showing_failed_range: Showing failed responses only for the last %{range}.
       subtitle_prefix: Live telemetry for
+      timeline_eyebrow: Incident timelines
+      timeline_subtitle: Visualize response latency over the last %{range}.
+      timeline_title: Response trends
       total_responses_label: Total Responses
       total_responses_subtitle: Historical responses captured for this site.
     summary:

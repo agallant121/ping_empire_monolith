@@ -1,1 +1,5 @@
-<%= turbo_stream.replace "responses_list", partial: "responses_table", locals: { website: @website, responses: @responses, pagination_params: @pagination_params, empty_message: (@show_failed_only ? "No failed responses have been recorded today for this website." : nil) } %>
+<%= turbo_stream.replace "website_insights" do %>
+  <%= turbo_frame_tag "website_insights" do %>
+    <%= render "website_insights" %>
+  <% end %>
+<% end %>

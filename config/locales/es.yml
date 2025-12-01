@@ -131,6 +131,8 @@ es:
         email_label: Correo electrónico
         email_placeholder: usuario@ejemplo.com
         invite_heading: Invitar a un usuario
+        invite_subheading: Add teammates who should see your websites. Choose admin
+          access for full update-capabilities.
         invite_submit: Agregar usuario
         people_heading: Personas con acceso
         primary_supervisor_label: Supervisor principal
@@ -147,7 +149,6 @@ es:
           one: "%{count} usuario"
           other: "%{count} usuarios"
       not_authorized: No estás autorizado para acceder a esa área.
-  devise:
   devise_custom:
     already_account: "¿Ya tienes una cuenta?"
     back: Volver
@@ -308,6 +309,13 @@ es:
   time:
     formats:
       long: "%d de %B de %Y %H:%M"
+  views:
+    pagination:
+      first: First
+      last: Last
+      next: Next
+      previous: Previous
+      truncate: Truncate
   websites:
     edit:
       back: Volver a sitios web
@@ -335,8 +343,12 @@ es:
       save: Guardar sitio web
       url_hint: Ingresa una URL de sitio web válida (http o https)
     list:
+      all_status: All statuses
       attention: Atención
       awaiting_first: Esperando la primera respuesta.
+      bulk_help: Select sites to remove them in one action.
+      failing_status: Failing
+      healthy_status: Healthy
       last_status: Último estado %{code}
       no_responses: No se encontraron respuestas.
       none_found: No se encontraron sitios web. Comienza agregando un nuevo monitor
@@ -356,19 +368,43 @@ es:
       destroy_confirm: "¿Seguro que quieres eliminar este sitio web?"
       edit: Editar sitio web
       empty_failed: No se han registrado respuestas fallidas hoy para este sitio web.
+      empty_failed_range: No failed responses recorded for this website in the last
+        %{range}.
+      empty_range: No responses found for this website in the last %{range}.
       eyebrow: Detalle del sitio web
+      failed_in_range_label: Failed Responses
+      failed_in_range_subtitle: Incidents detected within the last %{range}.
       failed_today_label: Fallidas hoy
       failed_today_subtitle: Incidentes detectados en las últimas 24 horas.
+      filters_label: Filters
       last_response_label: Última respuesta
+      latency_caption: Latency trend uses the latest %{count} responses in the selected
+        window.
+      latency_meta: Avg %{avg} ms · Max %{max} ms
+      latency_trend_label: Latency trend
+      latest_points: Last %{count} results
+      no_latency_data: No latency data to visualize for this window.
       no_responses_yet: Aún no hay respuestas para este sitio web.
+      no_value: "—"
+      ranges:
+        24h: 24 hours
+        30d: 30 days
+        7d: 7 days
+        all: All time
       show_all: Mostrar todas las respuestas
       show_failed: Mostrar las respuestas fallidas de hoy
       showing_failed: Mostrando solo las respuestas fallidas de hoy.
+      showing_failed_range: Showing failed responses only for the last %{range}.
       subtitle_prefix: Telemetría en vivo de
+      timeline_eyebrow: Incident timelines
+      timeline_subtitle: Visualize response latency over the last %{range}.
+      timeline_title: Response trends
       total_responses_label: Respuestas totales
       total_responses_subtitle: Respuestas históricas registradas para este sitio.
     summary:
       add_website: Agregar un sitio web
+      bulk_add: Bulk add
+      bulk_add_placeholder: Enter URLs separated by commas or new lines
       eyebrow: Resumen de monitoreo
       search: Buscar
       search_placeholder: Buscar sitios web...
