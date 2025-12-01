@@ -133,6 +133,8 @@ fr:
         email_label: E-mail
         email_placeholder: utilisateur@exemple.com
         invite_heading: Inviter un utilisateur
+        invite_subheading: Add teammates who should see your websites. Choose admin
+          access for full update-capabilities.
         invite_submit: Ajouter l'utilisateur
         people_heading: Personnes avec accès
         primary_supervisor_label: Superviseur principal
@@ -317,6 +319,13 @@ fr:
   time:
     formats:
       long: "%d %B %Y %H:%M"
+  views:
+    pagination:
+      first: First
+      last: Last
+      next: Next
+      previous: Previous
+      truncate: Truncate
   websites:
     edit:
       back: Retour aux sites web
@@ -344,8 +353,12 @@ fr:
       save: Enregistrer le site web
       url_hint: Saisissez une URL de site valide (http ou https)
     list:
+      all_status: All statuses
       attention: Attention
       awaiting_first: En attente de la première réponse.
+      bulk_help: Select sites to remove them in one action.
+      failing_status: Failing
+      healthy_status: Healthy
       last_status: Dernier statut %{code}
       no_responses: Aucune réponse trouvée.
       none_found: Aucun site web trouvé. Commencez par ajouter un nouveau moniteur
@@ -366,19 +379,43 @@ fr:
       edit: Modifier le site web
       empty_failed: Aucune réponse échouée n'a été enregistrée aujourd'hui pour ce
         site web.
+      empty_failed_range: No failed responses recorded for this website in the last
+        %{range}.
+      empty_range: No responses found for this website in the last %{range}.
       eyebrow: Détail du site web
+      failed_in_range_label: Failed Responses
+      failed_in_range_subtitle: Incidents detected within the last %{range}.
       failed_today_label: Échecs aujourd'hui
       failed_today_subtitle: Incidents détectés au cours des dernières 24 heures.
+      filters_label: Filters
       last_response_label: Dernière réponse
+      latency_caption: Latency trend uses the latest %{count} responses in the selected
+        window.
+      latency_meta: Avg %{avg} ms · Max %{max} ms
+      latency_trend_label: Latency trend
+      latest_points: Last %{count} results
+      no_latency_data: No latency data to visualize for this window.
       no_responses_yet: Il n'y a pas encore de réponses pour ce site web.
+      no_value: "—"
+      ranges:
+        24h: 24 hours
+        30d: 30 days
+        7d: 7 days
+        all: All time
       show_all: Afficher toutes les réponses
       show_failed: Afficher les réponses échouées d'aujourd'hui
       showing_failed: Affichage uniquement des réponses échouées d'aujourd'hui.
+      showing_failed_range: Showing failed responses only for the last %{range}.
       subtitle_prefix: Télémétrie en direct pour
+      timeline_eyebrow: Incident timelines
+      timeline_subtitle: Visualize response latency over the last %{range}.
+      timeline_title: Response trends
       total_responses_label: Total des réponses
       total_responses_subtitle: Réponses historiques enregistrées pour ce site.
     summary:
       add_website: Ajouter un site web
+      bulk_add: Bulk add
+      bulk_add_placeholder: Enter URLs separated by commas or new lines
       eyebrow: Vue d'ensemble du suivi
       search: Rechercher
       search_placeholder: Rechercher des sites web...
