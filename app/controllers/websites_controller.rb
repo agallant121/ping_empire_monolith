@@ -13,18 +13,33 @@ class WebsitesController < ApplicationController
   end
 
   def show
-    failures_cutoff = Time.current.beginning_of_day
-    failed_scope = @website.responses
-                               .where("status_code >= :min_status OR error IS NOT NULL", min_status: 400)
-                               .where("created_at >= ?", failures_cutoff)
+    @time_range = permitted_time_range(params[:range])
+    @range_label = time_range_label(@time_range)
+    @range_start = range_start_for(@time_range)
+
+    ranged_scope = @range_start ? @website.responses.where("created_at >= ?", @range_start) : @website.responses
+
+    failed_scope = ranged_scope
+                     .where("status_code >= :min_status OR error IS NOT NULL", min_status: 400)
 
     @failed_responses_total = failed_scope.count
     @show_failed_only = params[:failed] == "true"
 
-    scoped_responses = @show_failed_only ? failed_scope : @website.responses
+    scoped_responses = @show_failed_only ? failed_scope : ranged_scope
     @responses = scoped_responses.order(created_at: :desc).page(params[:page]).per(15)
 
-    @pagination_params = {}
+    @latency_series = build_latency_series(ranged_scope)
+    @latency_stats = latency_stats(@latency_series)
+
+    @empty_message = empty_message_for_scope
+
+    @pagination_params = { range: @time_range }
+    @pagination_params[:failed] = "true" if @show_failed_only
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def new
@@ -137,5 +152,62 @@ class WebsitesController < ApplicationController
 
   def website_params
     params.require(:website).permit(:url)
+  end
+
+  def permitted_time_range(range)
+    %w[24h 7d 30d all].include?(range) ? range : "24h"
+  end
+
+  def range_start_for(range)
+    case range
+    when "24h"
+      24.hours.ago
+    when "7d"
+      7.days.ago
+    when "30d"
+      30.days.ago
+    else
+      nil
+    end
+  end
+
+  def time_range_label(range)
+    I18n.t("websites.show.ranges.#{range}")
+  end
+
+  def build_latency_series(scope)
+    points = scope.where.not(response_time: nil).order(created_at: :desc).limit(30).to_a.reverse
+    return [] if points.empty?
+
+    max_time = points.map(&:response_time).compact.max.to_f
+    max_time = 1 if max_time.zero?
+
+    points.map do |response|
+      value = response.response_time.to_f
+      {
+        time: response.created_at,
+        value: value,
+        normalized: value / max_time
+      }
+    end
+  end
+
+  def latency_stats(series)
+    return { min: nil, max: nil, avg: nil } if series.empty?
+
+    values = series.map { |point| point[:value].to_f }
+    avg = values.sum / values.size
+
+    { min: values.min, max: values.max, avg: avg }
+  end
+
+  def empty_message_for_scope
+    if @show_failed_only
+      return I18n.t("websites.show.empty_failed") if @range_start.nil?
+
+      return I18n.t("websites.show.empty_failed_range", range: @range_label)
+    else
+      I18n.t("websites.show.empty_range", range: @range_label)
+    end
   end
 end
