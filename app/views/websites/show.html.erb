@@ -23,52 +23,7 @@
     <%= link_to t("websites.show.back"), root_path, class: "btn back-button" %>
   </div>
 
-  <% if @failed_responses_total.positive? %>
-    <div class="d-flex flex-wrap gap-2 mb-3">
-      <%= link_to t("websites.show.show_all"),
-                  website_path(@website),
-                  class: "btn filter-button #{@show_failed_only ? '' : 'active'}" %>
-      <%= link_to t("websites.show.show_failed"),
-                  website_path(@website, failed: true),
-                  class: "btn filter-button filter-button--alert #{@show_failed_only ? 'active' : ''}" %>
-    </div>
-  <% end %>
-
-  <% if @show_failed_only %>
-    <p class="surface-subtitle mb-4"><%= t("websites.show.showing_failed") %></p>
-  <% end %>
-
-  <div class="stat-grid mb-4">
-    <div class="stat-card stat-card--center">
-      <span class="stat-card__label"><%= t("websites.show.total_responses_label") %></span>
-      <span class="stat-card__value"><%= @website.response_count %></span>
-      <p class="mb-0 surface-subtitle"><%= t("websites.show.total_responses_subtitle") %></p>
-    </div>
-
-    <div class="stat-card stat-card--center">
-      <span class="stat-card__label"><%= t("websites.show.failed_today_label") %></span>
-      <span class="stat-card__value"><%= @failed_responses_total %></span>
-      <p class="mb-0 surface-subtitle"><%= t("websites.show.failed_today_subtitle") %></p>
-    </div>
-
-    <% if @website.responses.any? %>
-      <div class="stat-card stat-card--center">
-        <span class="stat-card__label"><%= t("websites.show.last_response_label") %></span>
-        <span class="stat-card__value"><%= @website.latest_response.status_code %></span>
-        <p class="mb-0 surface-subtitle">
-          <%= @website.latest_response.created_at.in_time_zone("Eastern Time (US & Canada)").strftime("%b %d, %Y %l:%M %p") %>
-        </p>
-      </div>
-    <% end %>
-  </div>
-
-  <% if @website.response_count > 0 %>
-    <section class="surface-block surface-block--nested">
-      <%= render "responses_table", website: @website, responses: @responses, pagination_params: @pagination_params, empty_message: (@show_failed_only ? t("websites.show.empty_failed") : nil) %>
-    </section>
-  <% else %>
-    <p class="surface-subtitle mb-0">
-      <%= t("websites.show.no_responses_yet") %>
-    </p>
+  <%= turbo_frame_tag "website_insights" do %>
+    <%= render "website_insights" %>
   <% end %>
 </section>
