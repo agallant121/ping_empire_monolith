@@ -104,3 +104,12 @@ button,
   border-color: rgba(228, 131, 131, 0.6);
   color: var(--color-danger-text);
 }
+
+.response-controls {
+  row-gap: 0.35rem;
+}
+
+.response-controls__note {
+  margin-left: 0.35rem;
+  white-space: nowrap;
+}

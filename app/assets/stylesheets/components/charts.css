@@ -1,0 +1,71 @@
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+.chart-card {
+  background: white;
+  border: 1px solid var(--color-outline);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  padding: 1.25rem;
+}
+
+.chart-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.chart-card__label {
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-bottom: 0.1rem;
+}
+
+.chart-card__value {
+  margin: 0;
+  color: var(--color-forest-500);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.chart-card__meta {
+  margin: 0.1rem 0 0;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.chart-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0 0.85rem;
+  border-radius: 999px;
+  background: var(--color-forest-100);
+  color: var(--color-forest-500);
+  font-weight: 600;
+  font-size: 0.85rem;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.chart-chip--alert {
+  background: var(--color-danger-soft);
+  color: var(--color-danger);
+}
+
+.timeline-chart {
+  width: 100%;
+  height: auto;
+}
+
+.chart-caption {
+  margin-top: 0.5rem;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
