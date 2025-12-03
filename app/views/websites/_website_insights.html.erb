@@ -65,8 +65,14 @@
 
         <% if @latency_series.any? %>
           <% height = 160 %>
-          <% width_step = 18 %>
-          <% chart_width = (@latency_series.size - 1) * width_step + 12 %>
+          <% min_chart_width = 320 %>
+          <% max_chart_width = 840 %>
+          <% width_step = if @latency_series.size > 1
+                            [18, (max_chart_width - 12).to_f / (@latency_series.size - 1)].min
+                          else
+                            0
+                          end %>
+          <% chart_width = [((@latency_series.size - 1) * width_step + 12), min_chart_width].max %>
           <% baseline = height - 20 %>
           <% max_value = [@latency_stats[:max].to_f, 1].max %>
           <% points_with_coords = @latency_series.each_with_index.map do |point, idx|
@@ -78,7 +84,7 @@
           <% area_points = "0,#{baseline} #{points} #{chart_width},#{baseline}" %>
           <% ticks = [@latency_stats[:max], (@latency_stats[:max].to_f + @latency_stats[:min].to_f) / 2.0, @latency_stats[:min]].compact.uniq %>
 
-          <svg class="timeline-chart" width="<%= chart_width %>" height="<%= height %>" viewBox="0 0 <%= chart_width %> <%= height %>">
+          <svg class="timeline-chart" width="100%" height="<%= height %>" viewBox="0 0 <%= chart_width %> <%= height %>" preserveAspectRatio="none">
             <defs>
               <linearGradient id="latency-fill" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="var(--color-forest-200)" stop-opacity="0.8" />
