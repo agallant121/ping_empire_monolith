@@ -217,6 +217,7 @@ fr:
       aws_settings: Paramètres AWS
       brand: Ping Empire
       language: Langue
+      logged_in_label: Compte
       logged_in_as: Connecté en tant que %{email}
       logout: Se déconnecter
       manage_users: Gérer les utilisateurs

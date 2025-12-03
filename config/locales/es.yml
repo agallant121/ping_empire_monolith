@@ -208,6 +208,7 @@ es:
       aws_settings: Configuración de AWS
       brand: Ping Empire
       language: Idioma
+      logged_in_label: Cuenta
       logged_in_as: Conectado como %{email}
       logout: Cerrar sesión
       manage_users: Gestionar usuarios
