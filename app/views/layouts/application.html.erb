@@ -53,7 +53,7 @@
       <nav class="navbar app-navbar container-xl">
         <%= link_to t("layouts.application.brand"), root_path, class: "navbar-brand brand-title" %>
         <div class="ms-auto d-flex align-items-center gap-2">
-          <div class="d-flex align-items-center gap-2">
+          <div class="d-flex align-items-center gap-3">
             <%= form_with model: current_user, url: language_preference_path, method: :put, local: true, class: "language-switcher" do |form| %>
               <span class="language-switcher__icon" aria-hidden="true">
                 <i class="fas fa-globe-americas"></i>
@@ -62,9 +62,14 @@
               <%= form.select :preferred_language, language_options_for_select, { selected: current_user.preferred_language }, class: "language-select form-select form-select-sm", id: "language-select", onchange: "this.form.submit()" %>
             <% end %>
             <div class="dropdown user-menu">
-              <button class="btn btn-sm dropdown-toggle d-flex align-items-center gap-2 user-menu-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="fas fa-user-circle" aria-hidden="true"></i>
-                <span class="nav-email"><%= t("layouts.application.logged_in_as", email: current_user.email) %></span>
+              <button class="btn btn-sm dropdown-toggle d-flex align-items-center gap-3 user-menu-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
+                <span class="user-avatar" aria-hidden="true">
+                  <span class="user-avatar__initial"><%= current_user.avatar_initial %></span>
+                </span>
+                <span class="user-menu__meta text-start">
+                  <span class="nav-label"><%= t("layouts.application.logged_in_label") %></span>
+                  <span class="nav-email"><%= current_user.email %></span>
+                </span>
               </button>
               <ul class="dropdown-menu dropdown-menu-end user-menu__list" aria-labelledby="userMenu">
                 <% if current_user.admin_area_access? %>
@@ -108,7 +113,7 @@
                     <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
                     <span><%= t("layouts.application.logout") %></span>
                   <% end %>
-                </li>              
+                </li>
               </ul>
             </div>
           </div>
