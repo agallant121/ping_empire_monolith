@@ -205,6 +205,7 @@ en:
       aws_settings: AWS Settings
       brand: Ping Empire
       language: Language
+      logged_in_label: Account
       logged_in_as: Logged in as %{email}
       logout: Logout
       manage_users: Manage Users

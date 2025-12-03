@@ -49,6 +49,10 @@ class User < ApplicationRecord
     admin? || supervisor?
   end
 
+  def avatar_initial
+    email.present? ? email.first.upcase : "U"
+  end
+
   private
 
   def set_default_language
