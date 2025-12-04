@@ -44,6 +44,40 @@
   background: rgba(234, 246, 239, 0.95);
 }
 
+.empty-state {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  padding: 0.85rem 1rem;
+  border: 1px dashed rgba(79, 141, 107, 0.35);
+  border-radius: var(--radius-md);
+  background: rgba(245, 251, 246, 0.75);
+  margin: 0.35rem 0 0;
+}
+
+.empty-state__icon {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(79, 141, 107, 0.1);
+  color: var(--color-forest-700);
+  font-size: 1.1rem;
+}
+
+.empty-state__title {
+  font-weight: 600;
+  color: var(--color-ink);
+  margin: 0 0 0.1rem;
+}
+
+.empty-state__subtitle {
+  color: rgba(63, 102, 86, 0.8);
+}
+
 .data-table-wrapper {
   border-radius: var(--radius-md);
   border: 1px solid var(--color-outline);
