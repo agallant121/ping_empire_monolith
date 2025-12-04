@@ -29,7 +29,15 @@
       <%= paginate responses, params: local_assigns.fetch(:pagination_params, {}) %>
     </div>
   <% else %>
-    <p class="surface-subtitle mb-0 text-nowrap"><%= local_assigns[:empty_message] || t("websites.list.no_responses") %></p>
+    <div class="empty-state">
+      <span class="empty-state__icon" aria-hidden="true">
+        <i class="fas fa-info-circle"></i>
+      </span>
+      <div>
+        <p class="empty-state__title"><%= t("websites.show.no_responses_yet") %></p>
+        <p class="empty-state__subtitle mb-0"><%= local_assigns[:empty_message] || t("websites.list.no_responses") %></p>
+      </div>
+    </div>
   <% end %>
 <% end %>
 
