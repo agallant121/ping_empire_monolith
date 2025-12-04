@@ -19,12 +19,12 @@ RSpec.describe "Websites", type: :request do
     end
 
     it "filters websites by the provided query" do
-      user.websites.create!(url: "https://filter-me.com")
+      filtered = user.websites.create!(url: "https://filter-me.com")
 
       get websites_path, params: { q: "filter" }
 
-      expect(response.body).to include("https://filter-me.com")
-      expect(response.body).not_to include("https://example.com")
+      expect(response.body).to include(website_path(filtered))
+      expect(response.body).not_to include(website_path(website))
     end
   end
 
@@ -62,9 +62,9 @@ RSpec.describe "Websites", type: :request do
 
       get website_path(website, failed: true)
 
+      expect(response.body).to include("response-row-#{failing.id}")
       expect(response.body).to include("table-danger")
-      expect(response.body).to include(failing.status_code.to_s)
-      expect(response.body).not_to include(successful.status_code.to_s)
+      expect(response.body).not_to include("response-row-#{successful.id}")
     end
   end
 
@@ -122,9 +122,9 @@ RSpec.describe "Websites", type: :request do
 
       get website_path(website, failed: true)
 
+      expect(response.body).to include("response-row-#{failing.id}")
       expect(response.body).to include("table-danger")
-      expect(response.body).to include(failing.status_code.to_s)
-      expect(response.body).not_to include(successful.status_code.to_s)
+      expect(response.body).not_to include("response-row-#{successful.id}")
     end
   end
 
