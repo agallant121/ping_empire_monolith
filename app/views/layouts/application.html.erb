@@ -19,31 +19,32 @@
   <% body_classes << yield(:body_class) if content_for?(:body_class) %>
   <body class="<%= body_classes.join(" ") %>">
     <% if flash.any? %>
-      <div class="flash-region container-xl">
+      <div class="flash-toast-region" data-controller="toast">
         <% flash.each do |type, message| %>
           <% type_sym = type.to_sym %>
           <% positive_alert = type_sym == :alert && message.to_s.match?(/success/i) %>
           <% display_type = positive_alert ? :notice : type_sym %>
-          <% css_class, icon_class, heading =
+          <% toast_class, icon_class, heading =
             case display_type
             when :notice
-              ["flash-success", "fas fa-check-circle text-success"]
+              ["flash-toast--success", "fas fa-seedling", t("layouts.application.flash_success", default: "Success")]
             when :alert
-              ["flash-error", "fas fa-exclamation-triangle text-danger"]
+              ["flash-toast--error", "fas fa-fire", t("layouts.application.flash_error", default: "Something went wrong")]
+            when :warning
+              ["flash-toast--warning", "fas fa-sun", t("layouts.application.flash_warning", default: "Heads up")]
             else
-              ["flash-info", "fas fa-info-circle text-info"]
+              ["flash-toast--info", "fas fa-compass", t("layouts.application.flash_info", default: "Note")]
             end
           %>
 
-          <div class="flash-message <%= css_class %> alert alert-dismissible fade show" role="alert">
-            <div class="flash-icon" aria-hidden="true">
-              <i class="<%= icon_class %>"></i>
+          <div class="flash-toast toast fade <%= toast_class %>" role="status" aria-live="polite" aria-atomic="true" data-toast-target="toast" data-delay="5000" data-bs-autohide="true">
+            <div class="toast-header">
+              <span class="flash-toast__icon" aria-hidden="true">
+                <i class="<%= icon_class %>"></i>
+              </span>
+              <strong class="me-auto flash-toast__heading"><%= heading %></strong>
             </div>
-            <div class="flash-copy flex-grow-1">
-              <span class="flash-heading"><%= heading %></span>
-              <span class="flash-body"><%= message %></span>
-            </div>
-            <button type="button" class="flash-close" data-bs-dismiss="alert" aria-label="Close">&times;</button>
+            <div class="toast-body flash-toast__message"><%= message %></div>
           </div>
         <% end %>
       </div>

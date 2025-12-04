@@ -1,91 +1,93 @@
-.flash-region {
-  display: flex;
-  justify-content: center;
-  padding: 0 clamp(1rem, 3vw, 2rem);
-  margin-top: clamp(0.75rem, 2vw, 1.25rem);
-}
-
-.flash-message {
+.flash-toast-region {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 1300;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  gap: 0.75rem;
+  align-items: start;
+  width: 360px;
+  max-width: 90vw;
+}
+
+.flash-toast {
+  --toast-accent: var(--color-forest-400, #4a8f6b);
+  --toast-surface: rgba(245, 251, 246, 0.94);
+  --toast-surface-strong: rgba(233, 246, 239, 0.98);
+  --toast-outline: rgba(74, 143, 107, 0.28);
+
+  position: relative;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg, 0 28px 55px -32px rgba(18, 82, 57, 0.28));
+  border: 1px solid var(--toast-outline);
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--toast-surface-strong), var(--toast-surface));
+  backdrop-filter: blur(10px);
+}
+
+.flash-toast .toast-header {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.65rem;
   align-items: center;
-  width: 100%;
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-md);
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  border: 1px solid var(--color-outline);
-  box-shadow: var(--shadow-sm);
-  background: #f1f8f5;
-  color: var(--color-ink);
-  text-align: center;
-  column-gap: 0.75rem;
-}
-
-.flash-icon {
-  font-size: 1rem;
-  line-height: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.flash-copy {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
-}
-
-.flash-heading {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--color-ink-strong, #0c1f1a);
-}
-
-.flash-body {
-  font-size: 0.97rem;
-  color: var(--color-ink);
-  line-height: 1.2;
-}
-
-.flash-success {
-  border-color: rgba(90, 155, 121, 0.45);
-  background: #e0f0e7;
-}
-
-.flash-error {
-  border-color: rgba(228, 131, 131, 0.45);
-  background: #fbe1dc;
-  color: var(--color-danger-text);
-}
-
-.flash-info {
-  border-color: rgba(90, 155, 121, 0.32);
-  background: #e6f3ed;
-}
-
-.flash-close {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  padding: 0;
-  border: none;
+  font-weight: 700;
+  padding: 0.85rem 0.9rem 0.25rem;
   background: transparent;
-  font-size: 1.1rem;
-  line-height: 1;
-  color: inherit;
-  align-self: center;
+  border-bottom: none;
+  letter-spacing: 0.03em;
 }
 
-.flash-close:focus {
-  outline: 2px solid var(--color-outline);
-  outline-offset: 2px;
+.flash-toast .toast-body {
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-ink, #0c1f1a);
+  padding: 0 0.95rem 0.9rem;
+}
+
+.flash-toast__icon {
+  display: inline-flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  color: var(--toast-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.55), 0 12px 35px -22px var(--toast-accent);
+}
+
+.flash-toast__heading {
+  color: var(--color-ink);
+  font-size: 0.95rem;
+}
+
+.flash-toast__message {
+  color: rgba(31, 45, 38, 0.82);
+}
+
+.flash-toast--success {
+  --toast-accent: var(--color-forest-400, #4a8f6b);
+  --toast-outline: rgba(47, 116, 80, 0.34);
+  --toast-surface: rgba(237, 248, 241, 0.94);
+}
+
+.flash-toast--error {
+  --toast-accent: var(--color-danger, #d35b4b);
+  --toast-outline: rgba(211, 91, 75, 0.4);
+  --toast-surface: rgba(251, 225, 220, 0.95);
+  --toast-surface-strong: rgba(248, 218, 210, 0.98);
+}
+
+.flash-toast--warning {
+  --toast-accent: var(--color-amber, #e9b86c);
+  --toast-outline: rgba(233, 184, 108, 0.45);
+  --toast-surface: rgba(255, 247, 229, 0.95);
+  --toast-surface-strong: rgba(255, 242, 214, 0.98);
+}
+
+.flash-toast--info {
+  --toast-accent: var(--color-forest-500, #2f7450);
+  --toast-outline: rgba(47, 116, 80, 0.3);
+  --toast-surface: rgba(235, 244, 240, 0.96);
 }

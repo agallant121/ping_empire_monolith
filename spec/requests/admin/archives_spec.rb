@@ -54,7 +54,7 @@ RSpec.describe "Admin::Archives", type: :request do
 
       expect(response).to redirect_to(admin_archives_path)
       follow_redirect!
-      expect(response.body).to include("No responses older than one day")
+      expect(response.body).to include(I18n.t("admin.archives.flash.no_data"))
     end
 
     context "when AWS credentials are configured" do
@@ -89,7 +89,7 @@ RSpec.describe "Admin::Archives", type: :request do
 
         expect(response).to redirect_to(admin_archives_path)
         follow_redirect!
-        expect(response.body).to include("uploading to S3 failed")
+        expect(response.body).to include(I18n.t("admin.archives.flash.upload_failed_base"))
         expect(response.body).to include("Download it now")
         expect(Dir.glob(archive_glob)).not_to be_empty
       end
@@ -131,7 +131,7 @@ RSpec.describe "Admin::Archives", type: :request do
 
       expect(response).to redirect_to(admin_archives_path)
       follow_redirect!
-      expect(response.body).to include("Connect your AWS credentials")
+      expect(response.body).to include(I18n.t("admin.archives.flash.aws_missing"))
       expect(File.exist?(archive_dir.join(file_name))).to be(true)
     end
   end
