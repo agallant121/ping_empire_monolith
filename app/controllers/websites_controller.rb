@@ -6,6 +6,11 @@ class WebsitesController < ApplicationController
   def index
     @websites = filtered_websites
     @failed_websites_count = current_user.websites.with_failures_since(Time.current.beginning_of_day).count
+
+    respond_to do |format|
+      format.html
+      format.turbo_stream
+    end
   end
 
   def failures
