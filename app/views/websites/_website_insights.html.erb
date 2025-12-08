@@ -1,26 +1,14 @@
-<div class="d-flex flex-wrap gap-2 mb-3">
-  <% [["24h", t("websites.show.ranges.24h")],
-      ["7d", t("websites.show.ranges.7d")],
-      ["30d", t("websites.show.ranges.30d")],
-      ["all", t("websites.show.ranges.all")]].each do |range_value, label| %>
-    <%= link_to label,
-                website_path(@website, range: range_value, failed: (@show_failed_only ? "true" : nil)),
-                class: "btn filter-button #{@time_range == range_value ? 'active' : ''}",
-                data: { turbo_stream: true } %>
-  <% end %>
-</div>
-
 <div class="stat-grid mb-4">
   <div class="stat-card stat-card--center">
     <span class="stat-card__label"><%= t("websites.show.total_responses_label") %></span>
-    <span class="stat-card__value"><%= @website.response_count %></span>
+    <span class="stat-card__value"><%= @total_responses_today %></span>
     <p class="mb-0 surface-subtitle"><%= t("websites.show.total_responses_subtitle") %></p>
   </div>
 
   <div class="stat-card stat-card--center">
-    <span class="stat-card__label"><%= t("websites.show.failed_in_range_label") %></span>
+    <span class="stat-card__label"><%= t("websites.show.failed_today_label") %></span>
     <span class="stat-card__value"><%= @failed_responses_total %></span>
-    <p class="mb-0 surface-subtitle"><%= t("websites.show.failed_in_range_subtitle", range: @range_label) %></p>
+    <p class="mb-0 surface-subtitle"><%= t("websites.show.failed_today_subtitle") %></p>
   </div>
 
   <% if @website.responses.any? %>
@@ -40,7 +28,7 @@
       <div>
         <p class="surface-eyebrow"><%= t("websites.show.timeline_eyebrow") %></p>
         <h3 class="surface-title"><%= t("websites.show.timeline_title") %></h3>
-        <p class="surface-subtitle"><%= t("websites.show.timeline_subtitle", range: @range_label) %></p>
+        <p class="surface-subtitle"><%= t("websites.show.timeline_subtitle") %></p>
       </div>
     </div>
 
@@ -116,16 +104,16 @@
 
   <div class="response-controls d-flex flex-wrap align-items-center gap-2 mb-4">
     <%= link_to t("websites.show.show_all"),
-                website_path(@website, range: @time_range),
+                website_path(@website),
                 class: "btn filter-button #{@show_failed_only ? '' : 'active'}",
                 data: { turbo_stream: true } %>
     <%= link_to t("websites.show.show_failed"),
-                website_path(@website, range: @time_range, failed: true),
+                website_path(@website, failed: true),
                 class: "btn filter-button filter-button--alert #{@show_failed_only ? 'active' : ''}",
                 data: { turbo_stream: true } %>
 
     <% if @show_failed_only %>
-      <p class="surface-subtitle mb-0 response-controls__note"><%= t("websites.show.showing_failed_range", range: @range_label) %></p>
+      <p class="surface-subtitle mb-0 response-controls__note"><%= t("websites.show.showing_failed") %></p>
     <% end %>
   </div>
 

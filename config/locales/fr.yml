@@ -380,39 +380,28 @@ fr:
       edit: Modifier le site web
       empty_failed: Aucune réponse échouée n'a été enregistrée aujourd'hui pour ce
         site web.
-      empty_failed_range: No failed responses recorded for this website in the last
-        %{range}.
-      empty_range: No responses found for this website in the last %{range}.
+      empty_today: Aucune réponse trouvée aujourd'hui pour ce site web.
       eyebrow: Détail du site web
-      failed_in_range_label: Failed Responses
-      failed_in_range_subtitle: Incidents detected within the last %{range}.
       failed_today_label: Échecs aujourd'hui
-      failed_today_subtitle: Incidents détectés au cours des dernières 24 heures.
+      failed_today_subtitle: Incidents détectés depuis minuit.
       filters_label: Filters
       last_response_label: Dernière réponse
-      latency_caption: Latency trend uses the latest %{count} responses in the selected
-        window.
+      latency_caption: La tendance de latence utilise les %{count} dernières réponses d'aujourd'hui.
       latency_meta: Avg %{avg} ms · Max %{max} ms
       latency_trend_label: Latency trend
       latest_points: Last %{count} results
-      no_latency_data: No latency data to visualize for this window.
+      no_latency_data: Aucune donnée de latence à visualiser aujourd'hui.
       no_responses_yet: Il n'y a pas encore de réponses pour ce site web.
       no_value: "—"
-      ranges:
-        24h: 24 hours
-        30d: 30 days
-        7d: 7 days
-        all: All time
       show_all: Afficher toutes les réponses
       show_failed: Afficher les réponses échouées d'aujourd'hui
       showing_failed: Affichage uniquement des réponses échouées d'aujourd'hui.
-      showing_failed_range: Showing failed responses only for the last %{range}.
       subtitle_prefix: Télémétrie en direct pour
       timeline_eyebrow: Incident timelines
-      timeline_subtitle: Visualize response latency over the last %{range}.
+      timeline_subtitle: Visualiser la latence des réponses pour aujourd'hui.
       timeline_title: Response trends
       total_responses_label: Total des réponses
-      total_responses_subtitle: Réponses historiques enregistrées pour ce site.
+      total_responses_subtitle: Réponses enregistrées pour ce site aujourd'hui.
     summary:
       add_website: Ajouter un site web
       bulk_add: Bulk add

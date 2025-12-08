@@ -13,11 +13,10 @@ class WebsitesController < ApplicationController
   end
 
   def show
-    @time_range = permitted_time_range(params[:range])
-    @range_label = time_range_label(@time_range)
-    @range_start = range_start_for(@time_range)
+    @range_start = Time.current.beginning_of_day
 
-    ranged_scope = @range_start ? @website.responses.where("created_at >= ?", @range_start) : @website.responses
+    ranged_scope = @website.responses.where("created_at >= ?", @range_start)
+    @total_responses_today = ranged_scope.count
 
     failed_scope = ranged_scope
                      .where("status_code >= :min_status OR error IS NOT NULL", min_status: 400)
@@ -33,7 +32,7 @@ class WebsitesController < ApplicationController
 
     @empty_message = empty_message_for_scope
 
-    @pagination_params = { range: @time_range }
+    @pagination_params = {}
     @pagination_params[:failed] = "true" if @show_failed_only
 
     respond_to do |format|
@@ -154,27 +153,6 @@ class WebsitesController < ApplicationController
     params.require(:website).permit(:url)
   end
 
-  def permitted_time_range(range)
-    %w[24h 7d 30d all].include?(range) ? range : "24h"
-  end
-
-  def range_start_for(range)
-    case range
-    when "24h"
-      24.hours.ago
-    when "7d"
-      7.days.ago
-    when "30d"
-      30.days.ago
-    else
-      nil
-    end
-  end
-
-  def time_range_label(range)
-    I18n.t("websites.show.ranges.#{range}")
-  end
-
   def build_latency_series(scope)
     points = scope.where.not(response_time: nil).order(created_at: :desc).limit(30).to_a.reverse
     return [] if points.empty?
@@ -203,11 +181,9 @@ class WebsitesController < ApplicationController
 
   def empty_message_for_scope
     if @show_failed_only
-      return I18n.t("websites.show.empty_failed") if @range_start.nil?
-
-      I18n.t("websites.show.empty_failed_range", range: @range_label)
+      I18n.t("websites.show.empty_failed")
     else
-      I18n.t("websites.show.empty_range", range: @range_label)
+      I18n.t("websites.show.empty_today")
     end
   end
 end
