@@ -13,7 +13,7 @@
 
   <% unless current_user.website_count < 1 %>
     <div class="control-grid">
-      <%= form_with url: websites_path, method: :get, class: "control-card", local: true do %>
+      <%= form_with url: websites_path, method: :get, class: "control-card", data: { turbo_stream: true } do %>
         <div>
           <p class="control-card__eyebrow"><%= t("websites.summary.search") %></p>
           <p class="surface-subtitle mb-2"><%= t("websites.summary.search_placeholder") %></p>
