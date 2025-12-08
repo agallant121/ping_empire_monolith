@@ -369,39 +369,28 @@ es:
       destroy_confirm: "¿Seguro que quieres eliminar este sitio web?"
       edit: Editar sitio web
       empty_failed: No se han registrado respuestas fallidas hoy para este sitio web.
-      empty_failed_range: No failed responses recorded for this website in the last
-        %{range}.
-      empty_range: No responses found for this website in the last %{range}.
+      empty_today: No se encontraron respuestas para este sitio web hoy.
       eyebrow: Detalle del sitio web
-      failed_in_range_label: Failed Responses
-      failed_in_range_subtitle: Incidents detected within the last %{range}.
-      failed_today_label: Fallidas hoy
-      failed_today_subtitle: Incidentes detectados en las últimas 24 horas.
+      failed_today_label: Respuestas fallidas
+      failed_today_subtitle: Incidentes detectados desde la medianoche.
       filters_label: Filters
       last_response_label: Última respuesta
-      latency_caption: Latency trend uses the latest %{count} responses in the selected
-        window.
+      latency_caption: La tendencia de latencia usa las últimas %{count} respuestas de hoy.
       latency_meta: Avg %{avg} ms · Max %{max} ms
       latency_trend_label: Latency trend
       latest_points: Last %{count} results
-      no_latency_data: No latency data to visualize for this window.
+      no_latency_data: No hay datos de latencia para visualizar hoy.
       no_responses_yet: Aún no hay respuestas para este sitio web.
       no_value: "—"
-      ranges:
-        24h: 24 hours
-        30d: 30 days
-        7d: 7 days
-        all: All time
       show_all: Mostrar todas las respuestas
       show_failed: Mostrar las respuestas fallidas de hoy
       showing_failed: Mostrando solo las respuestas fallidas de hoy.
-      showing_failed_range: Showing failed responses only for the last %{range}.
       subtitle_prefix: Telemetría en vivo de
       timeline_eyebrow: Incident timelines
-      timeline_subtitle: Visualize response latency over the last %{range}.
+      timeline_subtitle: Visualiza la latencia de respuesta para hoy.
       timeline_title: Response trends
       total_responses_label: Respuestas totales
-      total_responses_subtitle: Respuestas históricas registradas para este sitio.
+      total_responses_subtitle: Respuestas registradas para este sitio hoy.
     summary:
       add_website: Agregar un sitio web
       bulk_add: Bulk add
